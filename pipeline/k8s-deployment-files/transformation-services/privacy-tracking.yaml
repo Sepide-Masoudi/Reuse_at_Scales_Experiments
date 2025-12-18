@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: privacy-tracking
+  namespace: pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: privacy-tracking
+  template:
+    metadata:
+      labels:
+        app: privacy-tracking
+    spec:
+      containers:
+        - name: privacy-tracking
+          image: sepidmas/reuse_scale-privacy-tracking:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8089
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+              subPath: privacy-tracking
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: privacy-tracking
+  namespace: pipeline
+spec:
+  selector:
+    app: privacy-tracking
+  ports:
+    - protocol: TCP
+      port: 8089
+      targetPort: 8089
+  type: ClusterIP

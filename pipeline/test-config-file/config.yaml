@@ -1,0 +1,213 @@
+Deployment:
+  namespace: pipeline
+  pvcName: argo-shard-pvc
+
+stages:
+  - name: data-preprocess
+    image: sepidmas/reuse_scale-data-preprocessor:latest
+    data-path: /mnt/data/argo-shard/data-preprocess
+    port: 8083
+
+  - name: data-quality
+    image: sepidmas/reuse_scale-data-quality:latest
+    data-path: /mnt/data/argo-shard/data-quality
+    port: 8084
+
+  - name: generate-address
+    image: sepidmas/reuse_scale-generate-address:latest
+    data-path: /mnt/data/argo-shard/generate-address
+    port: 8085
+
+  - name: generate-birthday
+    image: sepidmas/reuse_scale-generate-birthday:latest
+    data-path: /mnt/data/argo-shard/generate-birthday
+    port: 8086
+
+  - name: generate-id
+    image: sepidmas/reuse_scale-generate-id-code:latest
+    data-path: /mnt/data/argo-shard/generate-id
+    port: 8087
+
+  - name: generate-name
+    image: sepidmas/reuse_scale-generate-names:latest
+    data-path: /mnt/data/argo-shard/generate-name
+    port: 8082
+
+  - name: load-data
+    image: sepidmas/reuse_scale-load-data:latest
+    data-path: /mnt/data/argo-shard/load-data
+    port: 8092
+
+  - name: privacy-tracking
+    image: sepidmas/reuse_scale-privacy-tracking:latest
+    data-path: /mnt/data/argo-shard/privacy-tracking
+    port: 8089
+
+  - name: synthetic-generator
+    image: sepidmas/reuse_scale-synthetic-generator:latest
+    data-path: /mnt/data/argo-shard/synthetic-generator
+    port: 8090
+
+pipelines:
+  - name: parallel-full-data-generation-and-evaluation
+    flow:
+      - parallel: true
+        stages:
+          - stage: generate-name
+            parameters:
+              n_rows: 100
+              mf_ratio: 0.5
+              output_path: "/mnt/data/argo-shard/generate-name/names.csv"
+
+          - stage: generate-birthday
+            parameters:
+              n_rows: 100
+              min_age: 18
+              max_age: 80
+              output_path: "/mnt/data/argo-shard/generate-birthday/birthdays.csv"
+
+          - stage: generate-address
+            parameters:
+              n_rows: 100
+              output_path: "/mnt/data/argo-shard/generate-address/addresses.csv"
+
+      - stage: generate-id
+        parameters:
+          name_csv: "/mnt/data/argo-shard/generate-name/names.csv"
+          birthday_csv: "/mnt/data/argo-shard/generate-birthday/birthdays.csv"
+          output_path: "/mnt/data/argo-shard/generate-id/id_data.csv"
+
+      - stage: data-preprocess
+        parameters:
+          input_path: "/mnt/data/argo-shard/generate-id/id_data.csv"
+          output_path: "/mnt/data/argo-shard/data-preprocess/clean_data.csv"
+          handle_missing: "mean"
+
+      - stage: synthetic-generator
+        parameters:
+          input_path: "/mnt/data/argo-shard/data-preprocess/clean_data.csv"
+          output_path: "/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv"
+          num_samples: 1000
+
+      - stage: data-quality
+        parameters:
+          real_data_path: "/mnt/data/argo-shard/data-preprocess/clean_data.csv"
+          synthetic_data_path: "/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv"
+          output_path: "/mnt/data/argo-shard/data-quality/quality_report.json"
+          metrics: ["similarity", "distribution"]
+
+      - stage: privacy-tracking
+        parameters:
+          real_data_path: "/mnt/data/argo-shard/data-preprocess/clean_data.csv"
+          synthetic_data_path: "/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv"
+          output_path: "/mnt/data/argo-shard/privacy-tracking/privacy_report.json"
+          risk_metric: "membership_inference"
+
+    consumers:
+      - research_team
+
+  - name: synthesize-only
+    flow:
+      - stage: load-data
+        parameters:
+          input_dir: "/mnt/data/argo-shard/load-data"
+          output_json: "/mnt/data/argo-shard/load-data/output.json"
+          output_csv: "/mnt/data/argo-shard/load-data/output.csv"          
+
+      - stage: synthetic-generator
+        parameters:
+          input_path: "/mnt/data/argo-shard/load-data/output.csv"
+          output_path: "/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv"
+          num_samples: 500
+    consumers:
+      - user_demo
+
+  - name: evaluation-only
+    flow:
+      - parallel: true
+        stages:
+          - stage: load-data
+            template-name: load-real-data
+            parameters:
+              input_path: "/mnt/data/argo-shard/real-data/real_data.csv"
+              output_path: "/mnt/data/argo-shard/load-data/real_data_loaded.csv"
+          
+          - stage: load-data
+            template-name: load-synthetic-data
+            parameters:
+              input_path: "/mnt/data/argo-shard/synthetic-data/synthetic_data.csv"
+              output_path: "/mnt/data/argo-shard/load-data/synthetic_data_loaded.csv"
+
+      - parallel: true
+        stages:
+          - stage: data-quality
+            parameters:
+              real_data_path: "/mnt/data/argo-shard/load-data/real_data_loaded.csv"
+              synthetic_data_path: "/mnt/data/argo-shard/load-data/synthetic_data_loaded.csv"
+              output_path: "/mnt/data/argo-shard/data-quality/quality_report.json"
+              metrics: ["similarity", "distribution"]
+
+          - stage: privacy-tracking
+            parameters:
+              real_data_path: "/mnt/data/argo-shard/load-data/real_data_loaded.csv"
+              synthetic_data_path: "/mnt/data/argo-shard/load-data/synthetic_data_loaded.csv"
+              output_path: "/mnt/data/argo-shard/privacy-tracking/privacy_report.json"
+              risk_metric: "membership_inference"
+
+    consumers:
+      - user_demo_2
+
+  - name: full-data-generation-and-evaluation
+    flow:
+      - stage: generate-name
+        parameters:
+          n_rows: 100
+          mf_ratio: 0.5
+          output_path: "/mnt/data/argo-shard/generate-name/names.csv"
+
+      - stage: generate-birthday
+        parameters:
+          n_rows: 100
+          min_age: 18
+          max_age: 80
+          output_path: "/mnt/data/argo-shard/generate-birthday/birthdays.csv"
+
+      - stage: generate-address
+        parameters:
+          n_rows: 100
+          output_path: "/mnt/data/argo-shard/generate-address/addresses.csv"
+
+      - stage: generate-id
+        parameters:
+          name_csv: "/mnt/data/argo-shard/generate-name/names.csv"
+          birthday_csv: "/mnt/data/argo-shard/generate-birthday/birthdays.csv"
+          output_path: "/mnt/data/argo-shard/generate-id/id_data.csv"
+
+      - stage: data-preprocess
+        parameters:
+          input_path: "/mnt/data/argo-shard/generate-id/id_data.csv"
+          output_path: "/mnt/data/argo-shard/data-preprocess/clean_data.csv"
+          handle_missing: "mean"
+
+      - stage: synthetic-generator
+        parameters:
+          input_path: "/mnt/data/argo-shard/data-preprocess/clean_data.csv"
+          output_path: "/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv"
+          num_samples: 1000
+
+      - stage: data-quality
+        parameters:
+          real_data_path: "/mnt/data/argo-shard/data-preprocess/clean_data.csv"
+          synthetic_data_path: "/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv"
+          output_path: "/mnt/data/argo-shard/data-quality/quality_report.json"
+          metrics: ["similarity", "distribution"]
+
+      - stage: privacy-tracking
+        parameters:
+          real_data_path: "/mnt/data/argo-shard/data-preprocess/clean_data.csv"
+          synthetic_data_path: "/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv"
+          output_path: "/mnt/data/argo-shard/privacy-tracking/privacy_report.json"
+          risk_metric: "membership_inference"
+
+    consumers:
+      - research_team_2

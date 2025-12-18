@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-preprocess
+  namespace: pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-preprocess
+  template:
+    metadata:
+      labels:
+        app: data-preprocess
+    spec:
+      containers:
+        - name: data-preprocess
+          image: sepidmas/reuse_scale-data-preprocessor:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8083
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+              subPath: data-preprocess
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-preprocess
+  namespace: pipeline
+spec:
+  selector:
+    app: data-preprocess
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083
+  type: ClusterIP

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: generate-address
+  namespace: pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: generate-address
+  template:
+    metadata:
+      labels:
+        app: generate-address
+    spec:
+      containers:
+        - name: generate-address
+          image: sepidmas/reuse_scale-generate-address:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8085
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+              subPath: generate-address
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: generate-address
+  namespace: pipeline
+spec:
+  selector:
+    app: generate-address
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: 8085
+  type: ClusterIP

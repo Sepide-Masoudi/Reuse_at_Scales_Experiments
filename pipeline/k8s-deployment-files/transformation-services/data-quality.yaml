@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-quality
+  namespace: pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-quality
+  template:
+    metadata:
+      labels:
+        app: data-quality
+    spec:
+      containers:
+        - name: data-quality
+          image: sepidmas/reuse_scale-data-quality:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8084
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+              subPath: data-quality
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-quality
+  namespace: pipeline
+spec:
+  selector:
+    app: data-quality
+  ports:
+    - protocol: TCP
+      port: 8084
+      targetPort: 8084
+  type: ClusterIP

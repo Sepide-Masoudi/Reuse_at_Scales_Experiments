@@ -1,0 +1,828 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: parallel-full-data-generation-and-evaluation-
+  namespace: no-reuse-pipeline
+spec:
+  entrypoint: parallel-full-data-generation-and-evaluation
+  serviceAccountName: argo-workflow-sa
+  volumes:
+  - name: shared-data
+    persistentVolumeClaim:
+      claimName: argo-shard-pvc
+  templates:
+  - name: parallel-full-data-generation-and-evaluation
+    steps:
+    - - name: generate-name
+        template: generate-name-parallel-full-data-generation-and-evaluation
+      - name: generate-birthday
+        template: generate-birthday-parallel-full-data-generation-and-evaluation
+      - name: generate-address
+        template: generate-address-parallel-full-data-generation-and-evaluation
+    - - name: generate-id
+        template: generate-id-parallel-full-data-generation-and-evaluation
+    - - name: data-preprocess
+        template: data-preprocess-parallel-full-data-generation-and-evaluation
+    - - name: prepare-meta-data
+        template: init-copy-meta-data
+    - - name: synthetic-generator
+        template: synthetic-generator-parallel-full-data-generation-and-evaluation
+    - - name: data-quality
+        template: data-quality-parallel-full-data-generation-and-evaluation
+    - - name: privacy-tracking
+        template: privacy-tracking-parallel-full-data-generation-and-evaluation
+
+  - name: generate-name-parallel-full-data-generation-and-evaluation
+    affinity: &no_ise_knode2
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: NotIn
+              values: [ise-knode2]
+    container:
+      image: sepidmas/noreuse_scale-generate-names:latest
+      command: ["python","main.py"]
+      args: ["--n_rows","100","--mf_ratio","0.5","--output_path","/mnt/data/argo-shard/generate-name/names.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ###workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+
+  - name: generate-birthday-parallel-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-generate-birthday:latest
+      command: ["python","main.py"]
+      args: ["--n_rows","100","--min_age","18","--max_age","80","--output_path","/mnt/data/argo-shard/generate-birthday/birthdays.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ##workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+
+  - name: generate-address-parallel-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-generate-address:latest
+      command: ["python","main.py"]
+      args: ["--n_rows","100","--output_path","/mnt/data/argo-shard/generate-address/addresses.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ##workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+
+  - name: generate-id-parallel-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-generate-id-code:latest
+      command: ["python","main.py"]
+      args: ["--name_csv","/mnt/data/argo-shard/generate-name/names.csv","--birthday_csv","/mnt/data/argo-shard/generate-birthday/birthdays.csv","--output_path","/mnt/data/argo-shard/generate-id/id_data.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ##workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+
+  - name: data-preprocess-parallel-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-data-preprocessor:latest
+      command: ["python","main.py"]
+      args: ["--input_path","/mnt/data/argo-shard/generate-id/id_data.csv","--output_path","/mnt/data/argo-shard/data-preprocess/clean_data.csv","--handle_missing","mean"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ##workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: init-copy-meta-data
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-synthetic-generator:latest
+      command: [sh, -c]
+      args:
+        - |
+          set -e
+          TARGET="/mnt/data/argo-shard/synthetic-generator"
+          echo "Preparing meta-data at ${TARGET}"
+          mkdir -p "${TARGET}"
+          cp -r /app/meta-data.json "${TARGET}/"
+      volumeMounts:
+        - name: shared-data
+          mountPath: /mnt/data/argo-shard
+
+
+  - name: synthetic-generator-parallel-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-synthetic-generator:latest
+      command: ["python","main.py"]
+      args: ["--metadata_path","/mnt/data/argo-shard/synthetic-generator/meta-data.json","--input_path","/mnt/data/argo-shard/data-preprocess/clean_data.csv","--output_path","/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv","--num_samples","1000"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ##workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+
+  - name: data-quality-parallel-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-data-quality:latest
+      command: ["python","main.py"]
+      args: ["--metadata_path","/mnt/data/argo-shard/synthetic-generator/meta-data.json","--real_data_path","/mnt/data/argo-shard/data-preprocess/clean_data.csv","--synthetic_data_path","/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv","--output_path","/mnt/data/argo-shard/data-quality/quality_report.json","--metrics","realistic","--output_dir","/mnt/data/argo-shard/data-quality/quality_report_HTML.html"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ##workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+
+  - name: privacy-tracking-parallel-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-privacy-tracking:latest
+      command: ["python","main.py"]
+      args: ["--real_data_path","/mnt/data/argo-shard/data-preprocess/clean_data.csv","--synthetic_data_path","/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv","--output_path","/mnt/data/argo-shard/privacy-tracking/privacy_report.json","--risk_metric","membership_inference"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: synthesize-only-
+  namespace: no-reuse-pipeline
+spec:
+  entrypoint: synthesize-only
+  serviceAccountName: argo-workflow-sa
+  volumes:
+  - name: shared-data
+    persistentVolumeClaim:
+      claimName: argo-shard-pvc
+  templates:
+  - name: synthesize-only
+    steps:
+    - - name: load-data
+        template: load-data-synthesize-only
+    - - name: synthetic-generator
+        template: synthetic-generator-synthesize-only
+
+  - name: load-data-synthesize-only
+    affinity: &no_ise_knode2
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: NotIn
+              values: [ise-knode2]
+    container:
+      image: sepidmas/noreuse_scale-load-data:latest
+      command: ["python","main.py"]
+      args: ["--input_dir","/mnt/data/argo-shard/load-data","--output_json","/mnt/data/argo-shard/load-data/output.json","--output_csv","/mnt/data/argo-shard/load-data/output.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: synthetic-generator-synthesize-only
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-synthetic-generator:latest
+      command: ["python","main.py"]
+      args: ["--input_path","/mnt/data/argo-shard/load-data/output.csv","--output_path","/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv","--num_samples","500"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: evaluation-only-
+  namespace: no-reuse-pipeline
+spec:
+  entrypoint: evaluation-only
+  serviceAccountName: argo-workflow-sa
+  volumes:
+  - name: shared-data
+    persistentVolumeClaim:
+      claimName: argo-shard-pvc
+  templates:
+  - name: evaluation-only
+    steps:
+    - - name: load-data
+        template: load-data-evaluation-only
+      - name: load-data-2
+        template: load-data-2-evaluation-only
+    - - name: data-quality
+        template: data-quality-evaluation-only
+      - name: privacy-tracking
+        template: privacy-tracking-evaluation-only
+
+  - name: load-data-evaluation-only
+    affinity: &no_ise_knode2
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: NotIn
+              values: [ise-knode2]
+    container:
+      image: sepidmas/noreuse_scale-load-data:latest
+      command: ["python","main.py"]
+      args: ["--input_dir","/mnt/data/argo-shard/real-data/real_data.csv","--output_csv","/mnt/data/argo-shard/load-data/real_data_loaded.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: load-data-2-evaluation-only
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-load-data:latest
+      command: ["python","main.py"]
+      args: ["--input_dir","/mnt/data/argo-shard/synthetic-data/synthetic_data.csv","--output_csv","/mnt/data/argo-shard/load-data/synthetic_data_loaded.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+
+  - name: data-quality-evaluation-only
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-data-quality:latest
+      command: ["python","main.py"]
+      args: ["--real_data_path","/mnt/data/argo-shard/load-data/real_data_loaded.csv","--synthetic_data_path","/mnt/data/argo-shard/load-data/synthetic_data_loaded.csv","--output_path","/mnt/data/argo-shard/data-quality/quality_report.json","--metrics","similarity,distribution"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: privacy-tracking-evaluation-only
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-privacy-tracking:latest
+      command: ["python","main.py"]
+      args: ["--real_data_path","/mnt/data/argo-shard/load-data/real_data_loaded.csv","--synthetic_data_path","/mnt/data/argo-shard/load-data/synthetic_data_loaded.csv","--output_path","/mnt/data/argo-shard/privacy-tracking/privacy_report.json","--risk_metric","membership_inference"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: full-data-generation-and-evaluation-
+  namespace: no-reuse-pipeline
+spec:
+  entrypoint: full-data-generation-and-evaluation
+  serviceAccountName: argo-workflow-sa
+  volumes:
+  - name: shared-data
+    persistentVolumeClaim:
+      claimName: argo-shard-pvc
+  templates:
+  - name: full-data-generation-and-evaluation
+    steps:
+    - - name: generate-name
+        template: generate-name-full-data-generation-and-evaluation
+    - - name: generate-birthday
+        template: generate-birthday-full-data-generation-and-evaluation
+    - - name: generate-address
+        template: generate-address-full-data-generation-and-evaluation
+    - - name: generate-id
+        template: generate-id-full-data-generation-and-evaluation
+    - - name: data-preprocess
+        template: data-preprocess-full-data-generation-and-evaluation
+    - - name: synthetic-generator
+        template: synthetic-generator-full-data-generation-and-evaluation
+    - - name: data-quality
+        template: data-quality-full-data-generation-and-evaluation
+    - - name: privacy-tracking
+        template: privacy-tracking-full-data-generation-and-evaluation
+
+  - name: generate-name-full-data-generation-and-evaluation
+    affinity: &no_ise_knode2
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: NotIn
+              values: [ise-knode2]
+    container:
+      image: sepidmas/noreuse_scale-generate-names:latest
+      command: ["python","main.py"]
+      args: ["--n_rows","100","--mf_ratio","0.5","--output_path","/mnt/data/argo-shard/generate-name/names.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: generate-birthday-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-generate-birthday:latest
+      command: ["python","main.py"]
+      args: ["--n_rows","100","--min_age","18","--max_age","80","--output_path","/mnt/data/argo-shard/generate-birthday/birthdays.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: generate-address-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-generate-address:latest
+      command: ["python","main.py"]
+      args: ["--n_rows","100","--output_path","/mnt/data/argo-shard/generate-address/addresses.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: generate-id-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-generate-id-code:latest
+      command: ["python","main.py"]
+      args: ["--name_csv","/mnt/data/argo-shard/generate-name/names.csv","--birthday_csv","/mnt/data/argo-shard/generate-birthday/birthdays.csv","--output_path","/mnt/data/argo-shard/generate-id/id_data.csv"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      #workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: data-preprocess-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-data-preprocessor:latest
+      command: ["python","main.py"]
+      args: ["--input_path","/mnt/data/argo-shard/generate-id/id_data.csv","--output_path","/mnt/data/argo-shard/data-preprocess/clean_data.csv","--handle_missing","mean"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ###workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: synthetic-generator-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-synthetic-generator:latest
+      command: ["python","main.py"]
+      args: ["--input_path","/mnt/data/argo-shard/data-preprocess/clean_data.csv","--output_path","/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv","--num_samples","1000"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ###workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: data-quality-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-data-quality:latest
+      command: ["python","main.py"]
+      args: ["--real_data_path","/mnt/data/argo-shard/data-preprocess/clean_data.csv","--synthetic_data_path","/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv","--output_path","/mnt/data/argo-shard/data-quality/quality_report.json","--metrics","similarity,distribution"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ###workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp
+
+  - name: privacy-tracking-full-data-generation-and-evaluation
+    affinity: *no_ise_knode2
+    container:
+      image: sepidmas/noreuse_scale-privacy-tracking:latest
+      command: ["python","main.py"]
+      args: ["--real_data_path","/mnt/data/argo-shard/data-preprocess/clean_data.csv","--synthetic_data_path","/mnt/data/argo-shard/synthetic-generator/synthetic_data.csv","--output_path","/mnt/data/argo-shard/privacy-tracking/privacy_report.json","--risk_metric","membership_inference"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      ###workingDir: /mnt/data/argo-shard/work
+      resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+              ephemeral-storage: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              ephemeral-storage: "200Mi"      
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: shared-data
+        mountPath: /tmp
+        subPath: tmp

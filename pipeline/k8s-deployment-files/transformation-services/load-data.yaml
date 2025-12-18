@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-data
+  namespace: pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load-data
+  template:
+    metadata:
+      labels:
+        app: load-data
+    spec:
+      containers:
+        - name: load-data
+          image: sepidmas/reuse_scale-load-data:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8092
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+              subPath: load-data
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: load-data
+  namespace: pipeline
+spec:
+  selector:
+    app: load-data
+  ports:
+    - protocol: TCP
+      port: 8092
+      targetPort: 8092
+  type: ClusterIP

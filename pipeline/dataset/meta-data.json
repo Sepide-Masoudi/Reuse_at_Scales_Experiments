@@ -1,0 +1,13 @@
+{
+    "input_csv": "/mnt/data/argo-shard/data-preprocess/clean_data.csv",
+    "columns": [
+      "first_name",
+      "last_name",
+      "gender",
+      "date_of_birth",
+      "id_code"
+    ],
+    "description": "Meta-data input for synthetic-generator step",
+    "num_samples": 100
+  }
+  

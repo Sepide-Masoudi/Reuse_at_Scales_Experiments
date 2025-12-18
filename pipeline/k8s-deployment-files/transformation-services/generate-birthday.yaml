@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: generate-birthday
+  namespace: pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: generate-birthday
+  template:
+    metadata:
+      labels:
+        app: generate-birthday
+    spec:
+      containers:
+        - name: generate-birthday
+          image: sepidmas/reuse_scale-generate-birthday:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8086
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+              subPath: generate-birthday
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: generate-birthday
+  namespace: pipeline
+spec:
+  selector:
+    app: generate-birthday
+  ports:
+    - protocol: TCP
+      port: 8086
+      targetPort: 8086
+  type: ClusterIP

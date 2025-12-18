@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synthetic-generator
+  namespace: pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: synthetic-generator
+  template:
+    metadata:
+      labels:
+        app: synthetic-generator
+    spec:
+      containers:
+        - name: synthetic-generator
+          image: sepidmas/reuse_scale-synthetic-generator:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+              subPath: synthetic-generator
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: synthetic-generator
+  namespace: pipeline
+spec:
+  selector:
+    app: synthetic-generator
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
+  type: ClusterIP
