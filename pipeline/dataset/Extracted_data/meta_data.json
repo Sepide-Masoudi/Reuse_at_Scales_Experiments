@@ -1,0 +1,22 @@
+{
+  "METADATA_SPEC_VERSION": "1.0",
+  "primary_key": "id_code",
+  "columns": {
+    "first_name": {
+      "sdtype": "categorical"
+    },
+    "last_name": {
+      "sdtype": "categorical"
+    },
+    "gender": {
+      "sdtype": "categorical"
+    },
+    "date_of_birth": {
+      "sdtype": "datetime",
+      "datetime_format": "%Y-%m-%d"
+    },
+    "id_code": {
+      "sdtype": "id"
+    }
+  }
+}

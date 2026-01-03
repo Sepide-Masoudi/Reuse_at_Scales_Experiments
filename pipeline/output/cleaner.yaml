@@ -7,7 +7,7 @@ spec:
   restartPolicy: Never
   containers:
     - name: cleaner
-      image: busybox
+      image: busybox:1.36
       command: ["sh", "-c", "rm -rf /data/* && echo PVC cleaned && sleep 5"]
       volumeMounts:
         - mountPath: /data

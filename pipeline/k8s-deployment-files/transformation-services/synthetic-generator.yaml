@@ -22,7 +22,7 @@ spec:
           volumeMounts:
             - name: argo-shard
               mountPath: /mnt/data/argo-shard
-              subPath: synthetic-generator
+#              subPath: synthetic-generator
       volumes:
         - name: argo-shard
           persistentVolumeClaim:

@@ -22,7 +22,7 @@ spec:
           volumeMounts:
             - name: argo-shard
               mountPath: /mnt/data/argo-shard
-              subPath: privacy-tracking
+#              subPath: privacy-tracking
       volumes:
         - name: argo-shard
           persistentVolumeClaim:

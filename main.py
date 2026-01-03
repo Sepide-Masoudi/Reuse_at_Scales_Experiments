@@ -1,6 +1,6 @@
 from logging import getLogger
 import sys
-from sma import SustainabilityMeasurementAgent, Config, SMAObserver
+from sma import SustainabilityMeasurementAgent, Config, SMAObserver, SMASession
 from dataclasses import dataclass
 
 
@@ -44,6 +44,9 @@ def main() -> None:
     log = getLogger("experiment.main")
 
     sma = SustainabilityMeasurementAgent(config)
+    sma.setup(SMASession(
+       name="PipelineReuse"
+    ))
     sma.connect()
     
     #TODO: generate Experiments form

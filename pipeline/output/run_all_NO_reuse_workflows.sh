@@ -29,8 +29,8 @@ csplit -f temp-workflow- "${WORKFLOW_FILE}" '/^---$/' '{*}' > /dev/null 2>&1
 WORKFLOW_COUNT=$(ls temp-workflow-* 2>/dev/null | wc -l)
 echo "Found ${WORKFLOW_COUNT} workflows"
 
-if [ "${WORKFLOW_COUNT}" -lt 4 ]; then
-    echo "⚠️ Warning: Expected 4 workflows, found ${WORKFLOW_COUNT}"
+if [ "${WORKFLOW_COUNT}" -lt 5 ]; then
+    echo "⚠️ Warning: Expected 5 workflows, found ${WORKFLOW_COUNT}"
 fi
 
 echo "1️⃣ Running: parallel-full-data-generation-and-evaluation"
@@ -53,6 +53,13 @@ fi
 echo "4️⃣ Running: full-data-generation-and-evaluation"
 if [ "${WORKFLOW_COUNT}" -ge 4 ]; then
     argo submit temp-workflow-03 -n "${NAMESPACE}"
+else
+    echo "⚠️ Skipping: Workflow not found in file"
+fi
+
+echo "4️⃣ Running: parallel-evaluation-only"
+if [ "${WORKFLOW_COUNT}" -ge 5 ]; then
+    argo submit temp-workflow-04 -n "${NAMESPACE}"
 else
     echo "⚠️ Skipping: Workflow not found in file"
 fi

@@ -1,0 +1,98 @@
+{
+    "version": "1.0",
+    "created_at": "2025-12-22T09:30:05.768333",
+    "format": "csv",
+    "data_files": {
+        "system_CPU": {
+            "filename": "system_CPU.csv",
+            "rows": 54,
+            "columns": [
+                "__name__",
+                "baremetal",
+                "beta_kubernetes_io_arch",
+                "beta_kubernetes_io_os",
+                "container",
+                "cpu",
+                "feature_node_kubernetes_io_cpu_cpuid_AESNI",
+                "feature_node_kubernetes_io_cpu_cpuid_AVX",
+                "feature_node_kubernetes_io_cpu_cpuid_AVXSLOW",
+                "feature_node_kubernetes_io_cpu_cpuid_CMPXCHG8",
+                "feature_node_kubernetes_io_cpu_cpuid_FXSR",
+                "feature_node_kubernetes_io_cpu_cpuid_FXSROPT",
+                "feature_node_kubernetes_io_cpu_cpuid_HYPERVISOR",
+                "feature_node_kubernetes_io_cpu_cpuid_LAHF",
+                "feature_node_kubernetes_io_cpu_cpuid_OSXSAVE",
+                "feature_node_kubernetes_io_cpu_cpuid_SYSCALL",
+                "feature_node_kubernetes_io_cpu_cpuid_SYSEE",
+                "feature_node_kubernetes_io_cpu_cpuid_X87",
+                "feature_node_kubernetes_io_cpu_cpuid_XSAVE",
+                "feature_node_kubernetes_io_cpu_cpuid_XSAVEOPT",
+                "feature_node_kubernetes_io_cpu_hardware_multithreading",
+                "feature_node_kubernetes_io_cpu_model_family",
+                "feature_node_kubernetes_io_cpu_model_id",
+                "feature_node_kubernetes_io_cpu_model_vendor_id",
+                "feature_node_kubernetes_io_kernel_config_NO_HZ_FULL",
+                "feature_node_kubernetes_io_kernel_version_full",
+                "feature_node_kubernetes_io_kernel_version_major",
+                "feature_node_kubernetes_io_kernel_version_minor",
+                "feature_node_kubernetes_io_kernel_version_revision",
+                "feature_node_kubernetes_io_pci_0300_1af4_present",
+                "feature_node_kubernetes_io_pci_1af4_present",
+                "feature_node_kubernetes_io_system_os_release_ID",
+                "feature_node_kubernetes_io_system_os_release_VERSION_ID",
+                "feature_node_kubernetes_io_system_os_release_VERSION_ID_major",
+                "id",
+                "image",
+                "instance",
+                "job",
+                "kubernetes_io_arch",
+                "kubernetes_io_hostname",
+                "kubernetes_io_os",
+                "name",
+                "namespace",
+                "network",
+                "pod",
+                "timestamp",
+                "system_CPU",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "node_power_consumption_scaphandre": {
+            "filename": "node_power_consumption_scaphandre.csv",
+            "rows": 27,
+            "columns": [
+                "app_kubernetes_io_name",
+                "instance",
+                "job",
+                "namespace",
+                "node",
+                "service",
+                "timestamp",
+                "node_power_consumption_scaphandre",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "node_power_consumption_kepler": {
+            "filename": "node_power_consumption_kepler.csv",
+            "rows": 18,
+            "columns": [
+                "node",
+                "timestamp",
+                "node_power_consumption_kepler",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        }
+    },
+    "files": {
+        "session": "session.json",
+        "run": "run.json",
+        "config": "config.yaml",
+        "environment": null
+    }
+}

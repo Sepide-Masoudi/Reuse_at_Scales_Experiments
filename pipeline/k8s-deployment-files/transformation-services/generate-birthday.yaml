@@ -22,7 +22,7 @@ spec:
           volumeMounts:
             - name: argo-shard
               mountPath: /mnt/data/argo-shard
-              subPath: generate-birthday
+#              subPath: generate-birthday
       volumes:
         - name: argo-shard
           persistentVolumeClaim:

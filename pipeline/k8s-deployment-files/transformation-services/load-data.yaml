@@ -22,7 +22,7 @@ spec:
           volumeMounts:
             - name: argo-shard
               mountPath: /mnt/data/argo-shard
-              subPath: load-data
+#              subPath: load-data
       volumes:
         - name: argo-shard
           persistentVolumeClaim:

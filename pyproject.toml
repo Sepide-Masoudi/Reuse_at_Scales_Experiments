@@ -7,5 +7,5 @@ requires-python = ">=3.9"
 dependencies = [
     "ipykernel>=6.31.0",
     "seaborn>=0.13.2",
-    "sustainability-measurement-agent>=0.1.5",
+    "sustainability-measurement-agent==0.1.8",
 ]

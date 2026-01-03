@@ -22,7 +22,7 @@ spec:
           volumeMounts:
             - name: argo-shard
               mountPath: /mnt/data/argo-shard
-              subPath: data-preprocess
+#              subPath: data-preprocess
       volumes:
         - name: argo-shard
           persistentVolumeClaim:

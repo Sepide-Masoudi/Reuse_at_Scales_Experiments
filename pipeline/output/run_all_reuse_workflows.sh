@@ -4,26 +4,68 @@ set -euo pipefail
 NAMESPACE="pipeline"
 WORKFLOW_FILE="pipeline_reuse.yaml"
 
-echo "Submitting Argo workflows from ${WORKFLOW_FILE} in namespace ${NAMESPACE}"
+echo "Submitting Argo workflows (non-reuse) from ${WORKFLOW_FILE} in namespace ${NAMESPACE}"
 echo "---------------------------------------------------------------"
 
+# Check if csplit is available
+if ! command -v csplit &> /dev/null; then
+    echo "❌ Error: csplit command not found. Please install it or use a different method."
+    echo "On macOS: brew install coreutils"
+    echo "On Ubuntu/Debian: sudo apt-get install coreutils"
+    exit 1
+fi
+
+# Check if file exists
+if [ ! -f "${WORKFLOW_FILE}" ]; then
+    echo "❌ Error: File ${WORKFLOW_FILE} not found!"
+    exit 1
+fi
+
 # Split the YAML file into separate temporary files
-csplit -f temp-workflow- "${WORKFLOW_FILE}" '/^---$/' '{*}'
+echo "Splitting workflow file..."
+csplit -f temp-workflow- "${WORKFLOW_FILE}" '/^---$/' '{*}' > /dev/null 2>&1
+
+# Count the number of workflows
+WORKFLOW_COUNT=$(ls temp-workflow-* 2>/dev/null | wc -l)
+echo "Found ${WORKFLOW_COUNT} workflows"
+
+if [ "${WORKFLOW_COUNT}" -lt 5 ]; then
+    echo "⚠️ Warning: Expected 5 workflows, found ${WORKFLOW_COUNT}"
+fi
 
 echo "1️⃣ Running: parallel-full-data-generation-and-evaluation"
 argo submit temp-workflow-00 -n "${NAMESPACE}"
 
 echo "2️⃣ Running: synthesize-only"
-argo submit temp-workflow-01 -n "${NAMESPACE}"
+if [ "${WORKFLOW_COUNT}" -ge 2 ]; then
+    argo submit temp-workflow-01 -n "${NAMESPACE}"
+else
+    echo "⚠️ Skipping: Workflow not found in file"
+fi
 
 echo "3️⃣ Running: evaluation-only"
-argo submit temp-workflow-02 -n "${NAMESPACE}"
+if [ "${WORKFLOW_COUNT}" -ge 3 ]; then
+    argo submit temp-workflow-02 -n "${NAMESPACE}"
+else
+    echo "⚠️ Skipping: Workflow not found in file"
+fi
 
 echo "4️⃣ Running: full-data-generation-and-evaluation"
-argo submit temp-workflow-03 -n "${NAMESPACE}"
+if [ "${WORKFLOW_COUNT}" -ge 4 ]; then
+    argo submit temp-workflow-03 -n "${NAMESPACE}"
+else
+    echo "⚠️ Skipping: Workflow not found in file"
+fi
+
+echo "4️⃣ Running: parallel-evaluation-only"
+if [ "${WORKFLOW_COUNT}" -ge 5 ]; then
+    argo submit temp-workflow-04 -n "${NAMESPACE}"
+else
+    echo "⚠️ Skipping: Workflow not found in file"
+fi
 
 # Clean up temporary files
-rm temp-workflow-*
+rm -f temp-workflow-*
 
 echo "---------------------------------------------------------------"
 echo "✅ All workflows submitted successfully"
