@@ -1,0 +1,27 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: privacy-tracking
+  namespace: pipeline
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "3"
+        autoscaling.knative.dev/target: "1"
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: privacy-tracking
+          image: sepidmas/reuse_scale-privacy-tracking:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8089
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc

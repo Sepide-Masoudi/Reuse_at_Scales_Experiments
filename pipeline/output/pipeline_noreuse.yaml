@@ -1,5 +1,4 @@
 # TODO : rebuild data-quality image
-# TODO: Remove the load-data and read meta-data from data-preprossesor in (parallel)full workflows
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
@@ -29,8 +28,6 @@ spec:
         template: generate-id-parallel-full-data-generation-and-evaluation
     - - name: data-preprocess
         template: data-preprocess-parallel-full-data-generation-and-evaluation
-    - - name: load-meta-data
-        template: load-data-parallel-full-data-generation-and-evaluation
     - - name: synthetic-generator
         template: synthetic-generator-parallel-full-data-generation-and-evaluation
     - - name: privacy-tracking
@@ -151,7 +148,7 @@ spec:
     container:
       image: sepidmas/noreuse_scale-data-preprocessor:latest
       command: ["python","main.py"]
-      args: ["--input_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-generate-id/id_data.csv","--output_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--handle_missing","mean"]
+      args: ["--input_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-generate-id/id_data.csv","--output_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--metadata_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/metadata.json","--handle_missing","mean"]
       env:
       - name: TMPDIR
         value: /tmp
@@ -174,39 +171,11 @@ spec:
       - name: temp-volume
         mountPath: /tmp
 
-  - name: load-data-parallel-full-data-generation-and-evaluation
-    container:
-      image: sepidmas/noreuse_scale-load-data:latest
-      command: ["python", "main.py"]
-      args:
-        - "--input_dir"
-        - "/app/data/input"
-        - "--output_dir"
-        - "/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-load-data"
-
-      env:
-        - name: TMPDIR
-          value: /tmp
-        - name: TEMP
-          value: /tmp
-        - name: TMP
-          value: /tmp
-
-      resources:
-        requests:
-          cpu: "100m"
-          memory: "256Mi"
-          ephemeral-storage: "200Mi"
-        limits:
-          cpu: "500m"
-          memory: "512Mi"
-          ephemeral-storage: "500Mi"
-
   - name: synthetic-generator-parallel-full-data-generation-and-evaluation
     container:
       image: sepidmas/noreuse_scale-synthetic-generator:latest
       command: ["python","main.py"]
-      args: ["--metadata_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-load-data/meta-data.json","--input_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--output_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--num_samples","100"]
+      args: ["--metadata_path","--metadata_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/metadata.json","--input_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--output_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--num_samples","100"]
       env:
       - name: TMPDIR
         value: /tmp
@@ -529,8 +498,6 @@ spec:
         template: generate-id-full-data-generation-and-evaluation
     - - name: data-preprocess
         template: data-preprocess-full-data-generation-and-evaluation
-    - - name: load-meta-data
-        template: load-data-full-data-generation-and-evaluation
     - - name: synthetic-generator
         template: synthetic-generator-full-data-generation-and-evaluation
     - - name: privacy-tracking
@@ -651,7 +618,7 @@ spec:
     container:
       image: sepidmas/noreuse_scale-data-preprocessor:latest
       command: ["python","main.py"]
-      args: ["--input_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-generate-id/id_data.csv","--output_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--handle_missing","mean"]
+      args: ["--input_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-generate-id/id_data.csv","--output_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--metadata_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-preprocess/metadata.json","--handle_missing","mean"]
       env:
       - name: TMPDIR
         value: /tmp
@@ -674,39 +641,11 @@ spec:
       - name: temp-volume
         mountPath: /tmp
 
-  - name: load-data-full-data-generation-and-evaluation
-    container:
-      image: sepidmas/noreuse_scale-load-data:latest
-      command: ["python", "main.py"]
-      args:
-        - "--input_dir"
-        - "/app/data/input"
-        - "--output_dir"
-        - "/mnt/data/argo-shard/full-data-generation-and-evaluation-load-data"
-
-      env:
-        - name: TMPDIR
-          value: /tmp
-        - name: TEMP
-          value: /tmp
-        - name: TMP
-          value: /tmp
-
-      resources:
-        requests:
-          cpu: "100m"
-          memory: "256Mi"
-          ephemeral-storage: "200Mi"
-        limits:
-          cpu: "500m"
-          memory: "512Mi"
-          ephemeral-storage: "500Mi"
-
   - name: synthetic-generator-full-data-generation-and-evaluation
     container:
       image: sepidmas/noreuse_scale-synthetic-generator:latest
       command: ["python","main.py"]
-      args: ["--metadata_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-load-data/meta-data.json","--input_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--output_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--num_samples","100"]
+      args: ["--metadata_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-preprocess/metadata.json","--input_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--output_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--num_samples","100"]
       env:
       - name: TMPDIR
         value: /tmp

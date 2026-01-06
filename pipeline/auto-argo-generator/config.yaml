@@ -1,0 +1,266 @@
+stages:
+  - name: generate-name
+    parameters:
+      n_rows:
+        type: int
+      mf_ratio:
+        type: float
+      output_file:
+        type: string
+
+  - name: generate-birthday
+    parameters:
+      n_rows:
+        type: int
+      min_age:
+        type: int
+      max_age:
+        type: int
+      output_file:
+        type: string
+
+  - name: generate-address
+    parameters:
+      n_rows:
+        type: int
+      output_file:
+        type: string
+
+  - name: generate-id
+    parameters:
+      name_csv:
+        type: string
+      birthday_csv:
+        type: string
+      output_file:
+        type: string
+
+  - name: data-preprocess
+    parameters:
+      input_file:
+        type: string
+      output_file:
+        type: string
+      metadata_file:
+        type: string
+      handle_missing:
+        type: string
+
+  - name: load-data
+    parameters:
+      input_dir:
+        type: string
+      output_dir:
+        type: string
+
+  - name: synthetic-generator
+    parameters:
+      input_dir:
+        type: string
+      input_csv:
+        type: string
+      metadata_json:
+        type: string
+      output_file:
+        type: string
+      n_rows:
+        type: int
+      method:
+        type: string
+
+  - name: privacy-tracking
+    parameters:
+      input_dir:
+        type: string
+      real_csv:
+        type: string
+      synth_csv:
+        type: string
+      output_file:
+        type: string
+
+  - name: data-quality
+    parameters:
+      input_metadata_file:
+        type: string
+      input_file_real:
+        type: string
+      input_file_synth:
+        type: string
+      output_dir:
+        type: string
+      metrics:
+        type: string
+
+
+pipelines:
+  - name: parallel-full-data-generation-and-evaluation
+    flow:
+      - parallel: true
+        stages:
+          - stage: generate-name
+            parameters:
+              n_rows: 100
+              mf_ratio: 0.5
+              output_file: names.csv
+
+          - stage: generate-birthday
+            parameters:
+              n_rows: 100
+              min_age: 18
+              max_age: 80
+              output_file: birthdays.csv
+
+          - stage: generate-address
+            parameters:
+              n_rows: 100
+              output_file: addresses.csv
+
+      - stage: generate-id
+        parameters:
+          name_csv: names.csv
+          birthday_csv: birthdays.csv
+          output_file: id_data.csv
+
+      - stage: data-preprocess
+        parameters:
+          input_file: id_data.csv
+          output_file: clean_data.csv
+          metadata_file: metadata.json
+          handle_missing: mean
+
+      - stage: synthetic-generator
+        parameters:
+          input_dir: data-preprocess
+          input_csv: clean_data.csv
+          metadata_json: metadata.json
+          output_file: synthetic_data.csv
+          n_rows: 100
+          method: realistic
+
+      - parallel: true
+        stages:
+          - stage: privacy-tracking
+            parameters:
+              input_dir: /
+              real_csv: clean_data.csv
+              synth_csv: synthetic_data.csv
+              output_file: privacy_report.json
+
+          - stage: data-quality
+            parameters:
+              input_metadata_file: metadata.json
+              input_file_real: clean_data.csv
+              input_file_synth: synthetic_data.csv
+              output_dir: data-quality
+              metrics: realistic
+
+    consumers:
+      - research_team
+
+
+  - name: full-data-generation-and-evaluation
+    flow:
+      - stage: generate-name
+        parameters:
+          n_rows: 100
+          mf_ratio: 0.5
+          output_file: names.csv
+
+      - stage: generate-birthday
+        parameters:
+          n_rows: 100
+          min_age: 18
+          max_age: 80
+          output_file: birthdays.csv
+
+      - stage: generate-address
+        parameters:
+          n_rows: 100
+          output_file: addresses.csv
+
+      - stage: generate-id
+        parameters:
+          name_csv: names.csv
+          birthday_csv: birthdays.csv
+          output_file: id_data.csv
+
+      - stage: data-preprocess
+        parameters:
+          input_file: id_data.csv
+          output_file: clean_data.csv
+          metadata_file: metadata.json
+          handle_missing: mean
+
+      - stage: synthetic-generator
+        parameters:
+          input_dir: data-preprocess
+          input_csv: clean_data.csv
+          metadata_json: metadata.json
+          output_file: synthetic_data.csv
+          n_rows: 100
+          method: realistic
+
+      - stage: privacy-tracking
+        parameters:
+          input_dir: /
+          real_csv: clean_data.csv
+          synth_csv: synthetic_data.csv
+          output_file: privacy_report.json
+
+      - stage: data-quality
+        parameters:
+          input_metadata_file: metadata.json
+          input_file_real: clean_data.csv
+          input_file_synth: synthetic_data.csv
+          output_dir: data-quality
+          metrics: realistic
+
+    consumers:
+      - research_team_2
+
+
+  - name: synthesize-only
+    flow:
+      - stage: load-data
+        parameters:
+          input_dir: /app/data/input
+          output_dir: load-data
+
+      - stage: synthetic-generator
+        parameters:
+          input_dir: load-data
+          input_csv: real-data.csv
+          metadata_json: meta-data.json
+          output_file: synthetic_data.csv
+          n_rows: 100
+          method: realistic
+
+    consumers:
+      - user_demo
+
+
+  - name: evaluation-only
+    flow:
+      - stage: load-data
+        parameters:
+          input_dir: /app/data/input
+          output_dir: load-data
+
+      - stage: privacy-tracking
+        parameters:
+          input_dir: /
+          real_csv: real-data.csv
+          synth_csv: synthetic-data.csv
+          output_file: privacy_report.json
+
+      - stage: data-quality
+        parameters:
+          input_metadata_file: meta-data.json
+          input_file_real: real-data.csv
+          input_file_synth: synthetic-data.csv
+          output_dir: data-quality
+          metrics: realistic
+
+    consumers:
+      - user_demo_2

@@ -1,0 +1,27 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: data-quality
+  namespace: pipeline
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "3"
+        autoscaling.knative.dev/target: "1"
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: data-quality
+          image: sepidmas/reuse_scale-data-quality:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8084
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc
