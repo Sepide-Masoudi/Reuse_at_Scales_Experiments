@@ -11,7 +11,6 @@ spec:
         autoscaling.knative.dev/maxScale: "3"
         autoscaling.knative.dev/target: "1"
     spec:
-      terminationGracePeriodSeconds: 30
       containers:
         - name: generate-birthday
           image: sepidmas/reuse_scale-generate-birthday:latest

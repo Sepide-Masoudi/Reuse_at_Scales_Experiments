@@ -11,7 +11,6 @@ spec:
         autoscaling.knative.dev/maxScale: "3"
         autoscaling.knative.dev/target: "1"
     spec:
-      terminationGracePeriodSeconds: 30
       containers:
         - name: load-data
           image: sepidmas/reuse_scale-load-data:latest

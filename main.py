@@ -2,6 +2,7 @@ from logging import getLogger
 import sys
 from sma import SustainabilityMeasurementAgent, Config, SMAObserver, SMASession
 from dataclasses import dataclass
+from typing import Callable
 
 
 #TODO: add thing to handle the experimentes, e.g., multiple runs, which varaibles we are doing etc
@@ -27,11 +28,17 @@ def prepare_experiment(experiment: Experiment) -> None:
     #TODO: deploy things we need for reuse
     pass
 
-def wait_for_experiment_completion(experiment: Experiment) -> None:
+
+def wait_for_experiment_completion(experiment) -> Callable[[], dict]:
     def trigger() -> dict:
-        #TODO: wait for experiment to complete...
-        input("Press Enter to continue after experiment completion...")
+        wrapper_script = "./run_all_experiments.sh"  
+        print(f"Starting experiment batch via {wrapper_script}...")
+        result = subprocess.run(wrapper_script, shell=True, check=True)
+        print("Wrapper script finished ✅")
+
+        # Return experiment info
         return experiment.to_dict()
+
     return trigger
     
 

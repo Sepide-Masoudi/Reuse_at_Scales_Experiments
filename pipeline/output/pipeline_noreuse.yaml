@@ -4,6 +4,8 @@ kind: Workflow
 metadata:
   generateName: parallel-full-data-generation-and-evaluation-
   namespace: no-reuse-pipeline
+  labels:
+    batch: batch1
 spec:
   entrypoint: parallel-full-data-generation-and-evaluation
   serviceAccountName: argo-workflow-sa
@@ -175,7 +177,7 @@ spec:
     container:
       image: sepidmas/noreuse_scale-synthetic-generator:latest
       command: ["python","main.py"]
-      args: ["--metadata_path","--metadata_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/metadata.json","--input_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--output_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--num_samples","100"]
+      args: ["--metadata_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/metadata.json","--input_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--output_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--num_samples","100"]
       env:
       - name: TMPDIR
         value: /tmp
@@ -202,7 +204,7 @@ spec:
     container:
       image: sepidmas/noreuse_scale-data-quality:latest
       command: ["python","main.py"]
-      args: ["--metadata_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-load-data/meta-data.json","--real_data_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--synthetic_data_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--output_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-quality/quality_report.json","--method","realistic","--output_dir","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-quality/quality_report_HTML.html"]      
+      args: ["--metadata_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/metadata.json","--real_data_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--synthetic_data_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--output_path","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-quality/quality_report.json","--method","realistic","--output_dir","/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-data-quality/quality_report_HTML.html"]      
       env:
       - name: TMPDIR
         value: /tmp
@@ -222,7 +224,7 @@ spec:
       volumeMounts:
       - name: shared-data
         mountPath: /mnt/data/argo-shard
-      - name: shared-data
+      - name: temp-volume
         mountPath: /tmp
         subPath: tmp
 
@@ -261,6 +263,8 @@ kind: Workflow
 metadata:
   generateName: synthesize-only-
   namespace: no-reuse-pipeline
+  labels:
+    batch: batch1
 spec:
   entrypoint: synthesize-only
   serviceAccountName: argo-workflow-sa
@@ -362,6 +366,8 @@ kind: Workflow
 metadata:
   generateName: evaluation-only-
   namespace: no-reuse-pipeline
+  labels:
+    batch: batch1
 spec:
   entrypoint: evaluation-only
   serviceAccountName: argo-workflow-sa
@@ -435,7 +441,7 @@ spec:
       volumeMounts:
       - name: shared-data
         mountPath: /mnt/data/argo-shard
-      - name: shared-data
+      - name: temp-volume
         mountPath: /tmp
         subPath: tmp
 
@@ -463,7 +469,7 @@ spec:
       volumeMounts:
       - name: shared-data
         mountPath: /mnt/data/argo-shard
-      - name: shared-data
+      - name: temp-volume
         mountPath: /tmp
         subPath: tmp  
 
@@ -474,6 +480,8 @@ kind: Workflow
 metadata:
   generateName: full-data-generation-and-evaluation-
   namespace: no-reuse-pipeline
+  labels:
+    batch: batch1
 spec:
   entrypoint: full-data-generation-and-evaluation
   serviceAccountName: argo-workflow-sa
@@ -672,7 +680,7 @@ spec:
     container:
       image: sepidmas/noreuse_scale-data-quality:latest
       command: ["python","main.py"]
-      args: ["--metadata_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-load-data/meta-data.json","--real_data_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--synthetic_data_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--output_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-quality/quality_report.json","--method","realistic","--output_dir","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-quality/quality_report_HTML.html"]      
+      args: ["--metadata_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-preprocess/metadata.json","--real_data_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-preprocess/clean_data.csv","--synthetic_data_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv","--output_path","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-quality/quality_report.json","--method","realistic","--output_dir","/mnt/data/argo-shard/full-data-generation-and-evaluation-data-quality/quality_report_HTML.html"]      
       env:
       - name: TMPDIR
         value: /tmp
@@ -692,7 +700,7 @@ spec:
       volumeMounts:
       - name: shared-data
         mountPath: /mnt/data/argo-shard
-      - name: shared-data
+      - name: temp-volume
         mountPath: /tmp
         subPath: tmp
 
@@ -731,6 +739,8 @@ kind: Workflow
 metadata:
   generateName: parallel-evaluation-only-
   namespace: no-reuse-pipeline
+  labels:
+    batch: batch1
 spec:
   entrypoint: parallel-evaluation-only
   serviceAccountName: argo-workflow-sa
@@ -804,7 +814,7 @@ spec:
       volumeMounts:
       - name: shared-data
         mountPath: /mnt/data/argo-shard
-      - name: shared-data
+      - name: temp-volume
         mountPath: /tmp
         subPath: tmp
 
@@ -832,6 +842,6 @@ spec:
       volumeMounts:
       - name: shared-data
         mountPath: /mnt/data/argo-shard
-      - name: shared-data
+      - name: temp-volume
         mountPath: /tmp
-        subPath: tmp  
+        subPath: tmp

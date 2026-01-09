@@ -9,8 +9,10 @@ sma:
       left: 10s
       right: 10s
     targets:
-      - name: sut
-        namespace: argo
+      - name: reuse
+        namespace: pipeline
+      - name: no-reuse
+        namespace: no-reuse-pipeline  
   measurements:
     - system_CPU:
         type: raw

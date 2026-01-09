@@ -6,6 +6,8 @@ kind: Workflow
 metadata:
   generateName: parallel-full-data-generation-and-evaluation-
   namespace: pipeline
+  labels:
+    batch: batch2
 spec:
   entrypoint: parallel-full-data-generation-and-evaluation
   serviceAccountName: argo-workflow-sa
@@ -188,6 +190,8 @@ kind: Workflow
 metadata:
   generateName: synthesize-only-
   namespace: pipeline
+  labels:
+    batch: batch2
 spec:
   entrypoint: synthesize-only
   serviceAccountName: argo-workflow-sa
@@ -246,6 +250,8 @@ kind: Workflow
 metadata:
   generateName: evaluation-only-
   namespace: pipeline
+  labels:
+    batch: batch2
 spec:
   entrypoint: evaluation-only
   serviceAccountName: argo-workflow-sa
@@ -326,6 +332,8 @@ kind: Workflow
 metadata:
   generateName: full-data-generation-and-evaluation-
   namespace: pipeline
+  labels:
+    batch: batch2
 spec:
   entrypoint: full-data-generation-and-evaluation
   serviceAccountName: argo-workflow-sa
@@ -506,8 +514,10 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: evaluation-only-
+  generateName: parallel-evaluation-only-
   namespace: pipeline
+  labels:
+    batch: batch2
 spec:
   entrypoint: parallel-evaluation-only
   serviceAccountName: argo-workflow-sa
@@ -579,3 +589,4 @@ spec:
       volumeMounts:
       - name: shared-data
         mountPath: /mnt/data
+---
