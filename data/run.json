@@ -1,13 +1,13 @@
 {
-    "startTime": "2025_12_22_09_26_03",
-    "endTime": "2025_12_22_09_30_05",
-    "treatment_start": "2025_12_22_09_26_13",
-    "treatment_end": "2025_12_22_09_29_55",
-    "runHash": "2798582f",
-    "duration": 242.272877,
-    "treatment_duration": 222.252245,
+    "startTime": "2026_01_15_08_55_02",
+    "endTime": "2026_01_15_09_29_59",
+    "treatment_start": "2026_01_15_08_55_12",
+    "treatment_end": "2026_01_15_09_29_49",
+    "runHash": "6209606a",
+    "duration": 2097.801599,
+    "treatment_duration": 2077.781,
     "user_data": {
-        "experiment": "test-experiment",
+        "experiment": "no-reuse-pipeline-experiment",
         "run": 1,
         "users": 100,
         "reuse_users": 50

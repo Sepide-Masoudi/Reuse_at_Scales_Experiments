@@ -7,7 +7,7 @@ metadata:
   generateName: parallel-full-data-generation-and-evaluation-
   namespace: pipeline
   labels:
-    batch: batch2
+    batch: reuse
 spec:
   entrypoint: parallel-full-data-generation-and-evaluation
   serviceAccountName: argo-workflow-sa
@@ -43,7 +43,7 @@ spec:
       - POST
       - http://generate-name.pipeline.svc.cluster.local:8082/run
       - -F
-      - n_rows=100
+      - n_rows=1000
       - -F
       - mf_ratio=0.5
       - -F
@@ -60,7 +60,7 @@ spec:
       - POST
       - http://generate-birthday.pipeline.svc.cluster.local:8086/run
       - -F
-      - n_rows=100
+      - n_rows=1000
       - -F
       - min_age=18
       - -F
@@ -79,7 +79,7 @@ spec:
       - POST
       - http://generate-address.pipeline.svc.cluster.local:8085/run
       - -F
-      - n_rows=100
+      - n_rows=1000
       - -F
       - output_file=/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-generate-address/addresses.csv
       volumeMounts:
@@ -138,7 +138,7 @@ spec:
       - -F
       - output_file=/mnt/data/argo-shard/parallel-full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv
       - -F
-      - n_rows=100
+      - n_rows=1000
       - -F
       - method=realistic
       volumeMounts:
@@ -238,7 +238,7 @@ spec:
       - -F
       - output_file=/mnt/data/argo-shard/fsynthesize-only-synthetic-generator/synthetic_data.csv
       - -F
-      - n_rows=100
+      - n_rows=1000
       - -F
       - method=realistic
       volumeMounts:
@@ -369,7 +369,7 @@ spec:
       - POST
       - http://generate-name.pipeline.svc.cluster.local:8082/run
       - -F
-      - n_rows=100
+      - n_rows=1000
       - -F
       - mf_ratio=0.5
       - -F
@@ -386,7 +386,7 @@ spec:
       - POST
       - http://generate-birthday.pipeline.svc.cluster.local:8086/run
       - -F
-      - n_rows=100
+      - n_rows=1000
       - -F
       - min_age=18
       - -F
@@ -405,7 +405,7 @@ spec:
       - POST
       - http://generate-address.pipeline.svc.cluster.local:8085/run
       - -F
-      - n_rows=100
+      - n_rows=1000
       - -F
       - output_file=/mnt/data/argo-shard/full-data-generation-and-evaluation-generate-address/addresses.csv
       volumeMounts:
@@ -464,7 +464,7 @@ spec:
       - -F
       - output_file=/mnt/data/argo-shard/full-data-generation-and-evaluation-synthetic-generator/synthetic_data.csv
       - -F
-      - n_rows=100
+      - n_rows=1000
       - -F
       - method=realistic
       volumeMounts:

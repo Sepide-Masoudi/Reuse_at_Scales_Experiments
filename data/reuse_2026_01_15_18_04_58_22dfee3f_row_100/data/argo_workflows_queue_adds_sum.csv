@@ -1,0 +1,6 @@
+timestamp,timestamp,argo_workflows_queue_adds_sum,layer,unit,treatment
+2026-01-15 17:04:58.187000036+00:00,1768496698.187,179,workflow,counts,NoTreatment
+2026-01-15 17:05:28.187000036+00:00,1768496728.187,207,workflow,counts,Treatment
+2026-01-15 17:05:58.187000036+00:00,1768496758.187,247,workflow,counts,Treatment
+2026-01-15 17:06:28.187000036+00:00,1768496788.187,269,workflow,counts,Treatment
+2026-01-15 17:06:58.187000036+00:00,1768496818.187,277,workflow,counts,NoTreatment

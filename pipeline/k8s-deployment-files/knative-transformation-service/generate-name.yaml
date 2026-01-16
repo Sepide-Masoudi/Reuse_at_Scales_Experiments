@@ -7,19 +7,35 @@ spec:
   template:
     metadata:
       annotations:
+        autoscaling.knative.dev/class: kpa.autoscaling.knative.dev
         autoscaling.knative.dev/minScale: "0"
         autoscaling.knative.dev/maxScale: "3"
         autoscaling.knative.dev/target: "1"
     spec:
       containers:
         - name: generate-name
-          image: sepidmas/reuse_scale-generate-names:latest
+          image: sepidmas/reuse_scale-generate-names:knative
           imagePullPolicy: Always
           ports:
-            - containerPort: 8082
+            - containerPort: 8082          
           volumeMounts:
             - name: argo-shard
               mountPath: /mnt/data/argo-shard
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8082
+            initialDelaySeconds: 2
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8082
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
       volumes:
         - name: argo-shard
           persistentVolumeClaim:

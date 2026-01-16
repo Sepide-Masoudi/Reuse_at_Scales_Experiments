@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: argo-workflows
+  namespace: monitoring  # where your Prometheus Operator is
+spec:
+  selector:
+    matchLabels:
+      app: workflow-controller
+  namespaceSelector:
+    matchNames:
+      - argo
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true

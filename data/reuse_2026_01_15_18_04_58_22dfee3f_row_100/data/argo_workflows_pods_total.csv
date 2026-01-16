@@ -1,0 +1,11 @@
+timestamp,__name__,instance,job,namespace,phase,timestamp,argo_workflows_pods_total,layer,unit,treatment
+2026-01-15 17:04:58.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1768496698.187,15,pod,pods,NoTreatment
+2026-01-15 17:05:28.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1768496728.187,18,pod,pods,Treatment
+2026-01-15 17:05:58.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1768496758.187,21,pod,pods,Treatment
+2026-01-15 17:06:28.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1768496788.187,21,pod,pods,Treatment
+2026-01-15 17:06:58.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1768496818.187,21,pod,pods,NoTreatment
+2026-01-15 17:04:58.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1768496698.187,48,pod,pods,NoTreatment
+2026-01-15 17:05:28.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1768496728.187,50,pod,pods,Treatment
+2026-01-15 17:05:58.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1768496758.187,62,pod,pods,Treatment
+2026-01-15 17:06:28.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1768496788.187,69,pod,pods,Treatment
+2026-01-15 17:06:58.187000036+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1768496818.187,72,pod,pods,NoTreatment

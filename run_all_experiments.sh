@@ -20,11 +20,11 @@ wait_for_all_workflows() {
     echo "✅ All workflows in '${namespace}' completed"
 }
 
-echo "Starting first batch..."
-pipeline/output/run_all_NO_reuse_workflows.sh
+#echo "Starting first batch..."
+#pipeline/output/run_all_NO_reuse_workflows.sh
 
-wait_for_all_workflows "no-reuse-pipeline"
-echo "First batch completed ✅"
+#wait_for_all_workflows "no-reuse-pipeline"
+#echo "First batch completed ✅"
 
 echo "Starting second batch..."
 pipeline/output/run_all_reuse_workflows.sh

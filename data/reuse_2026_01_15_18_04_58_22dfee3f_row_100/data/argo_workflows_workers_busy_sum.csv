@@ -1,0 +1,6 @@
+timestamp,timestamp,argo_workflows_workers_busy_sum,layer,unit,treatment
+2026-01-15 17:04:58.187000036+00:00,1768496698.187,0,workflow,workers,NoTreatment
+2026-01-15 17:05:28.187000036+00:00,1768496728.187,0,workflow,workers,Treatment
+2026-01-15 17:05:58.187000036+00:00,1768496758.187,0,workflow,workers,Treatment
+2026-01-15 17:06:28.187000036+00:00,1768496788.187,0,workflow,workers,Treatment
+2026-01-15 17:06:58.187000036+00:00,1768496818.187,0,workflow,workers,NoTreatment

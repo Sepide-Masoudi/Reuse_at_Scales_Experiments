@@ -1,3 +1,4 @@
+import subprocess
 from logging import getLogger
 import sys
 from sma import SustainabilityMeasurementAgent, Config, SMAObserver, SMASession
@@ -36,7 +37,6 @@ def wait_for_experiment_completion(experiment) -> Callable[[], dict]:
         result = subprocess.run(wrapper_script, shell=True, check=True)
         print("Wrapper script finished ✅")
 
-        # Return experiment info
         return experiment.to_dict()
 
     return trigger
@@ -59,7 +59,7 @@ def main() -> None:
     #TODO: generate Experiments form
     
     exp = Experiment(
-        name="test-experiment",
+        name="reuse-pipeline-experiment",
         run=1,
         users=100,
         reuse_users=50

@@ -1,0 +1,326 @@
+sma:
+  version: 0.0.1
+  services:
+    prometheus:
+      address: http://130.149.158.132:32426
+  observation:
+    mode: trigger
+    window:
+      left: 10s
+      right: 10s
+    targets:
+      - name: reuse
+        namespace: pipeline
+      - name: no-reuse
+        namespace: no-reuse-pipeline  
+  measurements:
+######### system + kepler metrics #########
+
+    - system_cpu_usage:
+        type: raw
+        layer: pod
+        query: container_cpu_usage_seconds_total{namespace="${namespace}", container!="", image!=""}
+        unit: cpu_time_seconds
+        step: 30
+        target:
+          - no-reuse
+
+    - kepler_container_power_watts:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(
+              kepler_container_joules_total{container_namespace="${namespace}"}[1m]
+            )
+          )
+        unit: watts
+        step: 30
+        target:
+          - no-reuse
+
+    - kepler_container_energy_joules:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            increase(
+              kepler_container_joules_total{container_namespace="${namespace}"}[5m]
+            )
+          )
+        unit: joules
+        step: 30
+        target:
+          - no-reuse
+
+    - kepler_container_cpu_cycles:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(
+              kepler_container_cpu_cycles_total{container_namespace="${namespace}"}[5m]
+            )
+          )
+        unit: cpu_cycles_per_second
+        step: 30
+        target:
+          - no-reuse
+
+    - kepler_container_cpu_instructions:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(
+              kepler_container_cpu_instructions_total{container_namespace="${namespace}"}[5m]
+            )
+          )
+        unit: cpu_instructions_per_second
+        step: 30
+        target:
+          - no-reuse
+
+
+    - kepler_process_energy_joules:
+        type: raw
+        layer: pod
+        query: kepler_process_joules_total{container_namespace="${namespace}"}
+        unit: joules
+        step: 30
+        target:
+          - no-reuse
+
+    - kepler_node_cpu_power_raw:
+        type: raw
+        layer: node
+        query: rate(kepler_node_cpu_joules_total[1m])
+        unit: watts
+        step: 30
+        target:
+          - no-reuse
+
+    - kepler_node_cpu_power_sum:
+        type: aggregate
+        layer: node
+        query: sum(rate(kepler_node_cpu_joules_total[1m]))
+        unit: watts
+        step: 30
+        target:
+          - no-reuse
+
+    - wall_power:
+        type: raw
+        layer: cluster
+        query: shelly_apower_watts
+        unit: watts
+        step: 30
+        target:
+          - no-reuse
+
+
+    - apiserver_request_rate:
+        type: aggregate
+        layer: cluster
+        query: rate(apiserver_request_total[1m])
+        unit: requests_per_second
+        step: 30
+        target:
+          - no-reuse
+
+    - apiserver_latency_95th:
+        type: aggregate
+        layer: cluster
+        query: |
+          histogram_quantile(
+            0.95,
+            sum(rate(apiserver_request_duration_seconds_bucket[1m])) by (le)
+          )
+        unit: seconds
+        step: 30
+        target:
+          - no-reuse
+
+    - pod_memory_usage:
+        type: aggregate
+        layer: pod
+        query: sum by (pod) (container_memory_usage_bytes{namespace="${namespace}", container!="", image!=""})
+        unit: bytes
+        step: 30
+        target:
+          - no-reuse
+
+    - pod_network_receive_bytes:
+        type: aggregate
+        layer: pod
+        query: sum by (pod) (rate(container_network_receive_bytes_total{namespace="${namespace}"}[1m]))
+        unit: bytes_per_second
+        step: 30
+        target:
+          - no-reuse
+
+    - pod_network_transmit_bytes:
+        type: aggregate
+        layer: pod
+        query: sum by (pod) (rate(container_network_transmit_bytes_total{namespace="${namespace}"}[1m]))
+        unit: bytes_per_second
+        step: 30
+        target:
+          - no-reuse
+
+
+######### argo metrics ###########
+
+    - argo_workflows_total_count:
+        type: aggregate
+        layer: workflow
+        query: argo_workflows_total_count{namespace="${namespace}"}
+        unit: workflows
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_queue_depth:
+        type: raw
+        layer: workflow
+        query: argo_workflows_queue_depth_gauge{namespace="${namespace}"}
+        unit: workflows
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_error_count:
+        type: aggregate
+        layer: workflow
+        query: argo_workflows_error_count{namespace="${namespace}"}
+        unit: errors
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_operation_duration_seconds:
+        type: aggregate
+        layer: workflow
+        query: argo_workflows_operation_duration_seconds{namespace="${namespace}"}
+        unit: seconds
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_completed_total:
+        type: aggregate
+        layer: workflow
+        query: sum by (phase) (argo_workflows_total_count{namespace="${namespace}"})
+        unit: workflows
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_pods_total:
+        type: aggregate
+        layer: pod
+        query: argo_workflows_pods_total_count{namespace="${namespace}"}
+        unit: pods
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_cronworkflows_triggered_total:
+        type: aggregate
+        layer: workflow
+        query: argo_workflows_cronworkflows_triggered_total{namespace="${namespace}"}
+        unit: workflows
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_cronworkflows_concurrency_policy_triggered:
+        type: aggregate
+        layer: workflow
+        query: argo_workflows_cronworkflows_concurrencypolicy_triggered{namespace="${namespace}"}
+        unit: workflows
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_queue_latency_raw:
+        type: raw
+        layer: workflow
+        query: argo_workflows_queue_latency
+        unit: seconds
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_queue_latency_sum:
+        type: aggregate
+        layer: workflow
+        query: sum(argo_workflows_queue_latency)
+        unit: seconds
+        step: 30
+        target:
+          - no-reuse
+
+
+    - argo_workflows_workers_busy_raw:
+        type: raw
+        layer: workflow
+        query: argo_workflows_workers_busy_count
+        unit: workers
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_workers_busy_sum:
+        type: aggregate
+        layer: workflow
+        query: sum(argo_workflows_workers_busy_count)
+        unit: workers
+        step: 30
+        target:
+          - no-reuse
+
+
+    - argo_workflows_queue_adds_raw:
+        type: raw
+        layer: workflow
+        query: argo_workflows_queue_adds_count
+        unit: counts
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_queue_adds_sum:
+        type: aggregate
+        layer: workflow
+        query: sum(argo_workflows_queue_adds_count)
+        unit: counts
+        step: 30
+        target:
+          - no-reuse
+
+
+    - argo_workflows_k8s_requests_raw:
+        type: raw
+        layer: workflow
+        query: argo_workflows_k8s_request_total
+        unit: requests
+        step: 30
+        target:
+          - no-reuse
+
+    - argo_workflows_k8s_requests_sum:
+        type: aggregate
+        layer: workflow
+        query: sum(argo_workflows_k8s_request_total)
+        unit: requests
+        step: 30
+        target:
+          - no-reuse
+
+
+         
+  report:
+    format: csv
+    location: data/no_reuse_${startTime}_${runHash}
+    filename: "${name}_${run}.csv"

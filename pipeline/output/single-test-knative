@@ -1,0 +1,208 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: parallel-data-eval-
+  namespace: pipeline
+  labels:
+    batch: batch2
+spec:
+  entrypoint: parallel-data-eval
+#  serviceAccountName: default #argo-workflow-sa
+  volumes:
+  - name: shared-data
+    persistentVolumeClaim:
+      claimName: argo-shard-pvc
+
+  templates:
+  - name: parallel-data-eval
+    steps:
+    - - name: gen-name
+        template: call-gen-name
+      - name: gen-birthday
+        template: call-gen-birthday
+      - name: gen-address
+        template: call-gen-address
+    - - name: gen-id
+        template: call-gen-id
+    - - name: preprocess
+        template: call-data-preprocess
+    - - name: synth-gen
+        template: call-synthetic-generator
+    - - name: privacy
+        template: call-privacy-tracking
+      - name: data-quality
+        template: call-data-quality
+
+  - name: call-gen-name
+    container:
+      image: curlimages/curl:7.85.0
+      command: [curl]
+      args:
+      - -X
+      - POST
+      - http://knative-local-gateway.istio-system.svc.cluster.local:80/run
+      - "-H"
+      - "Host: generate-name.pipeline.svc.cluster.local"
+      - -F
+      - n_rows=100
+      - -F
+      - mf_ratio=0.5
+      - -F
+      - output_path=/mnt/data/names.csv
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+  - name: call-gen-birthday
+    container:
+      image: curlimages/curl:7.85.0
+      command: [curl]
+      args:
+      - -X
+      - POST
+      - http://knative-local-gateway.istio-system.svc.cluster.local:80/run
+      - "-H"
+      - "Host: generate-birthday.pipeline.svc.cluster.local"
+      - -F
+      - n_rows=100
+      - -F
+      - min_age=18
+      - -F
+      - max_age=80
+      - -F
+      - output_file=/mnt/data/birthdays.csv
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+  - name: call-gen-address
+    container:
+      image: curlimages/curl:7.85.0
+      command: [curl]
+      args:
+      - -X
+      - POST
+      - http://knative-local-gateway.istio-system.svc.cluster.local:80/run
+      - "-H"
+      - "Host: generate-address.pipeline.svc.cluster.local"
+      - -F
+      - n_rows=100
+      - -F
+      - output_file=/mnt/data/addresses.csv
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+  - name: call-gen-id
+    container:
+      image: curlimages/curl:7.85.0
+      command: [curl]
+      args:
+      - -X
+      - POST
+      - http://knative-local-gateway.istio-system.svc.cluster.local:80/run
+      - "-H"
+      - "Host: generate-id.pipeline.svc.cluster.local"
+      - -F
+      - name_csv=/mnt/data/names.csv
+      - -F
+      - birthday_csv=/mnt/data/birthdays.csv
+      - -F
+      - output_file=/mnt/data/id_data.csv
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+  - name: call-data-preprocess
+    container:
+      image: curlimages/curl:7.85.0
+      command: [curl]
+      args:
+      - -X
+      - POST
+      - http://knative-local-gateway.istio-system.svc.cluster.local:80/run
+      - "-H"
+      - "Host: data-preprocess.pipeline.svc.cluster.local"
+      - -F
+      - metadata_file=/mnt/data/metadata.json
+      - -F
+      - input_file=/mnt/data/id_data.csv
+      - -F
+      - output_file=/mnt/data/clean_data.csv
+      - -F
+      - handle_missing=mean
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+  - name: call-synthetic-generator
+    container:
+      image: curlimages/curl:7.85.0
+      command: [curl]
+      args:
+      - -X
+      - POST
+      - http://knative-local-gateway.istio-system.svc.cluster.local:80/run
+      - "-H"
+      - "Host: synthetic-generator.pipeline.svc.cluster.local"
+      - -F
+      - metadata_json=/mnt/data/metadata.json
+      - -F
+      - input_csv=/mnt/data/clean_data.csv
+      - -F
+      - input_dir=/mnt/data
+      - -F
+      - output_file=/mnt/data/synthetic_data.csv
+      - -F
+      - n_rows=100
+      - -F
+      - method=realistic
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+  - name: call-data-quality
+    container:
+      image: curlimages/curl:7.85.0
+      command: [curl]
+      args:
+      - -X
+      - POST
+      - http://knative-local-gateway.istio-system.svc.cluster.local:80/run
+      - "-H"
+      - "Host: data-quality.pipeline.svc.cluster.local"
+      - -F
+      - input_metadata_file=/mnt/data/metadata.json
+      - -F
+      - input_file_real=/mnt/data/clean_data.csv
+      - -F
+      - input_file_synth=/mnt/data/synthetic_data.csv
+      - -F
+      - output_dir=/mnt/data/data-quality
+      - -F
+      - metrics=realistic
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+  - name: call-privacy-tracking
+    container:
+      image: curlimages/curl:7.85.0
+      command: [curl]
+      args:
+      - -X
+      - POST
+      - http://knative-local-gateway.istio-system.svc.cluster.local:80/run
+      - "-H"
+      - "Host: privacy-tracking.pipeline.svc.cluster.local"
+      - -F
+      - input_dir=/mnt/data
+      - -F
+      - real_csv=/mnt/data/clean_data.csv
+      - -F
+      - synth_csv=/mnt/data/synthetic_data.csv
+      - -F
+      - output_file=/mnt/data/privacy_report.json
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data

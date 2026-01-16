@@ -9,8 +9,10 @@ sma:
       left: 10s
       right: 10s
     targets:
-      - name: sut
-        namespace: argo
+      - name: reuse
+        namespace: pipeline
+      - name: no-reuse
+        namespace: no-reuse-pipeline  
   measurements:
     - system_CPU:
         type: raw
@@ -18,14 +20,14 @@ sma:
         step: 30
         unit: cpu_time_seconds
         target: 
-          - sut
+          - no-reuse
     - wall_power:
         type: raw
         query: shelly_apower_watts
         unit: watts
         step: 30
         target:
-          - all
+          - no-reuse
     - pod_power_consumption_kepler_watts:
         type: aggregate
         layer: pod
@@ -33,7 +35,7 @@ sma:
         unit: watts
         step: 30
         target:
-          - sut
+          - no-reuse
     - node_power_consumption_scaphandre:
         type: raw
         layer: node
@@ -41,7 +43,7 @@ sma:
         query: scaph_host_power_microwatts / 1e6
         step: 30
         target:
-          - all
+          - no-reuse
     - node_power_consumption_kepler:
         type: aggregate
         layer: node
@@ -49,7 +51,7 @@ sma:
         unit: watts
         step: 30
         target:
-          - sut
+          - no-reuse
     - process_power_consumption:
         type: raw
         layer: pod
@@ -57,7 +59,108 @@ sma:
         unit: joules
         step: 30
         target:
-          - sut
+          - no-reuse
+
+    - Container_joules_total:
+        type: raw
+        layer: pod
+        query: sum(increase(kepler_container_joules_total{container_namespace="${namespace}"}[5m])) by (container_namespace)
+        unit: joules
+        step: 30
+        target:
+          - no-reuse
+
+    - Container_joules_total:
+        type: raw
+        layer: pod
+        query: sum(increase(kepler_container_joules_total{container_namespace="${namespace}"}[5m])) by (container_namespace)
+        unit: joules
+        step: 30
+        target:
+          - no-reuse
+
+    - Container_cpu_cycles_Avg:
+        type: raw
+        layer: pod
+        query: sum(rate(kepler_container_cpu_cycles_total{container_namespace="${namespace}"}[5m])) by (container_namespace)
+        unit: joules
+        step: 30
+        target:
+          - no-reuse
+    - Container_cpu_instructions_avg:
+        type: raw
+        layer: pod
+        query: sum(rate(kepler_container_cpu_instructions_total{container_namespace="${namespace}"}[5m])) by (container_namespace)
+        unit: cpu_instructions_total
+        step: 30
+        target:
+          - no-reuse
+
+    - throughput_requests_per_sec:
+        type: aggregate
+        layer: pod
+        query: sum by (pod) (rate(http_requests_total{namespace="${namespace}"}[1m]))
+        unit: requests_per_second
+        step: 30
+        target:
+          - no-reuse
+    - latency_request_95th_percentile:
+        type: aggregate
+        layer: pod
+        query: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{namespace="${namespace}"}[1m])) by (le, pod))
+        unit: seconds
+        step: 30
+        target:
+          - no-reuse
+    - node_cpu_usage:
+        type: aggregate
+        layer: node
+        query: sum(rate(container_cpu_usage_seconds_total{namespace="${namespace}"}[1m])) by (node)
+        unit: cpu_time_seconds
+        step: 30
+        target:
+          - no-reuse
+    - pod_memory_usage:
+        type: aggregate
+        layer: pod
+        query: sum(container_memory_usage_bytes{namespace="${namespace}"}) by (pod)
+        unit: bytes
+        step: 30
+        target:
+          - no-reuse
+    - pod_network_receive_bytes:
+        type: aggregate
+        layer: pod
+        query: sum(rate(container_network_receive_bytes_total{namespace="${namespace}"}[1m])) by (pod)
+        unit: bytes_per_second
+        step: 30
+        target:
+          - no-reuse
+    - pod_network_transmit_bytes:
+        type: aggregate
+        layer: pod
+        query: sum(rate(container_network_transmit_bytes_total{namespace="${namespace}"}[1m])) by (pod)
+        unit: bytes_per_second
+        step: 30
+        target:
+          - no-reuse
+    - apiserver_request_rate:
+        type: aggregate
+        layer: cluster
+        query: rate(apiserver_request_total[1m])
+        unit: requests_per_second
+        step: 30
+        target:
+          - no-reuse
+    - apiserver_latency_95th:
+        type: aggregate
+        layer: cluster
+        query: histogram_quantile(0.95, sum(rate(apiserver_request_duration_seconds_bucket[1m])) by (le, verb))
+        unit: seconds
+        step: 30
+        target:
+          - no-reuse
+         
   report:
     format: csv
     location: data/

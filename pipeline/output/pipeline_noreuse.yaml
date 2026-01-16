@@ -5,7 +5,7 @@ metadata:
   generateName: parallel-full-data-generation-and-evaluation-
   namespace: no-reuse-pipeline
   labels:
-    batch: batch1
+    batch: no-reuse
 spec:
   entrypoint: parallel-full-data-generation-and-evaluation
   serviceAccountName: argo-workflow-sa

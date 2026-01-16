@@ -1,0 +1,15 @@
+{
+    "startTime": "2026_01_15_18_04_58",
+    "endTime": "2026_01_15_18_06_59",
+    "treatment_start": "2026_01_15_18_05_08",
+    "treatment_end": "2026_01_15_18_06_49",
+    "runHash": "22dfee3f",
+    "duration": 121.009797,
+    "treatment_duration": 100.989433,
+    "user_data": {
+        "experiment": "reuse-pipeline-experiment",
+        "run": 1,
+        "users": 100,
+        "reuse_users": 50
+    }
+}
