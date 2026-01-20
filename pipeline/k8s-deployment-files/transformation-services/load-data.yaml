@@ -13,6 +13,8 @@ spec:
       labels:
         app: load-data
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
         - name: load-data
           image: sepidmas/reuse_scale-load-data:latest

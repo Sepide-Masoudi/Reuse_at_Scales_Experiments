@@ -11,6 +11,8 @@ metadata:
 spec:
   entrypoint: parallel-full-data-generation-and-evaluation
   serviceAccountName: argo-workflow-sa
+  nodeSelector:
+    baremetal: "true"
   volumes:
   - name: shared-data
     persistentVolumeClaim:
@@ -195,6 +197,8 @@ metadata:
 spec:
   entrypoint: synthesize-only
   serviceAccountName: argo-workflow-sa
+  nodeSelector:
+    baremetal: "true"
   volumes:
   - name: shared-data
     persistentVolumeClaim:
@@ -255,6 +259,8 @@ metadata:
 spec:
   entrypoint: evaluation-only
   serviceAccountName: argo-workflow-sa
+  nodeSelector:
+    baremetal: "true"
   volumes:
   - name: shared-data
     persistentVolumeClaim:
@@ -337,6 +343,8 @@ metadata:
 spec:
   entrypoint: full-data-generation-and-evaluation
   serviceAccountName: argo-workflow-sa
+  nodeSelector:
+    baremetal: "true"
   volumes:
   - name: shared-data
     persistentVolumeClaim:
@@ -521,6 +529,8 @@ metadata:
 spec:
   entrypoint: parallel-evaluation-only
   serviceAccountName: argo-workflow-sa
+  nodeSelector:
+    baremetal: "true"
   volumes:
   - name: shared-data
     persistentVolumeClaim:

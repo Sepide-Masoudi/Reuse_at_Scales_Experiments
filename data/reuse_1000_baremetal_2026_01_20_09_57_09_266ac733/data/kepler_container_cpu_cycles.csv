@@ -1,0 +1,5 @@
+timestamp,timestamp,kepler_container_cpu_cycles,layer,unit,treatment
+2026-01-20 08:57:09.885999918+00:00,1768899429.886,1027846.7220338982,pod,cpu_cycles_per_second,NoTreatment
+2026-01-20 08:57:39.885999918+00:00,1768899459.886,77054290.33837926,pod,cpu_cycles_per_second,Treatment
+2026-01-20 08:58:09.885999918+00:00,1768899489.886,110674052.6739057,pod,cpu_cycles_per_second,Treatment
+2026-01-20 08:58:39.885999918+00:00,1768899519.886,110384840.6018487,pod,cpu_cycles_per_second,Treatment

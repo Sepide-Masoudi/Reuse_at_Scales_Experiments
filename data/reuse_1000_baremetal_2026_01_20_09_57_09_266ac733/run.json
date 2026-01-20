@@ -1,0 +1,15 @@
+{
+    "startTime": "2026_01_20_09_57_09",
+    "endTime": "2026_01_20_09_58_50",
+    "treatment_start": "2026_01_20_09_57_19",
+    "treatment_end": "2026_01_20_09_58_40",
+    "runHash": "266ac733",
+    "duration": 100.490817,
+    "treatment_duration": 80.470825,
+    "user_data": {
+        "experiment": "reuse-baremetal-pipeline-experiment",
+        "run": 1,
+        "users": 100,
+        "reuse_users": 50
+    }
+}

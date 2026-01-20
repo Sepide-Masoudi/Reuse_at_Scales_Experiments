@@ -1,0 +1,4 @@
+timestamp,timestamp,kepler_container_cpu_instructions,layer,unit,treatment
+2026-01-16 09:49:38.868000031+00:00,1768556978.868,0,pod,cpu_instructions_per_second,Treatment
+2026-01-16 09:50:08.868000031+00:00,1768557008.868,0,pod,cpu_instructions_per_second,Treatment
+2026-01-16 09:50:38.868000031+00:00,1768557038.868,0,pod,cpu_instructions_per_second,Treatment

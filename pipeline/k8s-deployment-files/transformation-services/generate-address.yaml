@@ -13,6 +13,8 @@ spec:
       labels:
         app: generate-address
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
         - name: generate-address
           image: sepidmas/reuse_scale-generate-address:latest

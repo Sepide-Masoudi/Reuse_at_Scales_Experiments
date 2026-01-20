@@ -13,6 +13,8 @@ spec:
       labels:
         app: generate-name
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
         - name: generate-name
           image: sepidmas/reuse_scale-generate-names:latest

@@ -59,7 +59,7 @@ def main() -> None:
     #TODO: generate Experiments form
     
     exp = Experiment(
-        name="reuse-pipeline-experiment",
+        name="no-reuse-baremetal-pipeline-experiment",
         run=1,
         users=100,
         reuse_users=50

@@ -1,0 +1,11 @@
+timestamp,phase,timestamp,argo_workflows_completed_total,layer,unit,treatment
+2026-01-20 08:57:09.885999918+00:00,Failed,1768899429.886,10,workflow,workflows,NoTreatment
+2026-01-20 08:57:39.885999918+00:00,Failed,1768899459.886,10,workflow,workflows,Treatment
+2026-01-20 08:58:09.885999918+00:00,Failed,1768899489.886,10,workflow,workflows,Treatment
+2026-01-20 08:58:39.885999918+00:00,Failed,1768899519.886,10,workflow,workflows,Treatment
+2026-01-20 08:57:09.885999918+00:00,Running,1768899429.886,10,workflow,workflows,NoTreatment
+2026-01-20 08:57:39.885999918+00:00,Running,1768899459.886,15,workflow,workflows,Treatment
+2026-01-20 08:58:09.885999918+00:00,Running,1768899489.886,15,workflow,workflows,Treatment
+2026-01-20 08:58:39.885999918+00:00,Running,1768899519.886,15,workflow,workflows,Treatment
+2026-01-20 08:58:09.885999918+00:00,Succeeded,1768899489.886,3,workflow,workflows,Treatment
+2026-01-20 08:58:39.885999918+00:00,Succeeded,1768899519.886,4,workflow,workflows,Treatment

@@ -13,6 +13,8 @@ spec:
       labels:
         app: data-preprocess
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
         - name: data-preprocess
           image: sepidmas/reuse_scale-data-preprocessor:latest

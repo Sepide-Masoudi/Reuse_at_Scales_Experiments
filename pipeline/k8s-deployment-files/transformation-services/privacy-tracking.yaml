@@ -13,6 +13,8 @@ spec:
       labels:
         app: privacy-tracking
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
         - name: privacy-tracking
           image: sepidmas/reuse_scale-privacy-tracking:latest

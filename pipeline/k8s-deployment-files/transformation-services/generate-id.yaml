@@ -13,6 +13,8 @@ spec:
       labels:
         app: generate-id
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
         - name: generate-id-code
           image: sepidmas/reuse_scale-generate-id-code:latest

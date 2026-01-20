@@ -13,6 +13,8 @@ spec:
       labels:
         app: data-quality
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
         - name: data-quality
           image: sepidmas/reuse_scale-data-quality:latest

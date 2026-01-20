@@ -13,6 +13,8 @@ spec:
       labels:
         app: generate-birthday
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
         - name: generate-birthday
           image: sepidmas/reuse_scale-generate-birthday:latest

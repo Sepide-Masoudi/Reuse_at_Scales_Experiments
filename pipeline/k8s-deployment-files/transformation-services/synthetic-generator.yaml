@@ -13,6 +13,8 @@ spec:
       labels:
         app: synthetic-generator
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
         - name: synthetic-generator
           image: sepidmas/reuse_scale-synthetic-generator:latest
