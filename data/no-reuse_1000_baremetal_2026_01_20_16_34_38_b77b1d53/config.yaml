@@ -25,49 +25,63 @@ sma:
         target:
           - no-reuse
 
-    - kepler_pod_cpu_power_watts:
+    - kepler_container_power_watts:
         type: aggregate
         layer: pod
         query: |
-         sum by (pod_name) (rate(kepler_pod_cpu_joules_total{pod_namespace="${namespace}"}[1m]))
+         sum by (container_name) (rate(kepler_container_joules_total{container_namespace="${namespace}"}[1m]))
         unit: watts
         step: 30
         target:
           - no-reuse
 
-    - kepler_pod_cpu_energy_joules:
+    - kepler_container_energy_joules:
         type: aggregate
         layer: pod
         query: |
-         sum by (pod_name) (increase(kepler_pod_cpu_joules_total{pod_namespace="${namespace}"}[1m]))
+         sum by (container_name) (increase(kepler_container_joules_total{container_namespace="${namespace}"}[1m]))
         unit: joules
         step: 30
         target:
           - no-reuse
 
-    - cpu_usage_seconds_rate:
+    - kepler_container_cpu_cycles:
         type: aggregate
         layer: pod
         query: |
-          sum by (pod) (increase(container_cpu_usage_seconds_total{namespace="${namespace}"}[1m]))
-        unit: cpu_seconds_delta_per_second
+          sum by (container_name) (
+            rate(
+              kepler_container_cpu_cycles_total{container_namespace="${namespace}"}[1m]
+            )
+          )
+        unit: cpu_cycles_per_second
         step: 30
         target:
           - no-reuse
 
-    # - kepler_container_cpu_instructions:
-    #     type: aggregate
-    #     layer: pod
-    #     query: |
-    #       sum by (container_name) (
-    #         rate(
-    #           kepler_container_cpu_instructions_total{container_namespace="${namespace}"}[1m]
-    #         )
-    #       )
-    #     unit: cpu_instructions_per_second
-    #     step: 30
-    #     target:
-    #       - no-reuse
+    - kepler_container_cpu_instructions:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (container_name) (
+            rate(
+              kepler_container_cpu_instructions_total{container_namespace="${namespace}"}[1m]
+            )
+          )
+        unit: cpu_instructions_per_second
+        step: 30
+        target:
+          - no-reuse
+
+
+    - kepler_process_energy_joules:
+        type: raw
+        layer: pod
+        query: kepler_process_joules_total{container_namespace="${namespace}"}
+        unit: joules
+        step: 30
+        target:
+          - no-reuse
 
     - kepler_node_cpu_power_raw:
         type: raw

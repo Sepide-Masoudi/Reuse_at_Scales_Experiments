@@ -77,9 +77,6 @@ def main() -> None:
     sma.teardown()
 
     log.info("Sustainability Measurement Agent finished.")
-    report_location = config.report.get("location")
-    if report_location:
-        log.info(f"Report written to {report_location}")
 
 
 if __name__ == "__main__":

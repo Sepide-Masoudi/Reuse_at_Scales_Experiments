@@ -29,7 +29,7 @@ sma:
         type: aggregate
         layer: pod
         query: |
-         sum by (pod_name) (rate(kepler_pod_cpu_joules_total{pod_namespace="${namespace}"}[1m]))
+         sum by (pod_name) (rate(kepler_pod_cpu_joules_total{namespace="${namespace}"}[1m]))
         unit: watts
         step: 30
         target:
@@ -39,7 +39,7 @@ sma:
         type: aggregate
         layer: pod
         query: |
-         sum by (pod_name) (increase(kepler_pod_cpu_joules_total{pod_namespace="${namespace}"}[1m]))
+         sum by (pod_name) (increase(kepler_pod_cpu_joules_total{namespace="${namespace}"}[1m]))
         unit: joules
         step: 30
         target:

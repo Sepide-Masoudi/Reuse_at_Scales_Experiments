@@ -1,0 +1,13 @@
+timestamp,__name__,instance,job,namespace,phase,timestamp,argo_workflows_total_count,layer,unit,treatment
+2026-01-20 22:04:56.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Failed,1768946696.486,10,workflow,workflows,NoTreatment
+2026-01-20 22:05:26.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Failed,1768946726.486,10,workflow,workflows,Treatment
+2026-01-20 22:05:56.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Failed,1768946756.486,10,workflow,workflows,Treatment
+2026-01-20 22:06:26.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Failed,1768946786.486,10,workflow,workflows,Treatment
+2026-01-20 22:04:56.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1768946696.486,30,workflow,workflows,NoTreatment
+2026-01-20 22:05:26.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1768946726.486,35,workflow,workflows,Treatment
+2026-01-20 22:05:56.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1768946756.486,35,workflow,workflows,Treatment
+2026-01-20 22:06:26.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1768946786.486,35,workflow,workflows,Treatment
+2026-01-20 22:04:56.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1768946696.486,20,workflow,workflows,NoTreatment
+2026-01-20 22:05:26.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1768946726.486,20,workflow,workflows,Treatment
+2026-01-20 22:05:56.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1768946756.486,23,workflow,workflows,Treatment
+2026-01-20 22:06:26.486000061+00:00,argo_workflows_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1768946786.486,24,workflow,workflows,Treatment

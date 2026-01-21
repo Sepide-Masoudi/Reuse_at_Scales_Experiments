@@ -1,0 +1,19 @@
+timestamp,__name__,instance,job,namespace,phase,timestamp,argo_workflows_pods_total,layer,unit,treatment
+2026-01-20 14:46:57.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Failed,1768920417.144,2,pod,pods,NoTreatment
+2026-01-20 14:47:27.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Failed,1768920447.144,2,pod,pods,Treatment
+2026-01-20 14:47:57.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Failed,1768920477.144,2,pod,pods,Treatment
+2026-01-20 14:48:27.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Failed,1768920507.144,2,pod,pods,Treatment
+2026-01-20 14:48:57.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Failed,1768920537.144,2,pod,pods,Treatment
+2026-01-20 14:49:27.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Failed,1768920567.144,2,pod,pods,Treatment
+2026-01-20 14:46:57.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Running,1768920417.144,77,pod,pods,NoTreatment
+2026-01-20 14:47:27.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Running,1768920447.144,80,pod,pods,Treatment
+2026-01-20 14:47:57.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Running,1768920477.144,85,pod,pods,Treatment
+2026-01-20 14:48:27.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Running,1768920507.144,89,pod,pods,Treatment
+2026-01-20 14:48:57.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Running,1768920537.144,92,pod,pods,Treatment
+2026-01-20 14:49:27.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Running,1768920567.144,93,pod,pods,Treatment
+2026-01-20 14:46:57.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Succeeded,1768920417.144,107,pod,pods,NoTreatment
+2026-01-20 14:47:27.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Succeeded,1768920447.144,110,pod,pods,Treatment
+2026-01-20 14:47:57.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Succeeded,1768920477.144,120,pod,pods,Treatment
+2026-01-20 14:48:27.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Succeeded,1768920507.144,125,pod,pods,Treatment
+2026-01-20 14:48:57.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Succeeded,1768920537.144,127,pod,pods,Treatment
+2026-01-20 14:49:27.144000053+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,no-reuse-pipeline,Succeeded,1768920567.144,130,pod,pods,Treatment

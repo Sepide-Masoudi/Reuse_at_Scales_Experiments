@@ -1,0 +1,13 @@
+timestamp,pod,timestamp,pod_network_receive_bytes,layer,unit,treatment
+2026-01-20 21:50:47.503000020+00:00,evaluation-only-mhq6b-data-quality-evaluation-only-1404968338,1768945847.503,162.03333333333333,pod,bytes_per_second,Treatment
+2026-01-20 21:52:17.503000020+00:00,full-data-generation-and-evaluation-znwhv-data-quality-full-data-generation-and-evaluation-3734024162,1768945937.503,114.86666666666667,pod,bytes_per_second,NoTreatment
+2026-01-20 21:51:47.503000020+00:00,full-data-generation-and-evaluation-znwhv-privacy-tracking-full-data-generation-and-evaluation-3882617291,1768945907.503,119.56666666666666,pod,bytes_per_second,Treatment
+2026-01-20 21:52:17.503000020+00:00,full-data-generation-and-evaluation-znwhv-privacy-tracking-full-data-generation-and-evaluation-3882617291,1768945937.503,119.56666666666666,pod,bytes_per_second,NoTreatment
+2026-01-20 21:50:47.503000020+00:00,parallel-evaluation-only-rn5sn-data-quality-parallel-evaluation-only-2045882772,1768945847.503,173.24166666666667,pod,bytes_per_second,Treatment
+2026-01-20 21:51:17.503000020+00:00,parallel-evaluation-only-rn5sn-data-quality-parallel-evaluation-only-2045882772,1768945877.503,166.41423958079454,pod,bytes_per_second,Treatment
+2026-01-20 21:50:47.503000020+00:00,parallel-evaluation-only-rn5sn-privacy-tracking-parallel-evaluation-only-4076651562,1768945847.503,180.39166666666668,pod,bytes_per_second,Treatment
+2026-01-20 21:51:17.503000020+00:00,parallel-evaluation-only-rn5sn-privacy-tracking-parallel-evaluation-only-4076651562,1768945877.503,177.38265511684122,pod,bytes_per_second,Treatment
+2026-01-20 21:51:47.503000020+00:00,parallel-full-data-generation-and-evaluation-6ssdc-data-quality-parallel-full-data-generation-and-evaluation-4055493705,1768945907.503,127.8916666666667,pod,bytes_per_second,Treatment
+2026-01-20 21:51:47.503000020+00:00,parallel-full-data-generation-and-evaluation-6ssdc-privacy-tracking-parallel-full-data-generation-and-evaluation-599471475,1768945907.503,133.68333333333334,pod,bytes_per_second,Treatment
+2026-01-20 21:50:47.503000020+00:00,synthesize-only-shvxz-synthetic-generator-synthesize-only-785259808,1768945847.503,181.84166666666667,pod,bytes_per_second,Treatment
+2026-01-20 21:51:17.503000020+00:00,synthesize-only-shvxz-synthetic-generator-synthesize-only-785259808,1768945877.503,181.25428221090363,pod,bytes_per_second,Treatment

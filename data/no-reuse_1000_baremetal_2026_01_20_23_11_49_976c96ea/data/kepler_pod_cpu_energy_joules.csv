@@ -1,0 +1,25 @@
+timestamp,pod_name,timestamp,kepler_pod_cpu_energy_joules,layer,unit,treatment
+2026-01-20 22:12:49.983000040+00:00,evaluation-only-rl945-data-quality-evaluation-only-915768064,1768947169.983,39.555747999999994,pod,joules,Treatment
+2026-01-20 22:13:19.983000040+00:00,evaluation-only-rl945-privacy-tracking-evaluation-only-1052401115,1768947199.983,91.17924,pod,joules,Treatment
+2026-01-20 22:13:49.983000040+00:00,evaluation-only-rl945-privacy-tracking-evaluation-only-1052401115,1768947229.983,50.024618825999994,pod,joules,Treatment
+2026-01-20 22:12:49.983000040+00:00,full-data-generation-and-evaluation-drlp9-data-preprocess-full-data-generation-and-evaluation-2236641494,1768947169.983,66.17053848540002,pod,joules,Treatment
+2026-01-20 22:13:19.983000040+00:00,full-data-generation-and-evaluation-drlp9-data-preprocess-full-data-generation-and-evaluation-2236641494,1768947199.983,82.8418045,pod,joules,Treatment
+2026-01-20 22:14:19.983000040+00:00,full-data-generation-and-evaluation-drlp9-data-quality-full-data-generation-and-evaluation-2174529040,1768947259.983,38.68266275,pod,joules,Treatment
+2026-01-20 22:13:49.983000040+00:00,full-data-generation-and-evaluation-drlp9-privacy-tracking-full-data-generation-and-evaluation-2909462761,1768947229.983,116.92041275000001,pod,joules,Treatment
+2026-01-20 22:14:19.983000040+00:00,full-data-generation-and-evaluation-drlp9-privacy-tracking-full-data-generation-and-evaluation-2909462761,1768947259.983,116.92041275000001,pod,joules,Treatment
+2026-01-20 22:13:19.983000040+00:00,full-data-generation-and-evaluation-drlp9-synthetic-generator-full-data-generation-and-evaluation-3616343265,1768947199.983,71.6351635,pod,joules,Treatment
+2026-01-20 22:13:49.983000040+00:00,full-data-generation-and-evaluation-drlp9-synthetic-generator-full-data-generation-and-evaluation-3616343265,1768947229.983,71.6351635,pod,joules,Treatment
+2026-01-20 22:12:49.983000040+00:00,parallel-evaluation-only-48tvw-data-quality-parallel-evaluation-only-2046204729,1768947169.983,116.92083124999999,pod,joules,Treatment
+2026-01-20 22:13:19.983000040+00:00,parallel-evaluation-only-48tvw-data-quality-parallel-evaluation-only-2046204729,1768947199.983,116.92083124999999,pod,joules,Treatment
+2026-01-20 22:12:49.983000040+00:00,parallel-evaluation-only-48tvw-privacy-tracking-parallel-evaluation-only-2380335491,1768947169.983,174.67301733333335,pod,joules,Treatment
+2026-01-20 22:13:19.983000040+00:00,parallel-evaluation-only-48tvw-privacy-tracking-parallel-evaluation-only-2380335491,1768947199.983,174.67301733333335,pod,joules,Treatment
+2026-01-20 22:12:49.983000040+00:00,parallel-full-data-generation-and-evaluation-xvmks-data-preprocess-parallel-full-data-generation-and-evaluation-4170614290,1768947169.983,0.0,pod,joules,Treatment
+2026-01-20 22:13:19.983000040+00:00,parallel-full-data-generation-and-evaluation-xvmks-data-preprocess-parallel-full-data-generation-and-evaluation-4170614290,1768947199.983,0.0,pod,joules,Treatment
+2026-01-20 22:13:49.983000040+00:00,parallel-full-data-generation-and-evaluation-xvmks-data-quality-parallel-full-data-generation-and-evaluation-3064886959,1768947229.983,88.58535499999999,pod,joules,Treatment
+2026-01-20 22:14:19.983000040+00:00,parallel-full-data-generation-and-evaluation-xvmks-data-quality-parallel-full-data-generation-and-evaluation-3064886959,1768947259.983,88.58535499999999,pod,joules,Treatment
+2026-01-20 22:13:49.983000040+00:00,parallel-full-data-generation-and-evaluation-xvmks-privacy-tracking-parallel-full-data-generation-and-evaluation-1330202897,1768947229.983,94.620983,pod,joules,Treatment
+2026-01-20 22:14:19.983000040+00:00,parallel-full-data-generation-and-evaluation-xvmks-privacy-tracking-parallel-full-data-generation-and-evaluation-1330202897,1768947259.983,94.620983,pod,joules,Treatment
+2026-01-20 22:13:19.983000040+00:00,parallel-full-data-generation-and-evaluation-xvmks-synthetic-generator-parallel-full-data-generation-and-evaluation-2709388373,1768947199.983,78.27232175,pod,joules,Treatment
+2026-01-20 22:13:49.983000040+00:00,parallel-full-data-generation-and-evaluation-xvmks-synthetic-generator-parallel-full-data-generation-and-evaluation-2709388373,1768947229.983,78.27232175,pod,joules,Treatment
+2026-01-20 22:12:49.983000040+00:00,synthesize-only-gwkg2-synthetic-generator-synthesize-only-3117800713,1768947169.983,95.48095649999999,pod,joules,Treatment
+2026-01-20 22:13:19.983000040+00:00,synthesize-only-gwkg2-synthetic-generator-synthesize-only-3117800713,1768947199.983,95.48095649999999,pod,joules,Treatment

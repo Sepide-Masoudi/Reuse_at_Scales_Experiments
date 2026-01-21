@@ -1,0 +1,12 @@
+timestamp,pod,timestamp,pod_network_transmit_bytes,layer,unit,treatment
+2026-01-20 15:35:38.561000109+00:00,evaluation-only-qbs2n-data-quality-evaluation-only-258295570,1768923338.561,112.76666666666667,pod,bytes_per_second,Treatment
+2026-01-20 15:35:38.561000109+00:00,evaluation-only-qbs2n-privacy-tracking-evaluation-only-4257240441,1768923338.561,88.95907953608854,pod,bytes_per_second,Treatment
+2026-01-20 15:36:08.561000109+00:00,evaluation-only-qbs2n-privacy-tracking-evaluation-only-4257240441,1768923368.561,111.39166666666665,pod,bytes_per_second,Treatment
+2026-01-20 15:36:38.561000109+00:00,full-data-generation-and-evaluation-kdtt4-privacy-tracking-full-data-generation-and-evaluation-91053293,1768923398.561,131.8714245119842,pod,bytes_per_second,Treatment
+2026-01-20 15:37:08.561000109+00:00,full-data-generation-and-evaluation-kdtt4-privacy-tracking-full-data-generation-and-evaluation-91053293,1768923428.561,117.34166666666667,pod,bytes_per_second,Treatment
+2026-01-20 15:35:38.561000109+00:00,parallel-evaluation-only-bkq7l-data-quality-parallel-evaluation-only-2009465267,1768923338.561,111.86666666666669,pod,bytes_per_second,Treatment
+2026-01-20 15:36:08.561000109+00:00,parallel-evaluation-only-bkq7l-data-quality-parallel-evaluation-only-2009465267,1768923368.561,110.92778423879936,pod,bytes_per_second,Treatment
+2026-01-20 15:35:38.561000109+00:00,parallel-evaluation-only-bkq7l-privacy-tracking-parallel-evaluation-only-1794183309,1768923338.561,124.0628509677913,pod,bytes_per_second,Treatment
+2026-01-20 15:36:08.561000109+00:00,parallel-evaluation-only-bkq7l-privacy-tracking-parallel-evaluation-only-1794183309,1768923368.561,112.68200596740877,pod,bytes_per_second,Treatment
+2026-01-20 15:35:38.561000109+00:00,synthesize-only-99rm2-synthetic-generator-synthesize-only-2562258666,1768923338.561,113.01666666666667,pod,bytes_per_second,Treatment
+2026-01-20 15:36:08.561000109+00:00,synthesize-only-99rm2-synthetic-generator-synthesize-only-2562258666,1768923368.561,112.92948917917725,pod,bytes_per_second,Treatment

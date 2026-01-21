@@ -1,0 +1,413 @@
+{
+    "version": "1.0",
+    "created_at": "2026-01-20T23:14:36.738237",
+    "format": "csv",
+    "data_files": {
+        "system_cpu_usage": {
+            "filename": "system_cpu_usage.csv",
+            "rows": 127,
+            "columns": [
+                "__name__",
+                "baremetal",
+                "beta_kubernetes_io_arch",
+                "beta_kubernetes_io_os",
+                "container",
+                "cpu",
+                "env",
+                "feature_node_kubernetes_io_cpu_cpuid_ADX",
+                "feature_node_kubernetes_io_cpu_cpuid_AESNI",
+                "feature_node_kubernetes_io_cpu_cpuid_AVX",
+                "feature_node_kubernetes_io_cpu_cpuid_AVX2",
+                "feature_node_kubernetes_io_cpu_cpuid_CMPXCHG8",
+                "feature_node_kubernetes_io_cpu_cpuid_FLUSH_L1D",
+                "feature_node_kubernetes_io_cpu_cpuid_FMA3",
+                "feature_node_kubernetes_io_cpu_cpuid_FXSR",
+                "feature_node_kubernetes_io_cpu_cpuid_FXSROPT",
+                "feature_node_kubernetes_io_cpu_cpuid_IA32_ARCH_CAP",
+                "feature_node_kubernetes_io_cpu_cpuid_IBPB",
+                "feature_node_kubernetes_io_cpu_cpuid_LAHF",
+                "feature_node_kubernetes_io_cpu_cpuid_MD_CLEAR",
+                "feature_node_kubernetes_io_cpu_cpuid_MOVBE",
+                "feature_node_kubernetes_io_cpu_cpuid_MPX",
+                "feature_node_kubernetes_io_cpu_cpuid_OSXSAVE",
+                "feature_node_kubernetes_io_cpu_cpuid_PMU_FIXEDCOUNTER_CYCLES",
+                "feature_node_kubernetes_io_cpu_cpuid_PMU_FIXEDCOUNTER_INSTRUCTIONS",
+                "feature_node_kubernetes_io_cpu_cpuid_PMU_FIXEDCOUNTER_REFCYCLES",
+                "feature_node_kubernetes_io_cpu_cpuid_RTM_ALWAYS_ABORT",
+                "feature_node_kubernetes_io_cpu_cpuid_SPEC_CTRL_SSBD",
+                "feature_node_kubernetes_io_cpu_cpuid_SRBDS_CTRL",
+                "feature_node_kubernetes_io_cpu_cpuid_STIBP",
+                "feature_node_kubernetes_io_cpu_cpuid_SYSCALL",
+                "feature_node_kubernetes_io_cpu_cpuid_SYSEE",
+                "feature_node_kubernetes_io_cpu_cpuid_VMX",
+                "feature_node_kubernetes_io_cpu_cpuid_X87",
+                "feature_node_kubernetes_io_cpu_cpuid_XGETBV1",
+                "feature_node_kubernetes_io_cpu_cpuid_XSAVE",
+                "feature_node_kubernetes_io_cpu_cpuid_XSAVEC",
+                "feature_node_kubernetes_io_cpu_cpuid_XSAVEOPT",
+                "feature_node_kubernetes_io_cpu_cpuid_XSAVES",
+                "feature_node_kubernetes_io_cpu_cstate_enabled",
+                "feature_node_kubernetes_io_cpu_hardware_multithreading",
+                "feature_node_kubernetes_io_cpu_model_family",
+                "feature_node_kubernetes_io_cpu_model_id",
+                "feature_node_kubernetes_io_cpu_model_vendor_id",
+                "feature_node_kubernetes_io_cpu_pstate_scaling_governor",
+                "feature_node_kubernetes_io_cpu_pstate_status",
+                "feature_node_kubernetes_io_cpu_pstate_turbo",
+                "feature_node_kubernetes_io_kernel_config_NO_HZ",
+                "feature_node_kubernetes_io_kernel_config_NO_HZ_FULL",
+                "feature_node_kubernetes_io_kernel_version_full",
+                "feature_node_kubernetes_io_kernel_version_major",
+                "feature_node_kubernetes_io_kernel_version_minor",
+                "feature_node_kubernetes_io_kernel_version_revision",
+                "feature_node_kubernetes_io_pci_0300_10de_present",
+                "feature_node_kubernetes_io_pci_0300_10de_sriov_capable",
+                "feature_node_kubernetes_io_pci_10de_present",
+                "feature_node_kubernetes_io_pci_10de_sriov_capable",
+                "feature_node_kubernetes_io_pci_8086_present",
+                "feature_node_kubernetes_io_storage_nonrotationaldisk",
+                "feature_node_kubernetes_io_system_os_release_ID",
+                "feature_node_kubernetes_io_system_os_release_VERSION_ID",
+                "feature_node_kubernetes_io_system_os_release_VERSION_ID_major",
+                "feature_node_kubernetes_io_system_os_release_VERSION_ID_minor",
+                "id",
+                "image",
+                "instance",
+                "job",
+                "kubernetes_io_arch",
+                "kubernetes_io_hostname",
+                "kubernetes_io_os",
+                "lca_tu_berlin_de_docker",
+                "lca_tu_berlin_de_kepler",
+                "name",
+                "namespace",
+                "network",
+                "nvidia_com_cuda_driver_major",
+                "nvidia_com_cuda_driver_minor",
+                "nvidia_com_cuda_driver_rev",
+                "nvidia_com_cuda_driver_version_full",
+                "nvidia_com_cuda_driver_version_major",
+                "nvidia_com_cuda_driver_version_minor",
+                "nvidia_com_cuda_driver_version_revision",
+                "nvidia_com_cuda_runtime_major",
+                "nvidia_com_cuda_runtime_minor",
+                "nvidia_com_cuda_runtime_version_full",
+                "nvidia_com_cuda_runtime_version_major",
+                "nvidia_com_cuda_runtime_version_minor",
+                "nvidia_com_gfd_timestamp",
+                "nvidia_com_gpu_compute_major",
+                "nvidia_com_gpu_compute_minor",
+                "nvidia_com_gpu_count",
+                "nvidia_com_gpu_deploy_container_toolkit",
+                "nvidia_com_gpu_deploy_dcgm",
+                "nvidia_com_gpu_deploy_dcgm_exporter",
+                "nvidia_com_gpu_deploy_device_plugin",
+                "nvidia_com_gpu_deploy_driver",
+                "nvidia_com_gpu_deploy_gpu_feature_discovery",
+                "nvidia_com_gpu_deploy_node_status_exporter",
+                "nvidia_com_gpu_deploy_operator_validator",
+                "nvidia_com_gpu_driver_upgrade_state",
+                "nvidia_com_gpu_family",
+                "nvidia_com_gpu_machine",
+                "nvidia_com_gpu_memory",
+                "nvidia_com_gpu_mode",
+                "nvidia_com_gpu_present",
+                "nvidia_com_gpu_product",
+                "nvidia_com_gpu_replicas",
+                "nvidia_com_gpu_sharing_strategy",
+                "nvidia_com_mig_capable",
+                "nvidia_com_mig_strategy",
+                "nvidia_com_mps_capable",
+                "nvidia_com_vgpu_present",
+                "pod",
+                "runtime",
+                "scaphandre",
+                "timestamp",
+                "system_cpu_usage",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_pod_cpu_power_watts": {
+            "filename": "kepler_pod_cpu_power_watts.csv",
+            "rows": 24,
+            "columns": [
+                "pod_name",
+                "timestamp",
+                "kepler_pod_cpu_power_watts",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_pod_cpu_energy_joules": {
+            "filename": "kepler_pod_cpu_energy_joules.csv",
+            "rows": 24,
+            "columns": [
+                "pod_name",
+                "timestamp",
+                "kepler_pod_cpu_energy_joules",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "cpu_usage_seconds_rate": {
+            "filename": "cpu_usage_seconds_rate.csv",
+            "rows": 17,
+            "columns": [
+                "pod",
+                "timestamp",
+                "cpu_usage_seconds_rate",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_node_cpu_power_raw": {
+            "filename": "kepler_node_cpu_power_raw.csv",
+            "rows": 30,
+            "columns": [
+                "app_kubernetes_io_instance",
+                "app_kubernetes_io_managed_by",
+                "app_kubernetes_io_name",
+                "app_kubernetes_io_part_of",
+                "app_kubernetes_io_version",
+                "helm_sh_chart",
+                "instance",
+                "job",
+                "namespace",
+                "node",
+                "node_name",
+                "path",
+                "service",
+                "zone",
+                "timestamp",
+                "kepler_node_cpu_power_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_node_cpu_power_sum": {
+            "filename": "kepler_node_cpu_power_sum.csv",
+            "rows": 6,
+            "columns": [
+                "timestamp",
+                "kepler_node_cpu_power_sum",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "wall_power": {
+            "filename": "wall_power.csv",
+            "rows": 24,
+            "columns": [
+                "__name__",
+                "exported_instance",
+                "instance",
+                "job",
+                "node",
+                "timestamp",
+                "wall_power",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "apiserver_request_rate": {
+            "filename": "apiserver_request_rate.csv",
+            "rows": 4566,
+            "columns": [
+                "code",
+                "component",
+                "instance",
+                "job",
+                "resource",
+                "scope",
+                "subresource",
+                "verb",
+                "version",
+                "timestamp",
+                "apiserver_request_rate",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "apiserver_latency_95th": {
+            "filename": "apiserver_latency_95th.csv",
+            "rows": 6,
+            "columns": [
+                "timestamp",
+                "apiserver_latency_95th",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_memory_usage": {
+            "filename": "pod_memory_usage.csv",
+            "rows": 80,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_memory_usage",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_receive_bytes": {
+            "filename": "pod_network_receive_bytes.csv",
+            "rows": 17,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_receive_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_transmit_bytes": {
+            "filename": "pod_network_transmit_bytes.csv",
+            "rows": 17,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_transmit_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_total_count": {
+            "filename": "argo_workflows_total_count.csv",
+            "rows": 18,
+            "columns": [
+                "__name__",
+                "instance",
+                "job",
+                "namespace",
+                "phase",
+                "timestamp",
+                "argo_workflows_total_count",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_operation_duration_seconds": {
+            "filename": "argo_workflows_operation_duration_seconds.csv",
+            "rows": 6,
+            "columns": [
+                "__name__",
+                "instance",
+                "job",
+                "timestamp",
+                "argo_workflows_operation_duration_seconds",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_completed_total": {
+            "filename": "argo_workflows_completed_total.csv",
+            "rows": 18,
+            "columns": [
+                "phase",
+                "timestamp",
+                "argo_workflows_completed_total",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_pods_total": {
+            "filename": "argo_workflows_pods_total.csv",
+            "rows": 18,
+            "columns": [
+                "__name__",
+                "instance",
+                "job",
+                "namespace",
+                "phase",
+                "timestamp",
+                "argo_workflows_pods_total",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_average_queue_latency": {
+            "filename": "argo_workflows_average_queue_latency.csv",
+            "rows": 12,
+            "columns": [
+                "instance",
+                "job",
+                "queue_name",
+                "timestamp",
+                "argo_workflows_average_queue_latency",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_workers_busy_raw": {
+            "filename": "argo_workflows_workers_busy_raw.csv",
+            "rows": 30,
+            "columns": [
+                "__name__",
+                "instance",
+                "job",
+                "worker_type",
+                "timestamp",
+                "argo_workflows_workers_busy_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_queue_adds_raw": {
+            "filename": "argo_workflows_queue_adds_raw.csv",
+            "rows": 12,
+            "columns": [
+                "__name__",
+                "instance",
+                "job",
+                "queue_name",
+                "timestamp",
+                "argo_workflows_queue_adds_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_k8s_requests_raw": {
+            "filename": "argo_workflows_k8s_requests_raw.csv",
+            "rows": 204,
+            "columns": [
+                "__name__",
+                "instance",
+                "job",
+                "kind",
+                "status_code",
+                "verb",
+                "timestamp",
+                "argo_workflows_k8s_requests_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        }
+    },
+    "files": {
+        "session": "session.json",
+        "run": "run.json",
+        "config": "config.yaml",
+        "environment": null
+    }
+}

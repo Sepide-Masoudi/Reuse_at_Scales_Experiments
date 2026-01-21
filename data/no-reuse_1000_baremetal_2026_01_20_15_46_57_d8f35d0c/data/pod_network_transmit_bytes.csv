@@ -1,0 +1,14 @@
+timestamp,pod,timestamp,pod_network_transmit_bytes,layer,unit,treatment
+2026-01-20 14:47:57.144000053+00:00,evaluation-only-rfdsm-data-quality-evaluation-only-3142491114,1768920477.144,186.52971511854523,pod,bytes_per_second,Treatment
+2026-01-20 14:48:27.144000053+00:00,evaluation-only-rfdsm-privacy-tracking-evaluation-only-886646097,1768920507.144,111.36666666666667,pod,bytes_per_second,Treatment
+2026-01-20 14:48:27.144000053+00:00,full-data-generation-and-evaluation-9vwfj-synthetic-generator-full-data-generation-and-evaluation-2561626774,1768920507.144,114.08425428697434,pod,bytes_per_second,Treatment
+2026-01-20 14:48:57.144000053+00:00,full-data-generation-and-evaluation-9vwfj-synthetic-generator-full-data-generation-and-evaluation-2561626774,1768920537.144,117.39166666666668,pod,bytes_per_second,Treatment
+2026-01-20 14:47:57.144000053+00:00,parallel-evaluation-only-glr85-data-quality-parallel-evaluation-only-2310518942,1768920477.144,141.0541936370944,pod,bytes_per_second,Treatment
+2026-01-20 14:48:27.144000053+00:00,parallel-evaluation-only-glr85-data-quality-parallel-evaluation-only-2310518942,1768920507.144,115.86348521385962,pod,bytes_per_second,Treatment
+2026-01-20 14:47:57.144000053+00:00,parallel-evaluation-only-glr85-privacy-tracking-parallel-evaluation-only-2141373532,1768920477.144,114.46666666666665,pod,bytes_per_second,Treatment
+2026-01-20 14:48:27.144000053+00:00,parallel-evaluation-only-glr85-privacy-tracking-parallel-evaluation-only-2141373532,1768920507.144,113.68523045986136,pod,bytes_per_second,Treatment
+2026-01-20 14:48:57.144000053+00:00,parallel-full-data-generation-and-evaluation-w848x-data-quality-parallel-full-data-generation-and-evaluation-3811307557,1768920537.144,114.11666666666669,pod,bytes_per_second,Treatment
+2026-01-20 14:48:57.144000053+00:00,parallel-full-data-generation-and-evaluation-w848x-privacy-tracking-parallel-full-data-generation-and-evaluation-2012723287,1768920537.144,114.24166666666666,pod,bytes_per_second,Treatment
+2026-01-20 14:48:27.144000053+00:00,parallel-full-data-generation-and-evaluation-w848x-synthetic-generator-parallel-full-data-generation-and-evaluation-1158896019,1768920507.144,116.69166666666666,pod,bytes_per_second,Treatment
+2026-01-20 14:48:57.144000053+00:00,parallel-full-data-generation-and-evaluation-w848x-synthetic-generator-parallel-full-data-generation-and-evaluation-1158896019,1768920537.144,116.69166666666666,pod,bytes_per_second,Treatment
+2026-01-20 14:47:57.144000053+00:00,synthesize-only-d8msv-synthetic-generator-synthesize-only-2046606741,1768920477.144,112.31666666666668,pod,bytes_per_second,Treatment

@@ -23,51 +23,73 @@ sma:
         unit: cpu_time_seconds
         step: 30
         target:
-          - no-reuse
+          - reuse
 
-    - kepler_pod_cpu_power_watts:
+    - kepler_container_power_watts:
         type: aggregate
         layer: pod
         query: |
-         sum by (pod_name) (rate(kepler_pod_cpu_joules_total{pod_namespace="${namespace}"}[1m]))
+          sum by (pod) (
+            rate(
+              kepler_container_joules_total{container_namespace="${namespace}"}[1m]
+            )
+          )
         unit: watts
         step: 30
         target:
-          - no-reuse
+          - reuse
 
-    - kepler_pod_cpu_energy_joules:
+    - kepler_container_energy_joules:
         type: aggregate
         layer: pod
         query: |
-         sum by (pod_name) (increase(kepler_pod_cpu_joules_total{pod_namespace="${namespace}"}[1m]))
+          sum by (pod) (
+            increase(
+              kepler_container_joules_total{container_namespace="${namespace}"}[5m]
+            )
+          )
         unit: joules
         step: 30
         target:
-          - no-reuse
+          - reuse
 
-    - cpu_usage_seconds_rate:
+    - kepler_container_cpu_cycles:
         type: aggregate
         layer: pod
         query: |
-          sum by (pod) (increase(container_cpu_usage_seconds_total{namespace="${namespace}"}[1m]))
-        unit: cpu_seconds_delta_per_second
+          sum by (pod) (
+            rate(
+              kepler_container_cpu_cycles_total{container_namespace="${namespace}"}[5m]
+            )
+          )
+        unit: cpu_cycles_per_second
         step: 30
         target:
-          - no-reuse
+          - reuse
 
-    # - kepler_container_cpu_instructions:
-    #     type: aggregate
-    #     layer: pod
-    #     query: |
-    #       sum by (container_name) (
-    #         rate(
-    #           kepler_container_cpu_instructions_total{container_namespace="${namespace}"}[1m]
-    #         )
-    #       )
-    #     unit: cpu_instructions_per_second
-    #     step: 30
-    #     target:
-    #       - no-reuse
+    - kepler_container_cpu_instructions:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(
+              kepler_container_cpu_instructions_total{container_namespace="${namespace}"}[5m]
+            )
+          )
+        unit: cpu_instructions_per_second
+        step: 30
+        target:
+          - reuse
+
+
+    - kepler_process_energy_joules:
+        type: raw
+        layer: pod
+        query: kepler_process_joules_total{container_namespace="${namespace}"}
+        unit: joules
+        step: 30
+        target:
+          - reuse
 
     - kepler_node_cpu_power_raw:
         type: raw
@@ -76,16 +98,16 @@ sma:
         unit: watts
         step: 30
         target:
-          - no-reuse
+          - reuse
 
     - kepler_node_cpu_power_sum:
         type: aggregate
         layer: node
-        query: sum(rate(kepler_node_cpu_joules_total[15s]))
+        query: sum(rate(kepler_node_cpu_joules_total[1m]))
         unit: watts
         step: 30
         target:
-          - no-reuse
+          - reuse
 
     - wall_power:
         type: raw
@@ -94,7 +116,7 @@ sma:
         unit: watts
         step: 30
         target:
-          - no-reuse
+          - reuse
 
 
     - apiserver_request_rate:
@@ -104,7 +126,7 @@ sma:
         unit: requests_per_second
         step: 30
         target:
-          - no-reuse
+          - reuse
 
     - apiserver_latency_95th:
         type: aggregate
@@ -117,7 +139,7 @@ sma:
         unit: seconds
         step: 30
         target:
-          - no-reuse
+          - reuse
 
     - pod_memory_usage:
         type: aggregate
@@ -126,7 +148,7 @@ sma:
         unit: bytes
         step: 30
         target:
-          - no-reuse
+          - reuse
 
     - pod_network_receive_bytes:
         type: aggregate
@@ -135,7 +157,7 @@ sma:
         unit: bytes_per_second
         step: 30
         target:
-          - no-reuse
+          - reuse
 
     - pod_network_transmit_bytes:
         type: aggregate
@@ -144,7 +166,7 @@ sma:
         unit: bytes_per_second
         step: 30
         target:
-          - no-reuse
+          - reuse
 
 
 ######### argo metrics ###########
@@ -156,7 +178,16 @@ sma:
         unit: workflows
         step: 30
         target:
-          - no-reuse
+          - reuse
+
+    - argo_workflows_queue_depth:
+        type: raw
+        layer: workflow
+        query: argo_workflows_queue_depth_gauge{namespace="${namespace}"}
+        unit: workflows
+        step: 30
+        target:
+          - reuse
 
     - argo_workflows_error_count:
         type: aggregate
@@ -165,16 +196,16 @@ sma:
         unit: errors
         step: 30
         target:
-          - no-reuse
+          - reuse
 
     - argo_workflows_operation_duration_seconds:
-        type: raw
+        type: aggregate
         layer: workflow
-        query: argo_workflows_operation_duration_seconds_count
+        query: argo_workflows_operation_duration_seconds{namespace="${namespace}"}
         unit: seconds
         step: 30
         target:
-          - no-reuse
+          - reuse
 
     - argo_workflows_completed_total:
         type: aggregate
@@ -183,7 +214,7 @@ sma:
         unit: workflows
         step: 30
         target:
-          - no-reuse
+          - reuse
 
     - argo_workflows_pods_total:
         type: aggregate
@@ -192,17 +223,43 @@ sma:
         unit: pods
         step: 30
         target:
-          - no-reuse
+          - reuse
 
-    #not sure what thsi measures
-    - argo_workflows_average_queue_latency:
+    - argo_cronworkflows_triggered_total:
+        type: aggregate
+        layer: workflow
+        query: argo_workflows_cronworkflows_triggered_total{namespace="${namespace}"}
+        unit: workflows
+        step: 30
+        target:
+          - reuse
+
+    - argo_cronworkflows_concurrency_policy_triggered:
+        type: aggregate
+        layer: workflow
+        query: argo_workflows_cronworkflows_concurrencypolicy_triggered{namespace="${namespace}"}
+        unit: workflows
+        step: 30
+        target:
+          - reuse
+
+    - argo_workflows_queue_latency_raw:
         type: raw
         layer: workflow
-        query: rate(argo_workflows_queue_latency_sum[30s]) / rate(argo_workflows_queue_latency_count[30s])
+        query: argo_workflows_queue_latency
         unit: seconds
         step: 30
         target:
-          - no-reuse
+          - reuse
+
+    - argo_workflows_queue_latency_sum:
+        type: aggregate
+        layer: workflow
+        query: sum(argo_workflows_queue_latency)
+        unit: seconds
+        step: 30
+        target:
+          - reuse
 
 
     - argo_workflows_workers_busy_raw:
@@ -212,7 +269,17 @@ sma:
         unit: workers
         step: 30
         target:
-          - no-reuse
+          - reuse
+
+    - argo_workflows_workers_busy_sum:
+        type: aggregate
+        layer: workflow
+        query: sum(argo_workflows_workers_busy_count)
+        unit: workers
+        step: 30
+        target:
+          - reuse
+
 
     - argo_workflows_queue_adds_raw:
         type: raw
@@ -221,7 +288,17 @@ sma:
         unit: counts
         step: 30
         target:
-          - no-reuse
+          - reuse
+
+    - argo_workflows_queue_adds_sum:
+        type: aggregate
+        layer: workflow
+        query: sum(argo_workflows_queue_adds_count)
+        unit: counts
+        step: 30
+        target:
+          - reuse
+
 
     - argo_workflows_k8s_requests_raw:
         type: raw
@@ -230,10 +307,20 @@ sma:
         unit: requests
         step: 30
         target:
-          - no-reuse
+          - reuse
+
+    - argo_workflows_k8s_requests_sum:
+        type: aggregate
+        layer: workflow
+        query: sum(argo_workflows_k8s_request_total)
+        unit: requests
+        step: 30
+        target:
+          - reuse
+
 
          
   report:
     format: csv
-    location: data/no-reuse_1000_baremetal_${startTime}_${runHash}
+    location: data/reuse_1000_baremetal_${startTime}_${runHash}
     filename: "${name}_${run}.csv"
