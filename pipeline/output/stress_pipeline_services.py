@@ -2,12 +2,18 @@ import requests
 import threading
 import time
 from time import perf_counter
+from queue import Queue
 
-DURATION = 300  # 5 minutes
-TIMEOUT = 30
+# ===========================
+# CONFIG
+# ===========================
+DURATION = 60  # total test duration in seconds (adjust as needed)
+TIMEOUT = 30   # HTTP timeout for each call
+STRESS_LEVELS = [0, 5, 50]  # number of concurrent threads per stress level
 
-# ---------- SERVICE CALLS ----------
-
+# ===========================
+# SERVICE CALLS
+# ===========================
 def call_generate_name():
     return requests.post(
         "http://generate-name-knative.pipeline.svc.cluster.local/run",
@@ -114,47 +120,53 @@ PIPELINE_CALLS = [
     call_privacy,
 ]
 
-# ---------- EXECUTION ----------
+# ===========================
+# WORKER FUNCTION
+# ===========================
+def run_pipeline(stats_queue, thread_id):
+    """Run the full pipeline repeatedly for DURATION seconds."""
+    end_time = time.time() + DURATION
+    while time.time() < end_time:
+        for fn in PIPELINE_CALLS:
+            start = perf_counter()
+            try:
+                r = fn()
+                stats_queue.put((thread_id, r.status_code, perf_counter() - start))
+            except Exception:
+                stats_queue.put((thread_id, "ERR", 0))
 
-def run_pipeline_once(stats):
-    for fn in PIPELINE_CALLS:
-        start = perf_counter()
-        try:
-            r = fn()
-            stats.append((r.status_code, perf_counter() - start))
-        except Exception:
-            stats.append(("ERR", 0))
+# ===========================
+# RUN STRESS LEVEL
+# ===========================
+def run_stress_level(users):
+    print(f"\n=== Stress Level: {users} concurrent threads ===")
+    stats_queue = Queue()
+    threads = []
 
+    # Launch threads
+    for i in range(users if users > 0 else 1):
+        t = threading.Thread(target=run_pipeline, args=(stats_queue, i))
+        t.start()
+        threads.append(t)
 
-def wave(users, stats):
-    barrier = threading.Barrier(users)
+    # Wait for all threads to finish
+    for t in threads:
+        t.join()
 
-    def worker():
-        barrier.wait()
-        run_pipeline_once(stats)
-
-    threads = [threading.Thread(target=worker) for _ in range(users)]
-    for t in threads: t.start()
-    for t in threads: t.join()
-
-
-def run_level(users):
-    print(f"\n=== {users} concurrent users for 5 minutes ===")
-    end = time.time() + DURATION
+    # Collect stats
     stats = []
+    while not stats_queue.empty():
+        stats.append(stats_queue.get())
 
-    if users == 0:
-        while time.time() < end:
-            run_pipeline_once(stats)
-    else:
-        while time.time() < end:
-            wave(users, stats)
+    ok = [s for s in stats if s[1] == 200]
+    print(f"Total calls: {len(stats)} | Success: {len(ok)} | Failures: {len(stats)-len(ok)}")
+    return stats
 
-    ok = [s for s in stats if s[0] == 200]
-    print("Total calls:", len(stats))
-    print("Success:", len(ok))
-
-
+# ===========================
+# MAIN
+# ===========================
 if __name__ == "__main__":
-    for level in [0, 5, 50]:
-        run_level(level)
+    all_stats = {}
+    for level in STRESS_LEVELS:
+        stats = run_stress_level(level)
+        all_stats[level] = stats
