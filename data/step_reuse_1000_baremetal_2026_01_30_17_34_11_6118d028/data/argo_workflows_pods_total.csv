@@ -1,0 +1,13 @@
+timestamp,__name__,instance,job,namespace,phase,timestamp,argo_workflows_pods_total,layer,unit,treatment
+2026-01-30 16:34:11.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Failed,1769790851.964,6,pod,pods,NoTreatment
+2026-01-30 16:34:41.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Failed,1769790881.964,6,pod,pods,Treatment
+2026-01-30 16:35:11.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Failed,1769790911.964,6,pod,pods,Treatment
+2026-01-30 16:35:41.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Failed,1769790941.964,6,pod,pods,Treatment
+2026-01-30 16:34:11.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1769790851.964,114,pod,pods,NoTreatment
+2026-01-30 16:34:41.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1769790881.964,114,pod,pods,Treatment
+2026-01-30 16:35:11.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1769790911.964,115,pod,pods,Treatment
+2026-01-30 16:35:41.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Running,1769790941.964,116,pod,pods,Treatment
+2026-01-30 16:34:11.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1769790851.964,354,pod,pods,NoTreatment
+2026-01-30 16:34:41.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1769790881.964,357,pod,pods,Treatment
+2026-01-30 16:35:11.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1769790911.964,358,pod,pods,Treatment
+2026-01-30 16:35:41.963999987+00:00,argo_workflows_pods_total_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pipeline,Succeeded,1769790941.964,360,pod,pods,Treatment

@@ -1,19 +1,21 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: privacy-tracking
+  name: privacy-tracking-knative
   namespace: pipeline
 spec:
   template:
     metadata:
       annotations:
         autoscaling.knative.dev/class: kpa.autoscaling.knative.dev
-        autoscaling.knative.dev/minScale: "0"
         autoscaling.knative.dev/maxScale: "3"
+        autoscaling.knative.dev/minScale: "1"
         autoscaling.knative.dev/target: "1"
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
-        - name: privacy-tracking
+        - name: privacy-tracking-knative
           image: sepidmas/reuse_scale-privacy-tracking:knative
           imagePullPolicy: Always
           ports:

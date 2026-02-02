@@ -1,0 +1,14 @@
+{
+    "startTime": "2026_01_30_17_37_15",
+    "endTime": "2026_01_30_17_38_25",
+    "treatment_start": "2026_01_30_17_37_25",
+    "treatment_end": "2026_01_30_17_38_15",
+    "runHash": "fcb16e12",
+    "duration": 70.255993,
+    "treatment_duration": 50.235475,
+    "user_data": {
+        "experiment": "full-reuse-stress5",
+        "workflow": "pipeline/output/step-reuse/full-reuse.yaml",
+        "stress_factor": 5
+    }
+}

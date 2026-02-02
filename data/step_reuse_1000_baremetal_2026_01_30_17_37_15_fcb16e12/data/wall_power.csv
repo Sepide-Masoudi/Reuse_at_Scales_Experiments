@@ -1,0 +1,13 @@
+timestamp,__name__,exported_instance,instance,job,node,timestamp,wall_power,layer,unit,treatment
+2026-01-30 16:37:15.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063d850bc,ise-energy.ise.tu-berlin.de:9110,shelly,nuc,1769791035.23,5.2,cluster,watts,NoTreatment
+2026-01-30 16:37:45.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063d850bc,ise-energy.ise.tu-berlin.de:9110,shelly,nuc,1769791065.23,6.2,cluster,watts,Treatment
+2026-01-30 16:38:15.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063d850bc,ise-energy.ise.tu-berlin.de:9110,shelly,nuc,1769791095.23,5.4,cluster,watts,Treatment
+2026-01-30 16:37:15.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063dcdf60,ise-energy.ise.tu-berlin.de:9110,shelly,gisele,1769791035.23,96.7,cluster,watts,NoTreatment
+2026-01-30 16:37:45.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063dcdf60,ise-energy.ise.tu-berlin.de:9110,shelly,gisele,1769791065.23,107.3,cluster,watts,Treatment
+2026-01-30 16:38:15.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063dcdf60,ise-energy.ise.tu-berlin.de:9110,shelly,gisele,1769791095.23,122.7,cluster,watts,Treatment
+2026-01-30 16:37:15.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063de2610,ise-energy.ise.tu-berlin.de:9110,shelly,sm-gpu,1769791035.23,41.6,cluster,watts,NoTreatment
+2026-01-30 16:37:45.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063de2610,ise-energy.ise.tu-berlin.de:9110,shelly,sm-gpu,1769791065.23,40.6,cluster,watts,Treatment
+2026-01-30 16:38:15.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063de2610,ise-energy.ise.tu-berlin.de:9110,shelly,sm-gpu,1769791095.23,40.4,cluster,watts,Treatment
+2026-01-30 16:37:15.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063e44044,ise-energy.ise.tu-berlin.de:9110,shelly,ise3,1769791035.23,0.0,cluster,watts,NoTreatment
+2026-01-30 16:37:45.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063e44044,ise-energy.ise.tu-berlin.de:9110,shelly,ise3,1769791065.23,0.0,cluster,watts,Treatment
+2026-01-30 16:38:15.230000019+00:00,shelly_apower_watts,shellyplugsg3-e4b063e44044,ise-energy.ise.tu-berlin.de:9110,shelly,ise3,1769791095.23,0.0,cluster,watts,Treatment

@@ -1,19 +1,21 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: data-quality
+  name: data-quality-knative
   namespace: pipeline
 spec:
   template:
     metadata:
       annotations:
         autoscaling.knative.dev/class: kpa.autoscaling.knative.dev
-        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/minScale: "1"
         autoscaling.knative.dev/maxScale: "3"
         autoscaling.knative.dev/target: "1"
     spec:
+      nodeSelector:
+        baremetal: "true"
       containers:
-        - name: data-quality
+        - name: data-quality-knative
           image: sepidmas/reuse_scale-data-quality:knative
           imagePullPolicy: Always
           ports:

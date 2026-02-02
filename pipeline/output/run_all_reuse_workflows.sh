@@ -5,7 +5,7 @@ NAMESPACE="pipeline"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKFLOW_FILE="$DIR/pipeline_reuse.yaml"
 
-echo "Submitting Argo workflows (non-reuse) from ${WORKFLOW_FILE} in namespace ${NAMESPACE}"
+echo "Submitting Argo workflows reuse-based from ${WORKFLOW_FILE} in namespace ${NAMESPACE}"
 echo "---------------------------------------------------------------"
 
 # Check if csplit is available

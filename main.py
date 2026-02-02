@@ -1,82 +1,140 @@
 import subprocess
 from logging import getLogger
-import sys
-from sma import SustainabilityMeasurementAgent, Config, SMAObserver, SMASession
+from sma import SustainabilityMeasurementAgent, Config, SMASession
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, List
+from pathlib import Path
 
 
-#TODO: add thing to handle the experimentes, e.g., multiple runs, which varaibles we are doing etc
+# -----------------------------
+# Experiment model
+# -----------------------------
 
 @dataclass
 class Experiment:
     name: str
-    run: int
-    
-    users: int
-    reuse_users:int
-    
+    workflow_file: str
+    stress_factor: int
+
     def to_dict(self) -> dict:
         return {
             "experiment": self.name,
-            "run": self.run,
-            "users": self.users,
-            "reuse_users": self.reuse_users
+            "workflow": self.workflow_file,
+            "stress_factor": self.stress_factor
         }
-    
-    
+
+
+# -----------------------------
+# Experiment lifecycle
+# -----------------------------
+
 def prepare_experiment(experiment: Experiment) -> None:
-    #TODO: deploy things we need for reuse
-    pass
+    print(f"Preparing experiment: {experiment.name}")
 
 
-def wait_for_experiment_completion(experiment) -> Callable[[], dict]:
+def wait_for_experiment_completion(experiment: Experiment) -> Callable[[], dict]:
     def trigger() -> dict:
-        wrapper_script = "./run_all_experiments.sh"  
-        print(f"Starting experiment batch via {wrapper_script}...")
-        result = subprocess.run(wrapper_script, shell=True, check=True)
-        print("Wrapper script finished ✅")
 
+        stress_proc = None
+
+        # -------------------------
+        # Start stress load first
+        # -------------------------
+        if experiment.stress_factor > 0:
+            print(f"🔥 Starting stress load level {experiment.stress_factor}")
+            stress_proc = subprocess.Popen(
+                ["python", "stress_pipeline_services.py",
+                 str(experiment.stress_factor)]
+            )
+
+        # -------------------------
+        # Run workflow
+        # -------------------------
+        script = "./run_experiment_script.sh"
+
+        print(f"🚀 Running workflow via {script} {experiment.workflow_file}")
+
+        subprocess.run(
+            [script, experiment.workflow_file],
+            check=True
+        )
+
+        # -------------------------
+        # Stop stress after workflow
+        # -------------------------
+        if stress_proc:
+            print("🛑 Stopping stress load")
+            stress_proc.terminate()
+            stress_proc.wait()
+
+        print("✅ Workflow completed successfully")
         return experiment.to_dict()
 
     return trigger
-    
+
+
 
 def cleanup_experiment(experiment: Experiment) -> None:
-    pass
+    print(f"Cleaning up experiment: {experiment.name}")
 
+
+# -----------------------------
+# Discover workflows
+# -----------------------------
+
+def discover_workflows(path: str) -> List[Path]:
+    p = Path(path)
+    return sorted(list(p.glob("*.yaml")) + list(p.glob("*.yml")))
+
+
+# -----------------------------
+# Main
+# -----------------------------
 
 def main() -> None:
-    config = Config.from_file("./sma-measurments.yaml")
     log = getLogger("experiment.main")
 
-    sma = SustainabilityMeasurementAgent(config)
-    sma.setup(SMASession(
-       name="PipelineReuse"
-    ))
-    sma.connect()
-    
-    #TODO: generate Experiments form
-    
-    exp = Experiment(
-        name="no-reuse-baremetal-pipeline-experiment",
-        run=1,
-        users=100,
-        reuse_users=50
-    ) 
-    
-    prepare_experiment(exp)
-    
-    wait_for_exp = wait_for_experiment_completion(exp)
-    
-    #TODO: if you need to start trigger something before wating, now's the time, possibly in parallel...
-    
-    sma.run(wait_for_exp)
-    
-    cleanup_experiment(exp)
-    sma.teardown()
+    config = Config.from_file("./sma-measurments.yaml")
 
-    log.info("Sustainability Measurement Agent finished.")
+    workflow_dir = "./pipeline/output/step-reuse"
+    workflow_files = discover_workflows(workflow_dir)
+
+    if not workflow_files:
+        raise RuntimeError(f"No workflow YAML files found in {workflow_dir}")
+
+    print(f"Found {len(workflow_files)} workflows")
+
+    stress_levels = [0, 5, 50]
+
+    for wf in workflow_files:
+        for stress in stress_levels:
+
+            exp = Experiment(
+                name=f"{wf.stem}-stress{stress}",
+                workflow_file=str(wf),
+                stress_factor=stress
+            )
+
+            print("\n==============================")
+            print(f"Starting experiment: {exp.name}, stress level: {stress}")
+            print("==============================")
+
+            prepare_experiment(exp)
+
+            sma = SustainabilityMeasurementAgent(config)
+            sma.setup(SMASession(name=exp.name))
+            sma.connect()
+
+            trigger = wait_for_experiment_completion(exp)
+
+            sma.run(trigger)
+
+            cleanup_experiment(exp)
+            sma.teardown()
+
+            print(f"✅ Experiment finished: {exp.name}")
+
+    log.info("All experiments finished.")
 
 
 if __name__ == "__main__":

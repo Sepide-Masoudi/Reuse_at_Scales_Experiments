@@ -1,0 +1,15 @@
+{
+    "startTime": "2026_01_27_11_55_03",
+    "endTime": "2026_01_27_11_56_44",
+    "treatment_start": "2026_01_27_11_55_13",
+    "treatment_end": "2026_01_27_11_56_34",
+    "runHash": "b297304d",
+    "duration": 100.677651,
+    "treatment_duration": 80.656926,
+    "user_data": {
+        "experiment": "knative-reuse-baremetal-pipeline-experiment",
+        "run": 1,
+        "users": 100,
+        "reuse_users": 50
+    }
+}

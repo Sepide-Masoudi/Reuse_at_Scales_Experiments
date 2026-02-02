@@ -1,0 +1,288 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: parallel-full-data-pipeline
+  namespace: pipeline
+
+spec:
+  entrypoint: parallel-full-data-pipeline
+  serviceAccountName: argo-workflow-sa
+
+  nodeSelector:
+    baremetal: "true"
+
+  volumes:
+  - name: shared-data
+    persistentVolumeClaim:
+      claimName: argo-shard-pvc
+
+  - name: temp-volume
+    emptyDir:
+      sizeLimit: 1Gi
+
+  templates:
+
+  - name: parallel-full-data-pipeline
+    steps:
+    - - name: generate-name
+        template: call-generate-name-service
+      - name: generate-birthday
+        template: call-generate-birthday-service
+      - name: generate-address
+        template: call-generate-address-service
+    - - name: generate-id
+        template: call-generate-id-service
+
+    - - name: data-preprocess
+        template: data-preprocess-parallel-full-data-pipeline
+
+    - - name: synthetic-generator
+        template: synthetic-generator-parallel-full-data-pipeline
+
+    - - name: privacy-tracking
+        template: privacy-tracking-parallel-full-data-pipeline
+      - name: data-quality
+        template: data-quality-parallel-full-data-pipeline
+
+
+
+  - name: call-generate-name-service
+    metadata:
+      labels:
+        step-name: "generate-name"
+        workflow-name: "4-parallel-step-reuse-parallel-full-data-pipeline"
+    container:
+      image: curlimages/curl:7.85.0
+      command:
+      - curl
+      - -X
+      - POST
+      - http://generate-name-knative.pipeline.svc.cluster.local/run
+      - -F
+      - n_rows=1000
+      - -F
+      - mf_ratio=0.5
+      - -F
+      - output_path=/mnt/data/argo-shard/parallel-full-data-pipeline-generate-name/names.csv
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+
+  - name: call-generate-birthday-service
+    metadata:
+      labels:
+        step-name: "generate-birthday"
+        workflow-name: "4-parallel-step-reuse-parallel-full-data-pipeline"
+    container:
+      image: curlimages/curl:7.85.0
+      command:
+      - curl
+      - -X
+      - POST
+      - http://generate-birthday-knative.pipeline.svc.cluster.local/run
+      - -F
+      - n_rows=1000
+      - -F
+      - min_age=18
+      - -F
+      - max_age=80
+      - -F
+      - output_file=/mnt/data/argo-shard/parallel-full-data-pipeline-generate-birthday/birthdays.csv
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+
+  - name: call-generate-address-service
+    metadata:
+      labels:
+        step-name: "generate-address"
+        workflow-name: "4-parallel-step-reuse-parallel-full-data-pipeline"
+    container:
+      image: curlimages/curl:7.85.0
+      command:
+      - curl
+      - -X
+      - POST
+      - http://generate-address-knative.pipeline.svc.cluster.local/run
+      - -F
+      - n_rows=1000
+      - -F
+      - output_file=/mnt/data/argo-shard/parallel-full-data-pipeline-generate-address/addresses.csv
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+
+  - name: call-generate-id-service
+    metadata:
+      labels:
+        step-name: "generate-id"
+        workflow-name: "4-parallel-step-reuse-parallel-full-data-pipeline"
+    container:
+      image: curlimages/curl:7.85.0
+      command:
+      - curl
+      - -X
+      - POST
+      - http://generate-id-knative.pipeline.svc.cluster.local/run
+      - -F
+      - name_csv=/mnt/data/argo-shard/parallel-full-data-pipeline-generate-name/names.csv
+      - -F
+      - birthday_csv=/mnt/data/argo-shard/parallel-full-data-pipeline-generate-birthday/birthdays.csv
+      - -F
+      - output_file=/mnt/data/argo-shard/parallel-full-data-pipeline-generate-id/id_data.csv
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+
+
+  - name: data-preprocess-parallel-full-data-pipeline
+    metadata:
+      labels:
+        step-name: "data-preprocess"
+        workflow-name: "4-parallel-step-reuse-parallel-full-data-pipeline"
+    container:
+      image: sepidmas/noreuse_scale-data-preprocessor:latest
+      command: ["python","main.py"]
+      args:
+        ["--input_path","/mnt/data/argo-shard/parallel-full-data-pipeline-generate-id/id_data.csv",
+         "--output_path","/mnt/data/argo-shard/parallel-full-data-pipeline-data-preprocess/clean_data.csv",
+         "--metadata_path","/mnt/data/argo-shard/parallel-full-data-pipeline-data-preprocess/metadata.json",
+         "--handle_missing","mean"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+          ephemeral-storage: "300Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+          ephemeral-storage: "1Gi"
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: temp-volume
+        mountPath: /tmp
+
+
+
+  - name: synthetic-generator-parallel-full-data-pipeline
+    metadata:
+      labels:
+        step-name: "synthetic-generator"
+        workflow-name: "4-parallel-step-reuse-parallel-full-data-pipeline"
+    container:
+      image: sepidmas/noreuse_scale-synthetic-generator:latest
+      command: ["python","main.py"]
+      args:
+        ["--metadata_path","/mnt/data/argo-shard/parallel-full-data-pipeline-data-preprocess/metadata.json",
+         "--input_path","/mnt/data/argo-shard/parallel-full-data-pipeline-data-preprocess/clean_data.csv",
+         "--output_path","/mnt/data/argo-shard/parallel-full-data-pipeline-synthetic-generator/synthetic_data.csv",
+         "--num_samples","1000"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "512Mi"
+          ephemeral-storage: "1Gi"
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+          ephemeral-storage: "1Gi"
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: temp-volume
+        mountPath: /tmp
+
+
+
+  - name: data-quality-parallel-full-data-pipeline
+    metadata:
+      labels:
+        step-name: "data-quality"
+        workflow-name: "4-parallel-step-reuse-parallel-full-data-pipeline"
+    container:
+      image: sepidmas/noreuse_scale-data-quality:latest
+      command: ["python","main.py"]
+      args:
+        ["--metadata_path","/mnt/data/argo-shard/parallel-full-data-pipeline-data-preprocess/metadata.json",
+         "--real_data_path","/mnt/data/argo-shard/parallel-full-data-pipeline-data-preprocess/clean_data.csv",
+         "--synthetic_data_path","/mnt/data/argo-shard/parallel-full-data-pipeline-synthetic-generator/synthetic_data.csv",
+         "--output_path","/mnt/data/argo-shard/parallel-full-data-pipeline-data-quality/quality_report.json",
+         "--method","realistic",
+         "--output_dir","/mnt/data/argo-shard/parallel-full-data-pipeline-data-quality/quality_report_HTML.html"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "768Mi"
+          ephemeral-storage: "100Mi"
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+          ephemeral-storage: "200Mi"
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: temp-volume
+        mountPath: /tmp
+        subPath: tmp
+
+
+
+  - name: privacy-tracking-parallel-full-data-pipeline
+    metadata:
+      labels:
+        step-name: "privacy-tracking"
+        workflow-name: "4-parallel-step-reuse-parallel-full-data-pipeline"
+    container:
+      image: sepidmas/noreuse_scale-privacy-tracking:latest
+      command: ["python","main.py"]
+      args:
+        ["--real_data_path","/mnt/data/argo-shard/parallel-full-data-pipeline-data-preprocess/clean_data.csv",
+         "--synthetic_data_path","/mnt/data/argo-shard/parallel-full-data-pipeline-synthetic-generator/synthetic_data.csv",
+         "--output_path","/mnt/data/argo-shard/parallel-full-data-pipeline-privacy-tracking/privacy_report.json"]
+      env:
+      - name: TMPDIR
+        value: /tmp
+      - name: TEMP
+        value: /tmp
+      - name: TMP
+        value: /tmp
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "768Mi"
+          ephemeral-storage: "500Mi"
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+          ephemeral-storage: "1Gi"
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data/argo-shard
+      - name: temp-volume
+        mountPath: /tmp

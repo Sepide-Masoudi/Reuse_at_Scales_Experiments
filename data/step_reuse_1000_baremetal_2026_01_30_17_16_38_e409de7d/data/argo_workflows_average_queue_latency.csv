@@ -1,0 +1,9 @@
+timestamp,instance,job,queue_name,timestamp,argo_workflows_average_queue_latency,layer,unit,treatment
+2026-01-30 16:16:38.723999977+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pod_cleanup_queue,1769789798.724,1.4876999999996476e-05,workflow,seconds,NoTreatment
+2026-01-30 16:17:08.723999977+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pod_cleanup_queue,1769789828.724,0.0001412572500000056,workflow,seconds,Treatment
+2026-01-30 16:17:38.723999977+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pod_cleanup_queue,1769789858.724,1.4188999999997787e-05,workflow,seconds,Treatment
+2026-01-30 16:18:08.723999977+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,pod_cleanup_queue,1769789888.724,1.3800999999993848e-05,workflow,seconds,Treatment
+2026-01-30 16:16:38.723999977+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,workflow_queue,1769789798.724,5.544450000000145e-05,workflow,seconds,NoTreatment
+2026-01-30 16:17:08.723999977+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,workflow_queue,1769789828.724,3.2983500000000054e-05,workflow,seconds,Treatment
+2026-01-30 16:17:38.723999977+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,workflow_queue,1769789858.724,3.985400000000582e-05,workflow,seconds,Treatment
+2026-01-30 16:18:08.723999977+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,workflow_queue,1769789888.724,0.0005152135000000002,workflow,seconds,Treatment

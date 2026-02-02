@@ -20,17 +20,23 @@ wait_for_all_workflows() {
     echo "✅ All workflows in '${namespace}' completed"
 }
 
-echo "Starting first batch..."
-pipeline/output/run_all_NO_reuse_workflows.sh
+#echo "Starting first batch..."
+#pipeline/output/run_all_NO_reuse_workflows.sh
 
-wait_for_all_workflows "no-reuse-pipeline"
-echo "First batch completed ✅"
+#wait_for_all_workflows "no-reuse-pipeline"
+#echo "First batch completed ✅"
 
 #echo "Starting second batch..."
 #pipeline/output/run_all_reuse_workflows.sh
 
 #wait_for_all_workflows "pipeline"
 #echo "Second batch completed ✅"
+
+echo "Starting third batch..."
+pipeline/output/run_all_reuse_workflows_knative.sh
+
+wait_for_all_workflows "pipeline"
+echo "third batch completed ✅"
 
 # Create a flag to indicate experiments are done
 echo "ALL_EXPERIMENTS_DONE=true"
