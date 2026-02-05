@@ -1,0 +1,5 @@
+timestamp,timestamp,apiserver_request_rate,layer,unit,treatment
+2026-02-03 11:03:26.361000061+00:00,1770116606.361,80.84545454545452,cluster,requests_per_second,NoTreatment
+2026-02-03 11:03:56.361000061+00:00,1770116636.361,72.65454545454544,cluster,requests_per_second,Treatment
+2026-02-03 11:04:26.361000061+00:00,1770116666.361,72.20909090909089,cluster,requests_per_second,Treatment
+2026-02-03 11:04:56.361000061+00:00,1770116696.361,74.66363636363634,cluster,requests_per_second,Treatment

@@ -1,0 +1,14 @@
+{
+    "startTime": "2026_02_04_16_31_18",
+    "endTime": "2026_02_04_16_33_19",
+    "treatment_start": "2026_02_04_16_31_28",
+    "treatment_end": "2026_02_04_16_33_09",
+    "runHash": "8952049d",
+    "duration": 121.213431,
+    "treatment_duration": 101.200561,
+    "user_data": {
+        "experiment": "4-parallel-step-reuse-stress0",
+        "workflow": "pipeline/output/step-reuse/4-parallel-step-reuse.yaml",
+        "stress_factor": 0
+    }
+}

@@ -1,0 +1,283 @@
+{
+    "version": "1.0",
+    "created_at": "2026-02-04T16:33:20.428222",
+    "format": "csv",
+    "data_files": {
+        "system_cpu_usage": {
+            "filename": "system_cpu_usage.csv",
+            "rows": 90,
+            "columns": [
+                "pod",
+                "timestamp",
+                "system_cpu_usage",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_pod_cpu_power_watts": {
+            "filename": "kepler_pod_cpu_power_watts.csv",
+            "rows": 94,
+            "columns": [
+                "pod_name",
+                "timestamp",
+                "kepler_pod_cpu_power_watts",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_pod_cpu_energy_joules": {
+            "filename": "kepler_pod_cpu_energy_joules.csv",
+            "rows": 94,
+            "columns": [
+                "pod_name",
+                "timestamp",
+                "kepler_pod_cpu_energy_joules",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "cpu_usage_seconds_delta": {
+            "filename": "cpu_usage_seconds_delta.csv",
+            "rows": 90,
+            "columns": [
+                "pod",
+                "timestamp",
+                "cpu_usage_seconds_delta",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_all_pod_cpu_power_watts": {
+            "filename": "kepler_all_pod_cpu_power_watts.csv",
+            "rows": 5,
+            "columns": [
+                "timestamp",
+                "kepler_all_pod_cpu_power_watts",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_all_pod_cpu_energy_joules": {
+            "filename": "kepler_all_pod_cpu_energy_joules.csv",
+            "rows": 5,
+            "columns": [
+                "timestamp",
+                "kepler_all_pod_cpu_energy_joules",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_node_cpu_power_raw": {
+            "filename": "kepler_node_cpu_power_raw.csv",
+            "rows": 10,
+            "columns": [
+                "app_kubernetes_io_instance",
+                "app_kubernetes_io_managed_by",
+                "app_kubernetes_io_name",
+                "app_kubernetes_io_part_of",
+                "app_kubernetes_io_version",
+                "helm_sh_chart",
+                "instance",
+                "job",
+                "namespace",
+                "node",
+                "node_name",
+                "path",
+                "service",
+                "zone",
+                "timestamp",
+                "kepler_node_cpu_power_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_node_cpu_power_sum": {
+            "filename": "kepler_node_cpu_power_sum.csv",
+            "rows": 5,
+            "columns": [
+                "timestamp",
+                "kepler_node_cpu_power_sum",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "apiserver_request_rate": {
+            "filename": "apiserver_request_rate.csv",
+            "rows": 5,
+            "columns": [
+                "timestamp",
+                "apiserver_request_rate",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "apiserver_latency_95th": {
+            "filename": "apiserver_latency_95th.csv",
+            "rows": 5,
+            "columns": [
+                "timestamp",
+                "apiserver_latency_95th",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_memory_usage": {
+            "filename": "pod_memory_usage.csv",
+            "rows": 100,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_memory_usage",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_receive_bytes": {
+            "filename": "pod_network_receive_bytes.csv",
+            "rows": 91,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_receive_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_transmit_bytes": {
+            "filename": "pod_network_transmit_bytes.csv",
+            "rows": 91,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_transmit_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_total_count": {
+            "filename": "argo_workflows_total_count.csv",
+            "rows": 5,
+            "columns": [
+                "timestamp",
+                "argo_workflows_total_count",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_operation_duration_seconds": {
+            "filename": "argo_workflows_operation_duration_seconds.csv",
+            "rows": 5,
+            "columns": [
+                "instance",
+                "job",
+                "timestamp",
+                "argo_workflows_operation_duration_seconds",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_completed_total": {
+            "filename": "argo_workflows_completed_total.csv",
+            "rows": 15,
+            "columns": [
+                "phase",
+                "timestamp",
+                "argo_workflows_completed_total",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_pods_total": {
+            "filename": "argo_workflows_pods_total.csv",
+            "rows": 5,
+            "columns": [
+                "timestamp",
+                "argo_workflows_pods_total",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_average_queue_latency": {
+            "filename": "argo_workflows_average_queue_latency.csv",
+            "rows": 10,
+            "columns": [
+                "instance",
+                "job",
+                "queue_name",
+                "timestamp",
+                "argo_workflows_average_queue_latency",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_workers_busy_raw": {
+            "filename": "argo_workflows_workers_busy_raw.csv",
+            "rows": 25,
+            "columns": [
+                "__name__",
+                "instance",
+                "job",
+                "worker_type",
+                "timestamp",
+                "argo_workflows_workers_busy_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_queue_adds_raw": {
+            "filename": "argo_workflows_queue_adds_raw.csv",
+            "rows": 10,
+            "columns": [
+                "instance",
+                "job",
+                "queue_name",
+                "timestamp",
+                "argo_workflows_queue_adds_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_k8s_requests_raw": {
+            "filename": "argo_workflows_k8s_requests_raw.csv",
+            "rows": 165,
+            "columns": [
+                "instance",
+                "job",
+                "kind",
+                "status_code",
+                "verb",
+                "timestamp",
+                "argo_workflows_k8s_requests_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        }
+    },
+    "files": {
+        "session": "session.json",
+        "run": "run.json",
+        "config": "config.yaml",
+        "environment": null
+    }
+}

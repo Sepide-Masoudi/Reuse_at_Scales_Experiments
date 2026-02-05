@@ -1,0 +1,4 @@
+timestamp,timestamp,apiserver_latency_95th,layer,unit,treatment
+2026-02-04 15:39:46.855000019+00:00,1770219586.855,60,cluster,seconds,NoTreatment
+2026-02-04 15:40:16.855000019+00:00,1770219616.855,60,cluster,seconds,Treatment
+2026-02-04 15:40:46.855000019+00:00,1770219646.855,60,cluster,seconds,Treatment

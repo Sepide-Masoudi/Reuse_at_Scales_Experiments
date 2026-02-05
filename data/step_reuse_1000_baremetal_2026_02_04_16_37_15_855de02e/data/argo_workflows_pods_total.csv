@@ -1,0 +1,4 @@
+timestamp,timestamp,argo_workflows_pods_total,layer,unit,treatment
+2026-02-04 15:37:15.368000031+00:00,1770219435.368,0.1,pod,pods,NoTreatment
+2026-02-04 15:37:45.368000031+00:00,1770219465.368,0.1,pod,pods,Treatment
+2026-02-04 15:38:15.368000031+00:00,1770219495.368,0.12000000000000001,pod,pods,Treatment

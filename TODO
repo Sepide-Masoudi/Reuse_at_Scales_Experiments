@@ -1,2 +1,31 @@
 # Knative problem
 # Defing the join queries to get the metrics per workflow / per pod/ per system
+
+
+Reuslts :
+
+Stress - 0 :
+
+No reuse for low load or exploratory workloads where pipelines are executed infrequently.
+
+Stress - 5 :
+
+
+No reuse for energy critical executions under moderate load
+Full reuse if reuse is required for latency or throughput reasons, as it offers stable energy behavior
+
+Stress - 6 :
+
+Full reuse for high load and stress intensive scenarios
+Avoid parallel reuse under heavy contention due to its severe energy penalty
+
+
+Overall :
+
+No reuse is optimal for low and moderate stress when minimizing energy consumption is the primary goal.
+
+Full reuse provides the most stable and scalable energy behavior under increasing stress.
+
+Four stage reuse offers benefits only at high stress and does not justify its overhead at lower loads.
+
+Four stage parallel reuse is consistently inefficient at high stress and should be avoided in energy constrained environments.

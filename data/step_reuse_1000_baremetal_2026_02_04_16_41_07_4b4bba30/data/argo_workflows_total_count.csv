@@ -1,0 +1,5 @@
+timestamp,timestamp,argo_workflows_total_count,layer,unit,treatment
+2026-02-04 15:41:07.661000013+00:00,1770219667.661,0.02,workflow,workflows,NoTreatment
+2026-02-04 15:41:37.661000013+00:00,1770219697.661,0.04,workflow,workflows,Treatment
+2026-02-04 15:42:07.661000013+00:00,1770219727.661,0.02,workflow,workflows,Treatment
+2026-02-04 15:42:37.661000013+00:00,1770219757.661,0.0,workflow,workflows,Treatment

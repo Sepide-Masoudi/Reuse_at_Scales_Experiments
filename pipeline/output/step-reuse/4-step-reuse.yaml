@@ -172,6 +172,7 @@ spec:
       - -X
       - POST
       - http://data-preprocess-knative.pipeline.svc.cluster.local/run
+#      - http://data-preprocess.pipeline.svc.cluster.local:8083/run
       - -F
       - metadata_file=/mnt/data/argo-shard/parallel-full-data-pipeline-data-preprocess/metadata.json
       - -F
@@ -195,6 +196,7 @@ spec:
       - -X
       - POST
       - http://synthetic-generator-knative.pipeline.svc.cluster.local/run
+#      - http://synthetic-generator.pipeline.svc.cluster.local:8090/run
       - -F
       - metadata_json=/mnt/data/argo-shard/parallel-full-data-pipelinedata-preprocess/metadata.json
       - -F
@@ -222,6 +224,7 @@ spec:
       - -X
       - POST
       - http://data-quality-knative.pipeline.svc.cluster.local/run
+#      - http://data-quality.pipeline.svc.cluster.local:8084/run      
       - -F
       - input_metadata_file=/mnt/data/argo-shard/parallel-full-data-pipeline-data-preprocess/metadata.json
       - -F
@@ -247,6 +250,7 @@ spec:
       - -X
       - POST
       - http://privacy-tracking-knative.pipeline.svc.cluster.local/run
+#      - http://privacy-tracking.pipeline.svc.cluster.local:8089/run
       - -F
       - input_dir=/mnt/data/argo-shard
       - -F

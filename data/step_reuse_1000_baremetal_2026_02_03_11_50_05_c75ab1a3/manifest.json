@@ -1,0 +1,211 @@
+{
+    "version": "1.0",
+    "created_at": "2026-02-03T11:51:59.309870",
+    "format": "csv",
+    "data_files": {
+        "system_cpu_usage": {
+            "filename": "system_cpu_usage.csv",
+            "rows": 36,
+            "columns": [
+                "pod",
+                "timestamp",
+                "system_cpu_usage",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_pod_cpu_power_watts": {
+            "filename": "kepler_pod_cpu_power_watts.csv",
+            "rows": 36,
+            "columns": [
+                "pod_name",
+                "timestamp",
+                "kepler_pod_cpu_power_watts",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_pod_cpu_energy_joules": {
+            "filename": "kepler_pod_cpu_energy_joules.csv",
+            "rows": 36,
+            "columns": [
+                "pod_name",
+                "timestamp",
+                "kepler_pod_cpu_energy_joules",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "cpu_usage_seconds_delta": {
+            "filename": "cpu_usage_seconds_delta.csv",
+            "rows": 36,
+            "columns": [
+                "pod",
+                "timestamp",
+                "cpu_usage_seconds_delta",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_all_pod_cpu_power_watts": {
+            "filename": "kepler_all_pod_cpu_power_watts.csv",
+            "rows": 4,
+            "columns": [
+                "timestamp",
+                "kepler_all_pod_cpu_power_watts",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_all_pod_cpu_energy_joules": {
+            "filename": "kepler_all_pod_cpu_energy_joules.csv",
+            "rows": 4,
+            "columns": [
+                "timestamp",
+                "kepler_all_pod_cpu_energy_joules",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_node_cpu_power_raw": {
+            "filename": "kepler_node_cpu_power_raw.csv",
+            "rows": 8,
+            "columns": [
+                "app_kubernetes_io_instance",
+                "app_kubernetes_io_managed_by",
+                "app_kubernetes_io_name",
+                "app_kubernetes_io_part_of",
+                "app_kubernetes_io_version",
+                "helm_sh_chart",
+                "instance",
+                "job",
+                "namespace",
+                "node",
+                "node_name",
+                "path",
+                "service",
+                "zone",
+                "timestamp",
+                "kepler_node_cpu_power_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_node_cpu_power_sum": {
+            "filename": "kepler_node_cpu_power_sum.csv",
+            "rows": 4,
+            "columns": [
+                "timestamp",
+                "kepler_node_cpu_power_sum",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "apiserver_request_rate": {
+            "filename": "apiserver_request_rate.csv",
+            "rows": 4,
+            "columns": [
+                "timestamp",
+                "apiserver_request_rate",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "apiserver_latency_95th": {
+            "filename": "apiserver_latency_95th.csv",
+            "rows": 4,
+            "columns": [
+                "timestamp",
+                "apiserver_latency_95th",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_memory_usage": {
+            "filename": "pod_memory_usage.csv",
+            "rows": 42,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_memory_usage",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_receive_bytes": {
+            "filename": "pod_network_receive_bytes.csv",
+            "rows": 36,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_receive_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_transmit_bytes": {
+            "filename": "pod_network_transmit_bytes.csv",
+            "rows": 36,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_transmit_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_total_created": {
+            "filename": "argo_workflows_total_created.csv",
+            "rows": 4,
+            "columns": [
+                "timestamp",
+                "argo_workflows_total_created",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_completed_by_phase": {
+            "filename": "argo_workflows_completed_by_phase.csv",
+            "rows": 12,
+            "columns": [
+                "phase",
+                "timestamp",
+                "argo_workflows_completed_by_phase",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "argo_workflows_pods_created": {
+            "filename": "argo_workflows_pods_created.csv",
+            "rows": 4,
+            "columns": [
+                "timestamp",
+                "argo_workflows_pods_created",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        }
+    },
+    "files": {
+        "session": "session.json",
+        "run": "run.json",
+        "config": "config.yaml",
+        "environment": null
+    }
+}

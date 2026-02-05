@@ -58,6 +58,7 @@ spec:
       - -X
       - POST
       - http://generate-name-knative.pipeline.svc.cluster.local/run
+      ##- http://generate-name.pipeline.svc.cluster.local:8082/run
       - -F
       - n_rows=1000
       - -F
@@ -81,6 +82,7 @@ spec:
       - -X
       - POST
       - http://generate-birthday-knative.pipeline.svc.cluster.local/run
+      ##- http://generate-birthday.pipeline.svc.cluster.local:8086/run
       - -F
       - n_rows=1000
       - -F
@@ -106,6 +108,7 @@ spec:
       - -X
       - POST
       - http://generate-address-knative.pipeline.svc.cluster.local/run
+      ##- http://generate-address.pipeline.svc.cluster.local:8085/run
       - -F
       - n_rows=1000
       - -F
@@ -127,6 +130,7 @@ spec:
       - -X
       - POST
       - http://generate-id-knative.pipeline.svc.cluster.local/run
+      ##- http://generate-id.pipeline.svc.cluster.local:8087/run      
       - -F
       - name_csv=/mnt/data/argo-shard/parallel-full-data-pipeline-generate-name/names.csv
       - -F
