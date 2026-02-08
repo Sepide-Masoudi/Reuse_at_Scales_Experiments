@@ -4,8 +4,8 @@
     "treatment_start": "2026_02_04_16_35_29",
     "treatment_end": "2026_02_04_16_37_04",
     "runHash": "25ecc41f",
-    "duration": 114.93134,
-    "treatment_duration": 94.910669,
+    "duration": 115.0,
+    "treatment_duration": 95.0,
     "user_data": {
         "experiment": "4-parallel-step-reuse-stress50",
         "workflow": "pipeline/output/step-reuse/4-parallel-step-reuse.yaml",

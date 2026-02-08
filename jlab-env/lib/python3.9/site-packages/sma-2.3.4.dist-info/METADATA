@@ -1,0 +1,84 @@
+Metadata-Version: 2.1
+Name: sma
+Version: 2.3.4
+Summary: Package for analysing social-ecological networks
+Home-page: https://gitlab.com/t.seppelt/sesmotifanalyser
+Author: Tim Seppelt
+Author-email: t.seppelt-dev@posteo.de
+License: UNKNOWN
+Project-URL: Bug Tracker, https://gitlab.com/t.seppelt/sesmotifanalyser/issues
+Project-URL: Documentation, https://gitlab.com/t.seppelt/sesmotifanalyser/raw/master/doc/_build/latex/SESMotifAnalyser.pdf?inline=false
+Project-URL: Source Code, https://gitlab.com/t.seppelt/sesmotifanalyser
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: networkx
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scipy
+Provides-Extra: plots
+Requires-Dist: matplotlib ; extra == 'plots'
+
+# SESMotifAnalyser: framework for analysing social-ecological systems
+
+This package contains a Python based framework for analysing social-ecological systems and more broadly multi-level networks.
+
+
+## Documentation
+
+**A comprehensive documentation is available [as PDF](https://gitlab.com/t.seppelt/sesmotifanalyser/raw/master/doc/_build/latex/SESMotifAnalyser.pdf?inline=false).**
+Please contact t.seppelt-dev[ÄT]posteo.de in case of any questions.
+
+See the [examples folder](https://gitlab.com/t.seppelt/sesmotifanalyser/-/tree/master/examples) for examples.
+
+## Installation
+
+The package can be installed using ``pip``.
+
+```bash
+pip3 install sma
+```
+
+Per default, dependencies required for drawing social-ecological networks will not
+be installed. The following command may be used to install the additional dependencies:
+
+```bash
+pip3 install sma[plots]
+```
+
+It has the following dependencies: Python 3, numpy, scipy, networkx, pandas.
+On the R side it depends on statnet, reticulate (with Python 3).
+
+For a version history, see [change log](https://gitlab.com/t.seppelt/sesmotifanalyser/-/blob/master/CHANGELOG.md) and [tags](https://gitlab.com/t.seppelt/sesmotifanalyser/-/tags).
+
+## Integration in R and motifr <a href='https://marioangst.github.io/motifr/'><img src='https://raw.githubusercontent.com/marioangst/motifr/master/man/figures/logo.svg' align="right" height="139" /></a>
+
+The functions in this package can to some extent be called from R using the R package 
+reticulate. An example can be found in the 
+[examples folder](https://gitlab.com/t.seppelt/sesmotifanalyser/raw/master/examples/example.R). 
+See also the corresponding section in the documentation.
+
+Mario Angst is working on an R package which provides an interface to the SESMotifAnalyser. 
+His project motifr can be found on [Github](https://marioangst.github.io/motifr/).
+
+
+## ergm-userterms
+
+In addition to the motif counting features written in Python, this repository contains `ergm-userterms` for some motifs, e.g. the 3-motifs I.C and II.C (closed and open triangles,
+respecting the social-ecological types of the nodes).
+
+After downloading and compiling the package, `ergm` models can be fitted and the motif counting
+can be done directly in R:
+
+```R
+netw <- network(...)
+
+# first parameter: which sesType should the nodes at the points of the triangles have
+# second parameter: name of nodel attribute
+summary(netw ~ openTriangles(0, 'sesType'))
+```
+

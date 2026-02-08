@@ -43,7 +43,7 @@ def wait_for_experiment_completion(experiment: Experiment) -> Callable[[], dict]
         if experiment.stress_factor > 0:
             print(f"🔥 Starting stress load level {experiment.stress_factor}")
             stress_proc = subprocess.Popen(
-                ["python", "stress_pipeline_services.py",
+                ["python", "cuncurrent-stress.py",
                  str(experiment.stress_factor)]
             )
 
@@ -105,34 +105,39 @@ def main() -> None:
     print(f"Found {len(workflow_files)} workflows")
 
     stress_levels = [0, 5, 50]
+    repetitions = 3  # repeat each experiment 3 times
 
     for wf in workflow_files:
         for stress in stress_levels:
+            for run_id in range(1, repetitions + 1):
 
-            exp = Experiment(
-                name=f"{wf.stem}-stress{stress}",
-                workflow_file=str(wf),
-                stress_factor=stress
-            )
+                exp = Experiment(
+                    name=f"{wf.stem}-stress{stress}-run{run_id}",
+                    workflow_file=str(wf),
+                    stress_factor=stress
+                )
 
-            print("\n==============================")
-            print(f"Starting experiment: {exp.name}, stress level: {stress}")
-            print("==============================")
+                print("\n==============================")
+                print(
+                    f"Starting experiment: {exp.name} | "
+                    f"stress={stress} | run={run_id}/{repetitions}"
+                )
+                print("==============================")
 
-            prepare_experiment(exp)
+                prepare_experiment(exp)
 
-            sma = SustainabilityMeasurementAgent(config)
-            sma.setup(SMASession(name=exp.name))
-            sma.connect()
+                sma = SustainabilityMeasurementAgent(config)
+                sma.setup(SMASession(name=exp.name))
+                sma.connect()
 
-            trigger = wait_for_experiment_completion(exp)
+                trigger = wait_for_experiment_completion(exp)
 
-            sma.run(trigger)
+                sma.run(trigger)
 
-            cleanup_experiment(exp)
-            sma.teardown()
+                cleanup_experiment(exp)
+                sma.teardown()
 
-            print(f"✅ Experiment finished: {exp.name}")
+                print(f"✅ Experiment finished: {exp.name}")
 
     log.info("All experiments finished.")
 

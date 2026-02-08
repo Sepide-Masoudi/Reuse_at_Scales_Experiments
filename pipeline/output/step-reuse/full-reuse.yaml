@@ -19,9 +19,9 @@ spec:
     steps:
     - - name: generate-name
         template: call-generate-name-service
-      - name: generate-birthday
+    - - name: generate-birthday
         template: call-generate-birthday-service
-      - name: generate-address
+    - - name: generate-address
         template: call-generate-address-service
     - - name: generate-id
         template: call-generate-id-service
@@ -31,7 +31,7 @@ spec:
         template: call-synthetic-generator-service
     - - name: privacy-tracking
         template: call-privacy-tracking-service
-      - name: data-quality
+    - - name: data-quality
         template: call-data-quality-service
   - name: call-generate-name-service
     metadata:

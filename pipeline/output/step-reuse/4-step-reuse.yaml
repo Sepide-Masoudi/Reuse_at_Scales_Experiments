@@ -21,9 +21,9 @@ spec:
     steps:
     - - name: generate-name
         template: generate-name-parallel-full-data-pipeline
-      - name: generate-birthday
+    - - name: generate-birthday
         template: generate-birthday-parallel-full-data-pipeline
-      - name: generate-address
+    - - name: generate-address
         template: generate-address-parallel-full-data-pipeline
     - - name: generate-id
         template: generate-id-parallel-full-data-pipeline
@@ -33,7 +33,7 @@ spec:
         template: call-synthetic-generator-service
     - - name: privacy-tracking
         template: call-privacy-tracking-service
-      - name: data-quality
+    - - name: data-quality
         template: call-data-quality-service
 
   - name: generate-name-parallel-full-data-pipeline

@@ -4,8 +4,8 @@
     "treatment_start": "2026_02_04_16_45_07",
     "treatment_end": "2026_02_04_16_46_37",
     "runHash": "c7c83ff6",
-    "duration": 109.216428,
-    "treatment_duration": 89.205553,
+    "duration": 110.0,
+    "treatment_duration": 90.0,
     "user_data": {
         "experiment": "baseline-stress50",
         "workflow": "pipeline/output/step-reuse/baseline.yaml",

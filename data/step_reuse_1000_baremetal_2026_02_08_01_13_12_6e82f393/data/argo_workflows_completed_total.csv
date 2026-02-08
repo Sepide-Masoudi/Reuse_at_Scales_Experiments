@@ -1,0 +1,25 @@
+timestamp,phase,timestamp,argo_workflows_completed_total,layer,unit,treatment
+2026-02-08 00:13:12.789999962+00:00,Failed,1770509592.79,0.0,workflow,workflows,NoTreatment
+2026-02-08 00:13:22.789999962+00:00,Failed,1770509602.79,0.0,workflow,workflows,NoTreatment
+2026-02-08 00:13:32.789999962+00:00,Failed,1770509612.79,0.0,workflow,workflows,Treatment
+2026-02-08 00:13:42.789999962+00:00,Failed,1770509622.79,0.0,workflow,workflows,Treatment
+2026-02-08 00:13:52.789999962+00:00,Failed,1770509632.79,0.0,workflow,workflows,Treatment
+2026-02-08 00:14:02.789999962+00:00,Failed,1770509642.79,0.0,workflow,workflows,Treatment
+2026-02-08 00:14:12.789999962+00:00,Failed,1770509652.79,0.0,workflow,workflows,Treatment
+2026-02-08 00:14:22.789999962+00:00,Failed,1770509662.79,0.0,workflow,workflows,NoTreatment
+2026-02-08 00:13:12.789999962+00:00,Running,1770509592.79,0.0,workflow,workflows,NoTreatment
+2026-02-08 00:13:22.789999962+00:00,Running,1770509602.79,0.0,workflow,workflows,NoTreatment
+2026-02-08 00:13:32.789999962+00:00,Running,1770509612.79,0.02,workflow,workflows,Treatment
+2026-02-08 00:13:42.789999962+00:00,Running,1770509622.79,0.02,workflow,workflows,Treatment
+2026-02-08 00:13:52.789999962+00:00,Running,1770509632.79,0.02,workflow,workflows,Treatment
+2026-02-08 00:14:02.789999962+00:00,Running,1770509642.79,0.02,workflow,workflows,Treatment
+2026-02-08 00:14:12.789999962+00:00,Running,1770509652.79,0.02,workflow,workflows,Treatment
+2026-02-08 00:14:22.789999962+00:00,Running,1770509662.79,0.0,workflow,workflows,NoTreatment
+2026-02-08 00:13:12.789999962+00:00,Succeeded,1770509592.79,0.02,workflow,workflows,NoTreatment
+2026-02-08 00:13:22.789999962+00:00,Succeeded,1770509602.79,0.02,workflow,workflows,NoTreatment
+2026-02-08 00:13:32.789999962+00:00,Succeeded,1770509612.79,0.02,workflow,workflows,Treatment
+2026-02-08 00:13:42.789999962+00:00,Succeeded,1770509622.79,0.02,workflow,workflows,Treatment
+2026-02-08 00:13:52.789999962+00:00,Succeeded,1770509632.79,0.02,workflow,workflows,Treatment
+2026-02-08 00:14:02.789999962+00:00,Succeeded,1770509642.79,0.0,workflow,workflows,Treatment
+2026-02-08 00:14:12.789999962+00:00,Succeeded,1770509652.79,0.0,workflow,workflows,Treatment
+2026-02-08 00:14:22.789999962+00:00,Succeeded,1770509662.79,0.02,workflow,workflows,NoTreatment
