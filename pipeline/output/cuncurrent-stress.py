@@ -3,13 +3,13 @@ import threading
 import time
 from time import perf_counter
 from queue import Queue
+import argparse
 
 # ===========================
 # CONFIG
 # ===========================
 DURATION = 600  # 10 minutes
 TIMEOUT = 30
-STRESS_LEVELS = [0, 5, 50]
 
 # ===========================
 # SERVICE CALLS
@@ -175,7 +175,12 @@ def run_stress_level_all_services(users):
 # MAIN
 # ===========================
 if __name__ == "__main__":
-    all_stats = {}
+    parser = argparse.ArgumentParser(description="Run stress tests on services")
+    parser.add_argument(
+        "stress", type=int, choices=[0, 5, 50],
+        help="Stress factor (number of concurrent users: 0, 5, or 50)"
+    )
+    args = parser.parse_args()
+    stress_factor = args.stress
 
-    for level in STRESS_LEVELS:
-        all_stats[level] = run_stress_level_all_services(level)
+    run_stress_level_all_services(stress_factor)

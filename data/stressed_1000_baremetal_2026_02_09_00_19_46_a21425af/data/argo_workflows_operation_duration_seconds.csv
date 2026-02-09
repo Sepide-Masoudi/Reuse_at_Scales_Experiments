@@ -1,0 +1,12 @@
+timestamp,instance,job,timestamp,argo_workflows_operation_duration_seconds,layer,unit,treatment
+2026-02-08 23:19:46.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592786.485,0.12,workflow,seconds,NoTreatment
+2026-02-08 23:19:56.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592796.485,0.1,workflow,seconds,NoTreatment
+2026-02-08 23:20:06.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592806.485,0.14,workflow,seconds,Treatment
+2026-02-08 23:20:16.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592816.485,0.16,workflow,seconds,Treatment
+2026-02-08 23:20:26.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592826.485,0.14,workflow,seconds,Treatment
+2026-02-08 23:20:36.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592836.485,0.14,workflow,seconds,Treatment
+2026-02-08 23:20:46.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592846.485,0.16,workflow,seconds,Treatment
+2026-02-08 23:20:56.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592856.485,0.12,workflow,seconds,Treatment
+2026-02-08 23:21:06.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592866.485,0.1,workflow,seconds,Treatment
+2026-02-08 23:21:16.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592876.485,0.1,workflow,seconds,Treatment
+2026-02-08 23:21:26.484999895+00:00,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770592886.485,0.1,workflow,seconds,NoTreatment

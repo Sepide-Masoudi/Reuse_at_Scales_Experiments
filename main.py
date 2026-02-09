@@ -43,7 +43,8 @@ def wait_for_experiment_completion(experiment: Experiment) -> Callable[[], dict]
         if experiment.stress_factor > 0:
             print(f"🔥 Starting stress load level {experiment.stress_factor}")
             stress_proc = subprocess.Popen(
-                ["python", "cuncurrent-stress.py",
+                ["python", 
+                "./pipeline/output/cuncurrent-stress.py",
                  str(experiment.stress_factor)]
             )
 

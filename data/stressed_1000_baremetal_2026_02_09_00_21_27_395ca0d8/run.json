@@ -1,0 +1,14 @@
+{
+    "startTime": "2026_02_09_00_21_27",
+    "endTime": "2026_02_09_00_24_22",
+    "treatment_start": "2026_02_09_00_21_37",
+    "treatment_end": "2026_02_09_00_24_12",
+    "runHash": "395ca0d8",
+    "duration": 175.103317,
+    "treatment_duration": 155.083707,
+    "user_data": {
+        "experiment": "baseline-stress0-run1",
+        "workflow": "pipeline/output/step-reuse/baseline.yaml",
+        "stress_factor": 0
+    }
+}
