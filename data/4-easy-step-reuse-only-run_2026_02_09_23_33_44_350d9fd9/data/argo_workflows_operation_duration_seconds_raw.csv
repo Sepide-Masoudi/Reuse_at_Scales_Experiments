@@ -1,0 +1,18 @@
+timestamp,__name__,instance,job,timestamp,argo_workflows_operation_duration_seconds_raw,layer,unit,treatment
+2026-02-09 22:33:44.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676424.541,2819,workflow,seconds,NoTreatment
+2026-02-09 22:33:54.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676434.541,2819,workflow,seconds,NoTreatment
+2026-02-09 22:34:04.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676444.541,2821,workflow,seconds,Treatment
+2026-02-09 22:34:14.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676454.541,2824,workflow,seconds,Treatment
+2026-02-09 22:34:24.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676464.541,2825,workflow,seconds,Treatment
+2026-02-09 22:34:34.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676474.541,2827,workflow,seconds,Treatment
+2026-02-09 22:34:44.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676484.541,2828,workflow,seconds,Treatment
+2026-02-09 22:34:54.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676494.541,2829,workflow,seconds,Treatment
+2026-02-09 22:35:04.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676504.541,2831,workflow,seconds,Treatment
+2026-02-09 22:35:14.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676514.541,2832,workflow,seconds,Treatment
+2026-02-09 22:35:24.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676524.541,2833,workflow,seconds,Treatment
+2026-02-09 22:35:34.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676534.541,2834,workflow,seconds,Treatment
+2026-02-09 22:35:44.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676544.541,2834,workflow,seconds,Treatment
+2026-02-09 22:35:54.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676554.541,2835,workflow,seconds,Treatment
+2026-02-09 22:36:04.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676564.541,2836,workflow,seconds,Treatment
+2026-02-09 22:36:14.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676574.541,2836,workflow,seconds,Treatment
+2026-02-09 22:36:24.540999889+00:00,argo_workflows_operation_duration_seconds_count,workflow-controller-metrics.argo.svc.cluster.local:9090,argo-workflows,1770676584.541,2837,workflow,seconds,NoTreatment

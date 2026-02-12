@@ -44,7 +44,7 @@ def wait_for_experiment_completion(experiment: Experiment) -> Callable[[], dict]
             print(f"🔥 Starting stress load level {experiment.stress_factor}")
             stress_proc = subprocess.Popen(
                 ["python", 
-                "./pipeline/output/cuncurrent-stress.py",
+                "./pipeline/output/prime-service-stress.py",
                  str(experiment.stress_factor)]
             )
 
@@ -97,7 +97,7 @@ def main() -> None:
 
     config = Config.from_file("./sma-measurments.yaml")
 
-    workflow_dir = "./pipeline/output/step-reuse"
+    workflow_dir = "./pipeline/output/one-by-one"
     workflow_files = discover_workflows(workflow_dir)
 
     if not workflow_files:
@@ -106,7 +106,7 @@ def main() -> None:
     print(f"Found {len(workflow_files)} workflows")
 
     stress_levels = [0, 5, 50]
-    repetitions = 3  # repeat each experiment 3 times
+    repetitions = 1  # repeat each experiment x times
 
     for wf in workflow_files:
         for stress in stress_levels:

@@ -1,0 +1,15 @@
+timestamp,pod,timestamp,pod_network_transmit_bytes,layer,unit,treatment
+2026-02-10 00:00:55.716000080+00:00,parallel-full-data-pipeline6cvh8-data-quality-parallel-full-data-pipeline-3329117510,1770681655.716,57.65833333333333,pod,bytes_per_second,NoTreatment
+2026-02-10 00:01:05.716000080+00:00,parallel-full-data-pipeline6cvh8-data-quality-parallel-full-data-pipeline-3329117510,1770681665.716,57.65833333333333,pod,bytes_per_second,NoTreatment
+2026-02-10 00:01:15.716000080+00:00,parallel-full-data-pipeline6cvh8-data-quality-parallel-full-data-pipeline-3329117510,1770681675.716,57.65833333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:01:25.716000080+00:00,parallel-full-data-pipeline6cvh8-data-quality-parallel-full-data-pipeline-3329117510,1770681685.716,57.65833333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:01:35.716000080+00:00,parallel-full-data-pipeline6cvh8-data-quality-parallel-full-data-pipeline-3329117510,1770681695.716,57.65833333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:01:45.716000080+00:00,parallel-full-data-pipeline6cvh8-data-quality-parallel-full-data-pipeline-3329117510,1770681705.716,57.65833333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:01:55.716000080+00:00,parallel-full-data-pipeline6cvh8-data-quality-parallel-full-data-pipeline-3329117510,1770681715.716,57.65833333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:02:05.716000080+00:00,parallel-full-data-pipeline6cvh8-data-quality-parallel-full-data-pipeline-3329117510,1770681725.716,57.65833333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:02:15.716000080+00:00,parallel-full-data-pipeline6cvh8-data-quality-parallel-full-data-pipeline-3329117510,1770681735.716,57.65833333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:02:55.716000080+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681775.716,55.10245768457474,pod,bytes_per_second,Treatment
+2026-02-10 00:03:05.716000080+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681785.716,57.87083333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:03:15.716000080+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681795.716,57.87083333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:03:25.716000080+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681805.716,57.87083333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:03:35.716000080+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681815.716,57.87083333333334,pod,bytes_per_second,NoTreatment

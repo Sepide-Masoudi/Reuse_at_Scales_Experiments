@@ -1,0 +1,91 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: prime-hybrid-pipeline-
+  namespace: pipeline
+spec:
+  entrypoint: prime-pipeline
+  serviceAccountName: argo-workflow-sa
+  volumes:
+  - name: shared-data
+    emptyDir: {}
+
+  templates:
+
+  - name: prime-pipeline
+    steps:
+    # Steps using the external service
+    - - name: step-1
+        template: call-prime-service
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+    - - name: step-2
+        template: prime-task
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+    # Steps running in their own pod
+    - - name: step-3
+        template: call-prime-service
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+    - - name: step-4
+        template: prime-task
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+  # Template for calling the external service
+  - name: call-prime-service
+    inputs:
+      parameters:
+      - name: duration
+    container:
+      image: curlimages/curl:7.85.0
+      command:
+      - curl
+      - "http://prime-service.pipeline.svc.cluster.local:9098/run?duration={{inputs.parameters.duration}}"
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
+
+  # Template for normal pod execution
+  - name: prime-task
+    inputs:
+      parameters:
+      - name: duration
+    script:
+      image: python:3.10-slim
+      command: [python]
+      source: |
+        import time
+        import math
+
+        def is_prime(n):
+            if n < 2:
+                return False
+            for i in range(2, int(math.sqrt(n)) + 1):
+                if n % i == 0:
+                    return False
+            return True
+
+        duration = int("{{inputs.parameters.duration}}")
+        start = time.time()
+        count = 0
+        num = 2
+
+        while time.time() - start < duration:
+            if is_prime(num):
+                count += 1
+            num += 1
+
+        print("Primes found:", count)

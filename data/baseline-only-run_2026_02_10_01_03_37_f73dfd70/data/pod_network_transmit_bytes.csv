@@ -1,0 +1,19 @@
+timestamp,pod,timestamp,pod_network_transmit_bytes,layer,unit,treatment
+2026-02-10 00:03:37.638999939+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681817.639,57.87083333333334,pod,bytes_per_second,NoTreatment
+2026-02-10 00:03:47.638999939+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681827.639,57.87083333333334,pod,bytes_per_second,NoTreatment
+2026-02-10 00:03:57.638999939+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681837.639,57.87083333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:04:07.638999939+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681847.639,57.87083333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:04:17.638999939+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681857.639,57.87083333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:04:27.638999939+00:00,parallel-full-data-pipeline6dtks-privacy-tracking-parallel-full-data-pipeline-2705970120,1770681867.639,57.87083333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:05:27.638999939+00:00,parallel-full-data-pipeline8l6hz-privacy-tracking-parallel-full-data-pipeline-2884564272,1770681927.639,45.49362865669684,pod,bytes_per_second,Treatment
+2026-02-10 00:05:37.638999939+00:00,parallel-full-data-pipeline8l6hz-privacy-tracking-parallel-full-data-pipeline-2884564272,1770681937.639,56.59583333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:05:47.638999939+00:00,parallel-full-data-pipeline8l6hz-privacy-tracking-parallel-full-data-pipeline-2884564272,1770681947.639,56.59583333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:05:57.638999939+00:00,parallel-full-data-pipeline8l6hz-privacy-tracking-parallel-full-data-pipeline-2884564272,1770681957.639,56.59583333333333,pod,bytes_per_second,Treatment
+2026-02-10 00:06:07.638999939+00:00,parallel-full-data-pipeline8l6hz-privacy-tracking-parallel-full-data-pipeline-2884564272,1770681967.639,56.59583333333333,pod,bytes_per_second,NoTreatment
+2026-02-10 00:05:07.638999939+00:00,parallel-full-data-pipeline8l6hz-synthetic-generator-parallel-full-data-pipeline-2877038990,1770681907.639,63.16122895938928,pod,bytes_per_second,Treatment
+2026-02-10 00:05:17.638999939+00:00,parallel-full-data-pipeline8l6hz-synthetic-generator-parallel-full-data-pipeline-2877038990,1770681917.639,56.30833333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:05:27.638999939+00:00,parallel-full-data-pipeline8l6hz-synthetic-generator-parallel-full-data-pipeline-2877038990,1770681927.639,56.30833333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:05:37.638999939+00:00,parallel-full-data-pipeline8l6hz-synthetic-generator-parallel-full-data-pipeline-2877038990,1770681937.639,56.30833333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:05:47.638999939+00:00,parallel-full-data-pipeline8l6hz-synthetic-generator-parallel-full-data-pipeline-2877038990,1770681947.639,56.30833333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:05:57.638999939+00:00,parallel-full-data-pipeline8l6hz-synthetic-generator-parallel-full-data-pipeline-2877038990,1770681957.639,56.30833333333334,pod,bytes_per_second,Treatment
+2026-02-10 00:06:07.638999939+00:00,parallel-full-data-pipeline8l6hz-synthetic-generator-parallel-full-data-pipeline-2877038990,1770681967.639,56.30833333333334,pod,bytes_per_second,NoTreatment

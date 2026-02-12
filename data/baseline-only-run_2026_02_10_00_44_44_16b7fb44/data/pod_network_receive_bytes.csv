@@ -1,0 +1,12 @@
+timestamp,pod,timestamp,pod_network_receive_bytes,layer,unit,treatment
+2026-02-09 23:44:44.788000107+00:00,parallel-full-data-pipelinem4xck-privacy-tracking-parallel-full-data-pipeline-3670717613,1770680684.788,50.670833333333334,pod,bytes_per_second,NoTreatment
+2026-02-09 23:44:54.788000107+00:00,parallel-full-data-pipelinem4xck-privacy-tracking-parallel-full-data-pipeline-3670717613,1770680694.788,50.670833333333334,pod,bytes_per_second,NoTreatment
+2026-02-09 23:45:04.788000107+00:00,parallel-full-data-pipelinem4xck-privacy-tracking-parallel-full-data-pipeline-3670717613,1770680704.788,50.670833333333334,pod,bytes_per_second,Treatment
+2026-02-09 23:45:14.788000107+00:00,parallel-full-data-pipelinem4xck-privacy-tracking-parallel-full-data-pipeline-3670717613,1770680714.788,50.670833333333334,pod,bytes_per_second,Treatment
+2026-02-09 23:45:24.788000107+00:00,parallel-full-data-pipelinem4xck-privacy-tracking-parallel-full-data-pipeline-3670717613,1770680724.788,50.670833333333334,pod,bytes_per_second,Treatment
+2026-02-09 23:45:34.788000107+00:00,parallel-full-data-pipelinem4xck-privacy-tracking-parallel-full-data-pipeline-3670717613,1770680734.788,50.670833333333334,pod,bytes_per_second,Treatment
+2026-02-09 23:45:44.788000107+00:00,parallel-full-data-pipelinem4xck-privacy-tracking-parallel-full-data-pipeline-3670717613,1770680744.788,50.670833333333334,pod,bytes_per_second,Treatment
+2026-02-09 23:44:44.788000107+00:00,parallel-full-data-pipelinem4xck-synthetic-generator-parallel-full-data-pipeline-1525328845,1770680684.788,50.68333333333332,pod,bytes_per_second,NoTreatment
+2026-02-09 23:44:54.788000107+00:00,parallel-full-data-pipelinem4xck-synthetic-generator-parallel-full-data-pipeline-1525328845,1770680694.788,50.68333333333332,pod,bytes_per_second,NoTreatment
+2026-02-09 23:45:04.788000107+00:00,parallel-full-data-pipelinem4xck-synthetic-generator-parallel-full-data-pipeline-1525328845,1770680704.788,50.68333333333332,pod,bytes_per_second,Treatment
+2026-02-09 23:45:14.788000107+00:00,parallel-full-data-pipelinem4xck-synthetic-generator-parallel-full-data-pipeline-1525328845,1770680714.788,50.68333333333332,pod,bytes_per_second,Treatment

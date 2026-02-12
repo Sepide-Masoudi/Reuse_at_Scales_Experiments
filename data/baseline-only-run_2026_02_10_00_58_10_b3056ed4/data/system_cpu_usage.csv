@@ -1,0 +1,5 @@
+timestamp,pod,timestamp,system_cpu_usage,layer,unit,treatment
+2026-02-09 23:58:10.921000004+00:00,parallel-full-data-pipelinenvtxs-synthetic-generator-parallel-full-data-pipeline-2882658565,1770681490.921,0.0008461041666666667,pod,cpu_cores,NoTreatment
+2026-02-09 23:58:20.921000004+00:00,parallel-full-data-pipelinenvtxs-synthetic-generator-parallel-full-data-pipeline-2882658565,1770681500.921,0.0008461041666666667,pod,cpu_cores,NoTreatment
+2026-02-09 23:58:30.921000004+00:00,parallel-full-data-pipelinenvtxs-synthetic-generator-parallel-full-data-pipeline-2882658565,1770681510.921,0.0008461041666666667,pod,cpu_cores,Treatment
+2026-02-09 23:58:40.921000004+00:00,parallel-full-data-pipelinenvtxs-synthetic-generator-parallel-full-data-pipeline-2882658565,1770681520.921,0.0008156131015771076,pod,cpu_cores,Treatment

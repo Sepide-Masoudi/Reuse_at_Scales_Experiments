@@ -1,0 +1,12 @@
+timestamp,pod,timestamp,pod_network_transmit_bytes,layer,unit,treatment
+2026-02-09 23:55:20+00:00,parallel-full-data-pipeline9fbfz-data-quality-parallel-full-data-pipeline-1445333418,1770681320,63.476496320312904,pod,bytes_per_second,NoTreatment
+2026-02-09 23:54:50+00:00,parallel-full-data-pipeline9fbfz-privacy-tracking-parallel-full-data-pipeline-3155800659,1770681290,59.18077566964286,pod,bytes_per_second,Treatment
+2026-02-09 23:55:00+00:00,parallel-full-data-pipeline9fbfz-privacy-tracking-parallel-full-data-pipeline-3155800659,1770681300,57.00833333333333,pod,bytes_per_second,Treatment
+2026-02-09 23:55:10+00:00,parallel-full-data-pipeline9fbfz-privacy-tracking-parallel-full-data-pipeline-3155800659,1770681310,57.00833333333333,pod,bytes_per_second,Treatment
+2026-02-09 23:55:20+00:00,parallel-full-data-pipeline9fbfz-privacy-tracking-parallel-full-data-pipeline-3155800659,1770681320,57.00833333333333,pod,bytes_per_second,NoTreatment
+2026-02-09 23:52:50+00:00,parallel-full-data-pipelinenzh78-privacy-tracking-parallel-full-data-pipeline-1157692703,1770681170,56.98333333333333,pod,bytes_per_second,NoTreatment
+2026-02-09 23:53:00+00:00,parallel-full-data-pipelinenzh78-privacy-tracking-parallel-full-data-pipeline-1157692703,1770681180,56.98333333333333,pod,bytes_per_second,Treatment
+2026-02-09 23:53:10+00:00,parallel-full-data-pipelinenzh78-privacy-tracking-parallel-full-data-pipeline-1157692703,1770681190,56.98333333333333,pod,bytes_per_second,Treatment
+2026-02-09 23:53:20+00:00,parallel-full-data-pipelinenzh78-privacy-tracking-parallel-full-data-pipeline-1157692703,1770681200,56.98333333333333,pod,bytes_per_second,Treatment
+2026-02-09 23:53:30+00:00,parallel-full-data-pipelinenzh78-privacy-tracking-parallel-full-data-pipeline-1157692703,1770681210,56.98333333333333,pod,bytes_per_second,Treatment
+2026-02-09 23:53:40+00:00,parallel-full-data-pipelinenzh78-privacy-tracking-parallel-full-data-pipeline-1157692703,1770681220,56.98333333333333,pod,bytes_per_second,Treatment

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prime-service
+  namespace: pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prime-service
+  template:
+    metadata:
+      labels:
+        app: prime-service
+    spec:
+      nodeSelector:
+        baremetal: "true"
+      containers:
+        - name: prime-service
+          image: sepidmas/reuse_scale-prime-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9098
+          volumeMounts:
+            - name: argo-shard
+              mountPath: /mnt/data/argo-shard
+#              subPath: data-preprocess
+      volumes:
+        - name: argo-shard
+          persistentVolumeClaim:
+            claimName: argo-shard-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prime-service
+  namespace: pipeline
+spec:
+  selector:
+    app: prime-service
+  ports:
+    - protocol: TCP
+      port: 9098
+      targetPort: 9098
+  type: ClusterIP

@@ -1,0 +1,302 @@
+sma:
+  version: 0.0.1
+
+  services:
+    prometheus:
+      address: http://130.149.158.132:32426
+
+  observation:
+    mode: trigger
+    window:
+      left: 10s
+      right: 10s
+    targets:
+      - name: reuse
+        namespace: pipeline
+      - name: no-reuse
+        namespace: no-reuse-pipeline
+
+  measurements:
+    # CPU usage in target namespace
+    - system_cpu_usage:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_cpu_usage_seconds_total{
+              namespace="${namespace}", container!="", image!=""
+            }[2m])
+          )
+        unit: cpu_cores
+        step: 10
+        target:
+          - reuse
+    - system_cpu_usage_raw:
+        type: counter
+        layer: pod
+        query: |
+          container_cpu_usage_seconds_total{
+            namespace="${namespace}", container!="", image!=""
+          }
+        unit: cpu_seconds
+        step: 10
+        target:
+          - reuse
+
+          - reuse
+    # Power usage in joules per pod in target namespace
+    - kepler_pod_cpu_power_joules_raw:
+        type: counter
+        layer: pod
+        query: |
+          kepler_pod_cpu_joules_total{
+            pod_namespace="${namespace}"
+          }
+        unit: joules
+        step: 10
+        target:
+          - reuse
+
+    - kepler_all_pod_cpu_power_watts:
+        type: aggregate
+        layer: cluster
+        query: |
+          sum(
+            rate(kepler_pod_cpu_joules_total{
+              pod_namespace="${namespace}"
+            }[20s])
+          )
+        unit: watts
+        step: 10
+        target:
+          - reuse
+
+    - kepler_node_cpu_power_raw:
+        type: counter
+        layer: node
+        query: |
+          kepler_node_cpu_joules_total
+        unit: joules
+        step: 10
+        target:
+          - reuse
+
+    - kepler_node_cpu_power_sum:
+        type: aggregate
+        layer: cluster
+        query: |
+          sum(rate(kepler_node_cpu_joules_total[20s]))
+        unit: watts
+        step: 10
+        target:
+          - reuse
+
+    - wall_power:
+        type: raw
+        layer: cluster
+        query: shelly_apower_watts
+        unit: watts
+        step: 10
+        target:
+          - reuse
+    - pod_memory_usage:
+        type: gauge
+        layer: pod
+        query: |
+          sum by (pod) (
+            container_memory_usage_bytes{
+              namespace="${namespace}", container!="", image!=""
+            }
+          )
+        unit: bytes
+        step: 10
+        target:
+          - reuse
+
+    - pod_network_receive_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_network_receive_bytes_total{
+              namespace="${namespace}"
+            }[2m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - reuse
+
+    - pod_network_receive_bytes_raw:
+        type: counter
+        layer: pod
+        query: |
+          sum by (pod) (
+            container_network_receive_bytes_total{
+              namespace="${namespace}"
+            })
+        unit: bytes_per_second
+        step: 10
+        target:
+          - reuse
+
+    - pod_network_transmit_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_network_transmit_bytes_total{
+              namespace="${namespace}"
+            }[2m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - reuse
+    - pod_network_transmit_bytes_raw:
+        type: counter
+        layer: pod
+        query: |
+          sum by (pod) (
+            container_network_transmit_bytes_total{
+              namespace="${namespace}"
+            })
+        unit: bytes_per_second
+        step: 10
+        target:
+          - reuse
+
+    ######### argo metrics #########
+    - argo_workflows_total_count:
+        type: aggregate
+        layer: workflow
+        query: sum(rate(argo_workflows_total_count{namespace="${namespace}"}[1m]))
+        unit: workflows
+        step: 10
+        target:
+          - reuse
+    - argo_workflows_total_count_raw:
+        type: counter
+        layer: workflow
+        query: argo_workflows_total_count{namespace="${namespace}"}
+        unit: workflows
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_error_count:
+        type: aggregate
+        layer: workflow
+        query: sum(rate(argo_workflows_error_count{namespace="${namespace}"}[1m]))
+        unit: errors
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_error_count_raw:
+        type: counter
+        layer: workflow
+        query: argo_workflows_error_count{namespace="${namespace}"}
+        unit: errors
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_operation_duration_seconds:
+        type: aggregate
+        layer: workflow
+        query: rate(argo_workflows_operation_duration_seconds_count[1m])
+        unit: seconds
+        step: 10
+        target:
+          - reuse
+    - argo_workflows_operation_duration_seconds_raw:
+        type: counter
+        layer: workflow
+        query: argo_workflows_operation_duration_seconds_count
+        unit: seconds
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_completed_total:
+        type: aggregate
+        layer: workflow
+        query: |
+          sum by (phase) (
+            rate(argo_workflows_total_count{namespace="${namespace}"}[1m])
+          )
+        unit: workflows
+        step: 10
+        target:
+          - reuse
+    - argo_workflows_completed_total_raw:
+        type: counter
+        layer: workflow
+        query: |
+          argo_workflows_total_count{namespace="${namespace}"}
+        unit: workflows
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_pods_total:
+        type: aggregate
+        layer: pod
+        query: sum(rate(argo_workflows_pods_total_count{namespace="${namespace}"}[1m]))
+        unit: pods
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_pods_total_raw:
+        type: counter
+        layer: pod
+        query: argo_workflows_pods_total_count{namespace="${namespace}"}
+        unit: pods
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_average_queue_latency:
+        type: raw
+        layer: workflow
+        query: |
+          rate(argo_workflows_queue_latency_sum[1m])
+          / rate(argo_workflows_queue_latency_count[1m])
+        unit: seconds
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_workers_busy_raw:
+        type: raw
+        layer: workflow
+        query: argo_workflows_workers_busy_count
+        unit: workers
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_queue_adds_raw:
+        type: raw
+        layer: workflow
+        query: rate(argo_workflows_queue_adds_count[1m])
+        unit: counts
+        step: 10
+        target:
+          - reuse
+
+    - argo_workflows_k8s_requests_raw:
+        type: raw
+        layer: workflow
+        query: rate(argo_workflows_k8s_request_total[1m])
+        unit: requests
+        step: 10
+        target:
+          - reuse
+
+  report:
+    format: csv
+    location: data/full-reuse-only-run_${startTime}_${runHash}
+    filename: "${name}_${run}.csv"

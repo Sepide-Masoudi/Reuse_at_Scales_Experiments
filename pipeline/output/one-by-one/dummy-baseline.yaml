@@ -1,0 +1,70 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: prime-cpu-pipeline-
+  namespace: pipeline
+spec:
+  entrypoint: prime-pipeline
+  serviceAccountName: argo-workflow-sa
+  templates:
+
+  - name: prime-pipeline
+    steps:
+    - - name: step-1
+        template: prime-task
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+    - - name: step-2
+        template: prime-task
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+    - - name: step-3
+        template: prime-task
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+    - - name: step-4
+        template: prime-task
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+  - name: prime-task
+    inputs:
+      parameters:
+      - name: duration
+    script:
+      image: python:3.10-slim
+      command: [python]
+      source: |
+        import time
+        import math
+
+        def is_prime(n):
+            if n < 2:
+                return False
+            for i in range(2, int(math.sqrt(n)) + 1):
+                if n % i == 0:
+                    return False
+            return True
+
+        duration = int("{{inputs.parameters.duration}}")
+        start = time.time()
+        count = 0
+        num = 2
+
+        while time.time() - start < duration:
+            if is_prime(num):
+                count += 1
+            num += 1
+
+        print("Primes found:", count)

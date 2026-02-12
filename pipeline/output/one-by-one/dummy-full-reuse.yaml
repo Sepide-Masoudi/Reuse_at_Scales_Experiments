@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: prime-cpu-pipeline-
+  namespace: pipeline
+spec:
+  entrypoint: prime-pipeline
+  serviceAccountName: argo-workflow-sa
+  volumes:
+  - name: shared-data
+    emptyDir: {}
+
+  templates:
+
+  - name: prime-pipeline
+    steps:
+    - - name: step-1
+        template: call-prime-service
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+    - - name: step-2
+        template: call-prime-service
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+    - - name: step-3
+        template: call-prime-service
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+    - - name: step-4
+        template: call-prime-service
+        arguments:
+          parameters:
+          - name: duration
+            value: "240"
+
+  - name: call-prime-service
+    inputs:
+      parameters:
+      - name: duration
+    container:
+      image: curlimages/curl:7.85.0
+      command:
+      - curl
+      - "http://prime-service.pipeline.svc.cluster.local:9098/run?duration={{inputs.parameters.duration}}"
+      volumeMounts:
+      - name: shared-data
+        mountPath: /mnt/data
