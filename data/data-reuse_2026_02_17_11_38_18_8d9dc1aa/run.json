@@ -1,0 +1,14 @@
+{
+    "startTime": "2026_02_17_11_38_18",
+    "endTime": "2026_02_17_11_45_03",
+    "treatment_start": "2026_02_17_11_38_28",
+    "treatment_end": "2026_02_17_11_44_53",
+    "runHash": "8d9dc1aa",
+    "duration": 404.169042,
+    "treatment_duration": 384.148539,
+    "user_data": {
+        "experiment": "three-sub-pipeline-diff-node-stress0-run1",
+        "workflow": "pipeline/output/one-by-one/three-sub-pipeline-diff-node.yaml",
+        "stress_factor": 0
+    }
+}

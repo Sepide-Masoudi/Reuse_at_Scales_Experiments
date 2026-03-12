@@ -1,0 +1,14 @@
+{
+    "startTime": "2026_02_18_13_04_12",
+    "endTime": "2026_02_18_13_15_14",
+    "treatment_start": "2026_02_18_13_04_22",
+    "treatment_end": "2026_02_18_13_15_04",
+    "runHash": "2fa8beab",
+    "duration": 662.0,
+    "treatment_duration": 642.0,
+    "user_data": {
+        "experiment": "two-sub-pipeline-same-node-stress0-run1",
+        "workflow": "pipeline/output/one-by-one/two-sub-pipeline-same-node.yaml",
+        "stress_factor": 0
+    }
+}

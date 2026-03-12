@@ -16,7 +16,7 @@ TIMEOUT = 300   # max wait for prime computation (seconds)
 # ===========================
 def call_prime_service(duration=240):
     """Call the prime service GET endpoint with a given duration in seconds."""
-    url = f"http://prime-service.pipeline.svc.cluster.local:9098/run?duration={duration}"
+    url = f"http://130.149.158.132:31782/run?duration={duration}"
     return requests.get(url, timeout=TIMEOUT)
 
 # ===========================

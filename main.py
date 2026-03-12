@@ -51,7 +51,10 @@ def wait_for_experiment_completion(experiment: Experiment) -> Callable[[], dict]
         # -------------------------
         # Run workflow
         # -------------------------
-        script = "./run_experiment_script.sh"
+
+#        script = "./run_experiment_script.sh"
+        script = "./pipeline/output/run_all_data_reuse_workflows.sh"
+
 
         print(f"🚀 Running workflow via {script} {experiment.workflow_file}")
 
@@ -105,7 +108,7 @@ def main() -> None:
 
     print(f"Found {len(workflow_files)} workflows")
 
-    stress_levels = [0, 5, 50]
+    stress_levels = [0] #[0, 5, 50]
     repetitions = 1  # repeat each experiment x times
 
     for wf in workflow_files:

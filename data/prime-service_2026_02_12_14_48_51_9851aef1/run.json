@@ -1,0 +1,14 @@
+{
+    "startTime": "2026_02_12_14_48_51",
+    "endTime": "2026_02_12_15_06_08",
+    "treatment_start": "2026_02_12_14_49_01",
+    "treatment_end": "2026_02_12_15_05_58",
+    "runHash": "9851aef1",
+    "duration": 1037.016493,
+    "treatment_duration": 1016.995921,
+    "user_data": {
+        "experiment": "dummy-baseline-stress0-run1",
+        "workflow": "pipeline/output/one-by-one/dummy-baseline.yaml",
+        "stress_factor": 0
+    }
+}

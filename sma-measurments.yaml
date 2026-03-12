@@ -165,7 +165,38 @@ sma:
         step: 10
         target:
           - reuse
-
+    - pod_fs_reads_bytes:
+        type: aggregate
+        layer: pod
+        query: sum by (pod) (container_fs_reads_bytes_total{pod!="",namespace="${namespace}"})
+        unit: bytes
+        step: 10
+        target:
+          - reuse
+    - pod_fs_write_bytes:
+        type: aggregate
+        layer: pod
+        query: sum by (pod) (container_fs_writes_bytes_total{pod!="",namespace="${namespace}"})
+        unit: bytes
+        step: 10
+        target:
+          - reuse
+    - node_network_receive_bytes:
+        type: aggregate
+        layer: node
+        query: node_network_receive_bytes_total
+        unit: bytes
+        step: 10
+        target:
+          - all
+    - node_network_transmit_bytes:
+        type: aggregate
+        layer: node
+        query: node_network_transmit_bytes_total
+        unit: bytes
+        step: 10
+        target:
+          - all
     ######### argo metrics #########
     - argo_workflows_total_count:
         type: aggregate
@@ -298,5 +329,5 @@ sma:
 
   report:
     format: csv
-    location: data/prime-service_${startTime}_${runHash}
+    location: data/data-reuse_${startTime}_${runHash}
     filename: "${name}_${run}.csv"

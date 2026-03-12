@@ -42,4 +42,4 @@ spec:
     - protocol: TCP
       port: 8092
       targetPort: 8092
-  type: ClusterIP
+  type: NodePort
