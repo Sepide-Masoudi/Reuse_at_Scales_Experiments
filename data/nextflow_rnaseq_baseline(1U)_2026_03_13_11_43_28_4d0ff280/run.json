@@ -1,0 +1,13 @@
+{
+    "startTime": "2026_03_13_11_43_28",
+    "endTime": "2026_03_13_12_09_05",
+    "treatment_start": "2026_03_13_11_43_38",
+    "treatment_end": "2026_03_13_12_08_54",
+    "runHash": "4d0ff280",
+    "duration": 1537.0,
+    "treatment_duration": 1516.0,
+    "user_data": {
+        "experiment": "rnaseq-run1",
+        "run_id": 1
+    }
+}

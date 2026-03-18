@@ -1,0 +1,65 @@
+python nextflow-main.py 
+
+==============================
+Starting: rnaseq-users2-run1 | users=2 | run=1/1
+==============================
+Preparing experiment: rnaseq-users2-run1
+🚀 Running 2 concurrent users via ./run_nextflow.sh
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧬 Nextflow Concurrent Runner
+Users     : 2
+Timestamp : 20260313_155703
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ Launcher pod is running
+🧹 Cleaning up old failed pods...
+No resources found
+✅ Cleanup done
+📁 Creating directories for user 1...
+⚙️  Creating config for user 1...
+🚀 Launching user 1 → /workspace/runs/user1_20260313_155703
+✅ User 1 started (PID: 23569)
+📁 Creating directories for user 2...
+⚙️  Creating config for user 2...
+🚀 Launching user 2 → /workspace/runs/user2_20260313_155703
+✅ User 2 started (PID: 23609)
+
+⏳ Waiting for all 2 users to complete...
+✅ User 1 finished successfully
+✅ User 2 finished successfully
+
+📊 Copying metrics...
+✅ Metrics saved to: ./metrics/user1_20260313_155703
+✅ Metrics saved to: ./metrics/user2_20260313_155703
+
+🧹 Cleaning up per-user configs...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎉 All 2 users completed successfully
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+All users completed successfully
+[2026-03-13 16:43:35,049] kabylake.ise.tu-berlin.de/ERROR/sma.agent: Error Querying measurement kepler_pod_cpu_power_joules_raw: No data returned from Prometheus for query: Query: kepler_container_joules_total{
+  namespace="nextflow"
+}
+, start: 1773413813.479857, end: 1773416614.875631
+[2026-03-13 16:43:35,060] kabylake.ise.tu-berlin.de/ERROR/sma.agent: Error Querying measurement kepler_pod_cpu_power_joules_raw_per_user: No data returned from Prometheus for query: Query: kepler_container_joules_total{
+  namespace="nextflow"
+}
+* on(pod) group_left(label_user, label_run_id)
+kube_pod_labels{namespace="nextflow"}
+, start: 1773413813.479857, end: 1773416614.875631
+[2026-03-13 16:43:35,065] kabylake.ise.tu-berlin.de/ERROR/sma.agent: Error Querying measurement kepler_all_pod_cpu_power_watts: No data returned from Prometheus for query: Query: sum(
+  rate(kepler_container_joules_total{
+    namespace="nextflow"
+  }[20s])
+)
+, start: 1773413813.479857, end: 1773416614.875631
+[2026-03-13 16:43:35,077] kabylake.ise.tu-berlin.de/ERROR/sma.agent: Error Querying measurement kepler_all_pod_cpu_power_watts_per_user: No data returned from Prometheus for query: Query: sum by (label_user, label_run_id) (
+  rate(kepler_container_joules_total{
+    namespace="nextflow"
+  }[20s])
+  * on(pod) group_left(label_user, label_run_id)
+  kube_pod_labels{namespace="nextflow"}
+)
+, start: 1773413813.479857, end: 1773416614.875631
+[2026-03-13 16:43:35,100] kabylake.ise.tu-berlin.de/ERROR/sma.agent: Error Querying measurement wall_power: No data returned from Prometheus for query: Query: shelly_apower_watts, start: 1773413813.479857, end: 1773416614.875631
+Cleaning up experiment: rnaseq-users2-run1
+✅ Experiment finished: rnaseq-users2-run1

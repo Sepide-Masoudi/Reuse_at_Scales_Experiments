@@ -1,0 +1,431 @@
+sma:
+  version: 0.0.1
+
+  services:
+    prometheus:
+      address: http://130.149.158.132:32426
+
+  observation:
+    mode: trigger
+    window:
+      left: 10s
+      right: 10s
+    targets:
+      - name: nextflow
+        namespace: nextflow
+
+  measurements:
+    # ── CPU ───────────────────────────────────────────────────────────
+    - system_cpu_usage:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_cpu_usage_seconds_total{
+              namespace="${namespace}", container!="", image!=""
+            }[1m])
+          )
+        unit: cpu_cores
+        step: 10
+        target:
+          - nextflow
+
+    - system_cpu_usage_per_user:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod, label_user, label_run_id) (
+            rate(container_cpu_usage_seconds_total{
+              namespace="${namespace}", container!="", image!=""
+            }[1m])
+            * on(pod) group_left(label_user, label_run_id)
+            kube_pod_labels{namespace="${namespace}"}
+          )
+        unit: cpu_cores
+        step: 10
+        target:
+          - nextflow
+
+    - system_cpu_usage_raw:
+        type: counter
+        layer: pod
+        query: |
+          container_cpu_usage_seconds_total{
+            namespace="${namespace}", container!="", image!=""
+          }
+        unit: cpu_seconds
+        step: 10
+        target:
+          - nextflow
+
+    - system_cpu_usage_raw_per_user:
+        type: counter
+        layer: pod
+        query: |
+          container_cpu_usage_seconds_total{
+            namespace="${namespace}", container!="", image!=""
+          }
+          * on(pod) group_left(label_user, label_run_id)
+          kube_pod_labels{namespace="${namespace}"}
+        unit: cpu_seconds
+        step: 10
+        target:
+          - nextflow
+
+    # ── Kepler Energy ─────────────────────────────────────────────────
+    - kepler_pod_cpu_power_joules_raw:
+        type: counter
+        layer: pod
+        query: |
+          kepler_container_joules_total{
+            container_namespace="${namespace}"
+          }
+        unit: joules
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_pod_cpu_power_joules_raw_per_user:
+        type: counter
+        layer: pod
+        query: |
+          kepler_container_joules_total{
+            container_namespace="${namespace}"
+          }
+          * on(pod) group_left(label_user, label_run_id)
+          kube_pod_labels{namespace="${namespace}"}
+        unit: joules
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_all_pod_cpu_power_watts:
+        type: aggregate
+        layer: cluster
+        query: |
+          sum(
+            rate(kepler_container_joules_total{
+              container_namespace="${namespace}"
+            }[1m])
+          )
+        unit: watts
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_all_pod_cpu_power_watts_per_user:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (label_user, label_run_id) (
+            rate(kepler_container_joules_total{
+              container_namespace="${namespace}"
+            }[1m])
+            * on(pod) group_left(label_user, label_run_id)
+            kube_pod_labels{namespace="${namespace}"}
+          )
+        unit: watts
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_node_cpu_power_raw:
+        type: counter
+        layer: node
+        query: |
+          kepler_node_platform_joules_total
+        unit: joules
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_node_cpu_power_sum:
+        type: aggregate
+        layer: cluster
+        query: |
+          sum(rate(kepler_node_platform_joules_total[1m]))
+        unit: watts
+        step: 10
+        target:
+          - nextflow
+
+    # ── Wall Power (Shelly) ───────────────────────────────────────────
+    - wall_power:
+        type: raw
+        layer: cluster
+        query: shelly_apower_watts
+        unit: watts
+        step: 10
+        target:
+          - nextflow
+
+    # ── Memory ───────────────────────────────────────────────────────
+    - pod_memory_usage:
+        type: gauge
+        layer: pod
+        query: |
+          sum by (pod) (
+            container_memory_usage_bytes{
+              namespace="${namespace}", container!="", image!=""
+            }
+          )
+        unit: bytes
+        step: 10
+        target:
+          - nextflow
+
+    - pod_memory_usage_per_user:
+        type: gauge
+        layer: pod
+        query: |
+          sum by (pod, label_user, label_run_id) (
+            container_memory_usage_bytes{
+              namespace="${namespace}", container!="", image!=""
+            }
+            * on(pod) group_left(label_user, label_run_id)
+            kube_pod_labels{namespace="${namespace}"}
+          )
+        unit: bytes
+        step: 10
+        target:
+          - nextflow
+
+    # ── Network ──────────────────────────────────────────────────────
+    - pod_network_receive_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_network_receive_bytes_total{
+              namespace="${namespace}"
+            }[1m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_receive_bytes_per_user:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod, label_user, label_run_id) (
+            rate(container_network_receive_bytes_total{
+              namespace="${namespace}"
+            }[1m])
+            * on(pod) group_left(label_user, label_run_id)
+            kube_pod_labels{namespace="${namespace}"}
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_receive_bytes_raw:
+        type: counter
+        layer: pod
+        query: |
+          sum by (pod) (
+            container_network_receive_bytes_total{
+              namespace="${namespace}"
+            }
+          )
+        unit: bytes
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_receive_bytes_raw_per_user:
+        type: counter
+        layer: pod
+        query: |
+          sum by (pod, label_user, label_run_id) (
+            container_network_receive_bytes_total{
+              namespace="${namespace}"
+            }
+            * on(pod) group_left(label_user, label_run_id)
+            kube_pod_labels{namespace="${namespace}"}
+          )
+        unit: bytes
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_transmit_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_network_transmit_bytes_total{
+              namespace="${namespace}"
+            }[1m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_transmit_bytes_per_user:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod, label_user, label_run_id) (
+            rate(container_network_transmit_bytes_total{
+              namespace="${namespace}"
+            }[1m])
+            * on(pod) group_left(label_user, label_run_id)
+            kube_pod_labels{namespace="${namespace}"}
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_transmit_bytes_raw:
+        type: counter
+        layer: pod
+        query: |
+          sum by (pod) (
+            container_network_transmit_bytes_total{
+              namespace="${namespace}"
+            }
+          )
+        unit: bytes
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_transmit_bytes_raw_per_user:
+        type: counter
+        layer: pod
+        query: |
+          sum by (pod, label_user, label_run_id) (
+            container_network_transmit_bytes_total{
+              namespace="${namespace}"
+            }
+            * on(pod) group_left(label_user, label_run_id)
+            kube_pod_labels{namespace="${namespace}"}
+          )
+        unit: bytes
+        step: 10
+        target:
+          - nextflow
+
+    # ── Filesystem ───────────────────────────────────────────────────
+    - pod_fs_reads_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_fs_reads_bytes_total{
+              pod!="", namespace="${namespace}"
+            }[1m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_fs_reads_bytes_per_user:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod, label_user, label_run_id) (
+            rate(container_fs_reads_bytes_total{
+              pod!="", namespace="${namespace}"
+            }[1m])
+            * on(pod) group_left(label_user, label_run_id)
+            kube_pod_labels{namespace="${namespace}"}
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_fs_write_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_fs_writes_bytes_total{
+              pod!="", namespace="${namespace}"
+            }[1m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_fs_write_bytes_per_user:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod, label_user, label_run_id) (
+            rate(container_fs_writes_bytes_total{
+              pod!="", namespace="${namespace}"
+            }[1m])
+            * on(pod) group_left(label_user, label_run_id)
+            kube_pod_labels{namespace="${namespace}"}
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    # ── Node Network ─────────────────────────────────────────────────
+    - node_network_receive_bytes:
+        type: counter
+        layer: node
+        query: |
+          rate(node_network_receive_bytes_total[1m])
+        unit: bytes_per_second
+        step: 10
+        target:
+          - all
+
+    - node_network_transmit_bytes:
+        type: counter
+        layer: node
+        query: |
+          rate(node_network_transmit_bytes_total[1m])
+        unit: bytes_per_second
+        step: 10
+        target:
+          - all
+
+    - node_network_receive_bytes_raw:
+        type: counter
+        layer: node
+        query: node_network_receive_bytes_total
+        unit: bytes
+        step: 10
+        target:
+          - all
+
+    - node_network_transmit_bytes_raw:
+        type: counter
+        layer: node
+        query: node_network_transmit_bytes_total
+        unit: bytes
+        step: 10
+        target:
+          - all
+
+    # ── Pod Labels ───────────────────────────────────────────────────
+    - pod_labels:
+        type: aggregate
+        layer: pod
+        query: |
+          kube_pod_labels{
+            namespace="${namespace}",
+            pod!~"nextflow-launcher.*"
+          }
+        unit: info
+        step: 10
+        target:
+          - nextflow
+
+  report:
+    format: csv
+    location: data/nextflow_rnaseq_baseline_U2_${startTime}_${runHash}
+    filename: "${name}_${run}.csv"

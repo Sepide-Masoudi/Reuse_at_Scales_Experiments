@@ -1,44 +1,35 @@
 #!/bin/bash
-# run_nextflow.sh
-# Runs nf-core/rnaseq pipeline via the nextflow-launcher pod
-# Called by the SMA experiment framework (run_experiments.py)
+# run_nextflow_concurrent.sh
+# Runs N concurrent independent pipeline instances with per-user pod labels
 
 set -euo pipefail
 
+NUM_USERS="${1:-2}"
 NAMESPACE="nextflow"
 LAUNCHER_POD="nextflow-launcher"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-RUN_ID="rnaseq_${TIMESTAMP}"
-RUN_DIR="/workspace/runs/${RUN_ID}"
+PIDS=()
+
+mkdir -p ./logs ./metrics
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🧬 Nextflow Pipeline Runner"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Run ID      : $RUN_ID"
-echo "Run dir     : $RUN_DIR"
+echo "🧬 Nextflow Concurrent Runner"
+echo "Users     : $NUM_USERS"
+echo "Timestamp : $TIMESTAMP"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # ─────────────────────────────────────────
-# Check launcher pod is running
+# Check launcher pod
 # ─────────────────────────────────────────
-echo "🔍 Checking launcher pod..."
 POD_STATUS=$(kubectl get pod "$LAUNCHER_POD" -n "$NAMESPACE" \
   -o jsonpath='{.status.phase}' 2>/dev/null || echo "NotFound")
 
 if [[ "$POD_STATUS" != "Running" ]]; then
-  echo "❌ ERROR: Launcher pod is not running (status: $POD_STATUS)"
+  echo "❌ ERROR: Launcher pod is not running"
   echo "Recreate it with: kubectl apply -f nextflow-launcher.yaml"
   exit 1
 fi
 echo "✅ Launcher pod is running"
-
-# ─────────────────────────────────────────
-# Create run directory on PVC
-# ─────────────────────────────────────────
-echo "📁 Creating run directory on PVC..."
-kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-  sh -c "mkdir -p ${RUN_DIR}/work ${RUN_DIR}/results && chmod -R 777 ${RUN_DIR}"
-echo "✅ Directories created"
 
 # ─────────────────────────────────────────
 # Clean up old failed pods
@@ -50,54 +41,120 @@ kubectl delete pods -n "$NAMESPACE" \
 echo "✅ Cleanup done"
 
 # ─────────────────────────────────────────
-# Run the pipeline
+# Create per-user configs and launch
 # ─────────────────────────────────────────
-echo "🚀 Launching pipeline..."
-echo "⏱  Started at: $(date)"
+for i in $(seq 1 "$NUM_USERS"); do
+  RUN_ID="user${i}_${TIMESTAMP}"
+  RUN_DIR="/workspace/runs/${RUN_ID}"
+  USER_CONFIG="/workspace/config_user${i}_${TIMESTAMP}.config"
 
-kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-  nextflow run nf-core/rnaseq \
-    -revision 3.23.0 \
-    -profile test \
-    -c /workspace/nextflow.config \
-    --outdir "${RUN_DIR}/results" \
-    -w "${RUN_DIR}/work" \
-    -with-trace    "${RUN_DIR}/results/trace.txt" \
-    -with-report   "${RUN_DIR}/results/report.html" \
-    -with-timeline "${RUN_DIR}/results/timeline.html"
+  echo "📁 Creating directories for user $i..."
+  kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+    sh -c "mkdir -p ${RUN_DIR}/work ${RUN_DIR}/results && chmod -R 777 ${RUN_DIR}"
 
-EXIT_CODE=$?
-echo "⏱  Finished at: $(date)"
+  echo "⚙️  Creating config for user $i..."
+  kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- sh -c "cat > ${USER_CONFIG} << 'CONFIGEOF'
+process {
+    executor = 'k8s'
+    memory   = '4 GB'
+    cpus     = 2
+}
+
+k8s {
+    namespace        = 'nextflow'
+    serviceAccount   = 'nextflow-sa'
+    storageClaimName = 'nextflow-pvc'
+    storageMountPath = '/workspace'
+    computeResourceType = 'Job'
+
+    pod = [
+        [nodeSelector: 'kubernetes.io/hostname=gisele'],
+        [annotation: 'prometheus.io/scrape', value: 'true'],
+        [annotation: 'prometheus.io/port',   value: '9090'],
+        [label: 'pipeline', value: 'rnaseq'],
+        [label: 'user', value: 'user${i}'],
+        [label: 'run_id', value: '${RUN_ID}'],
+        [imagePullPolicy: 'Always']
+    ]
+}
+
+workDir = '${RUN_DIR}/work'
+CONFIGEOF"
+
+  echo "🚀 Launching user $i → $RUN_DIR"
+
+  # Launch pipeline in background
+  kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+    nextflow run nf-core/rnaseq \
+      -revision 3.23.0 \
+      -profile test \
+      -c "${USER_CONFIG}" \
+      --outdir "${RUN_DIR}/results" \
+      -w "${RUN_DIR}/work" \
+      -with-trace    "${RUN_DIR}/results/trace.txt" \
+      -with-report   "${RUN_DIR}/results/report.html" \
+      -with-timeline "${RUN_DIR}/results/timeline.html" \
+      > "./logs/${RUN_ID}.log" 2>&1 &
+
+  PIDS+=($!)
+  echo "✅ User $i started (PID: ${PIDS[-1]})"
+done
 
 # ─────────────────────────────────────────
-# Check result
+# Wait for all users to finish
 # ─────────────────────────────────────────
-if [[ $EXIT_CODE -ne 0 ]]; then
-  echo "❌ Pipeline FAILED with exit code $EXIT_CODE"
-  exit $EXIT_CODE
+echo ""
+echo "⏳ Waiting for all $NUM_USERS users to complete..."
+FAILED=0
+
+for i in "${!PIDS[@]}"; do
+  PID="${PIDS[$i]}"
+  USER_NUM=$((i + 1))
+  if wait "$PID"; then
+    echo "✅ User $USER_NUM finished successfully"
+  else
+    echo "❌ User $USER_NUM FAILED (check ./logs/user${USER_NUM}_${TIMESTAMP}.log)"
+    FAILED=$((FAILED + 1))
+  fi
+done
+
+# ─────────────────────────────────────────
+# Copy metrics locally
+# ─────────────────────────────────────────
+echo ""
+echo "📊 Copying metrics..."
+for i in $(seq 1 "$NUM_USERS"); do
+  RUN_ID="user${i}_${TIMESTAMP}"
+  RUN_DIR="/workspace/runs/${RUN_ID}"
+  LOCAL_METRICS="./metrics/${RUN_ID}"
+  mkdir -p "$LOCAL_METRICS"
+
+  kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+    cat "${RUN_DIR}/results/trace.txt" > "${LOCAL_METRICS}/trace.txt" 2>/dev/null || true
+  kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+    cat "${RUN_DIR}/results/report.html" > "${LOCAL_METRICS}/report.html" 2>/dev/null || true
+  kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+    cat "${RUN_DIR}/results/timeline.html" > "${LOCAL_METRICS}/timeline.html" 2>/dev/null || true
+
+  echo "✅ Metrics saved to: $LOCAL_METRICS"
+done
+
+# ─────────────────────────────────────────
+# Cleanup per-user configs from PVC
+# ─────────────────────────────────────────
+echo ""
+echo "🧹 Cleaning up per-user configs..."
+for i in $(seq 1 "$NUM_USERS"); do
+  kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+    rm -f "/workspace/config_user${i}_${TIMESTAMP}.config" 2>/dev/null || true
+done
+
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+if [[ $FAILED -eq 0 ]]; then
+  echo "🎉 All $NUM_USERS users completed successfully"
+else
+  echo "⚠️  $FAILED/$NUM_USERS users failed"
 fi
-echo "✅ Pipeline completed successfully"
-
-# ─────────────────────────────────────────
-# Copy metrics to local directory
-# ─────────────────────────────────────────
-LOCAL_METRICS="./metrics/${RUN_ID}"
-mkdir -p "$LOCAL_METRICS"
-
-echo "📊 Copying metrics to $LOCAL_METRICS..."
-
-kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-  cat "${RUN_DIR}/results/trace.txt" > "${LOCAL_METRICS}/trace.txt"
-
-kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-  cat "${RUN_DIR}/results/report.html" > "${LOCAL_METRICS}/report.html"
-
-kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-  cat "${RUN_DIR}/results/timeline.html" > "${LOCAL_METRICS}/timeline.html"
-
-echo "✅ Metrics saved to: $LOCAL_METRICS"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🎉 Run complete: $RUN_ID"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-exit 0
+exit $FAILED

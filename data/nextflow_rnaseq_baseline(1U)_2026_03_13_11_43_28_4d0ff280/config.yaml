@@ -1,0 +1,292 @@
+sma:
+  version: 0.0.1
+
+  services:
+    prometheus:
+      address: http://130.149.158.132:32426
+
+  observation:
+    mode: trigger
+    window:
+      left: 10s
+      right: 10s
+    targets:
+      - name: nextflow
+        namespace: nextflow
+
+  measurements:
+    # ── CPU ───────────────────────────────────────────────────────────
+    - system_cpu_usage:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_cpu_usage_seconds_total{
+              namespace="${namespace}", container!="", image!=""
+            }[1m])
+          )
+        unit: cpu_cores
+        step: 10
+        target:
+          - nextflow
+
+    - system_cpu_usage_raw:
+        type: counter
+        layer: pod
+        query: |
+          container_cpu_usage_seconds_total{
+            namespace="${namespace}", container!="", image!=""
+          }
+        unit: cpu_seconds
+        step: 10
+        target:
+          - nextflow
+
+    # ── Kepler Energy ─────────────────────────────────────────────────
+    - kepler_container_joules_raw:
+        type: counter
+        layer: pod
+        query: |
+          kepler_container_joules_total{
+            container_namespace="${namespace}"
+          }
+        unit: joules
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_container_watts:
+        type: aggregate
+        layer: cluster
+        query: |
+          sum(
+            rate(kepler_container_joules_total{
+              container_namespace="${namespace}"
+            }[20s])
+          )
+        unit: watts
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_container_cpu_joules_raw:
+        type: counter
+        layer: pod
+        query: |
+          kepler_container_cpu_joules_total{
+            container_namespace="${namespace}"
+          }
+        unit: joules
+        step: 10
+        target:
+          - nextflow
+    - kepler_pod_cpu_joules_raw:
+        type: counter
+        layer: pod
+        query: |
+          kepler_pod_cpu_joules_total{
+            pod_namespace="${namespace}"
+          }
+        unit: joules
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_container_package_joules_raw:
+        type: counter
+        layer: pod
+        query: |
+          kepler_container_package_joules_total{
+            container_namespace="${namespace}"
+          }
+        unit: joules
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_container_dram_joules_raw:
+        type: counter
+        layer: pod
+        query: |
+          kepler_container_dram_joules_total{
+            container_namespace="${namespace}"
+          }
+        unit: joules
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_node_platform_joules_raw:
+        type: counter
+        layer: node
+        query: |
+          kepler_node_platform_joules_total
+        unit: joules
+        step: 10
+        target:
+          - nextflow
+
+    - kepler_node_platform_watts:
+        type: aggregate
+        layer: cluster
+        query: |
+          sum(rate(kepler_node_platform_joules_total[20s]))
+        unit: watts
+        step: 10
+        target:
+          - nextflow
+
+    # ── Wall Power (Shelly) ───────────────────────────────────────────
+    - wall_power:
+        type: raw
+        layer: cluster
+        query: shelly_apower_watts
+        unit: watts
+        step: 10
+        target:
+          - nextflow
+
+    # ── Memory ───────────────────────────────────────────────────────
+    - pod_memory_usage:
+        type: gauge
+        layer: pod
+        query: |
+          sum by (pod) (
+            container_memory_usage_bytes{
+              namespace="${namespace}", container!="", image!=""
+            }
+          )
+        unit: bytes
+        step: 10
+        target:
+          - nextflow
+
+    # ── Network ──────────────────────────────────────────────────────
+    - pod_network_receive_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_network_receive_bytes_total{
+              namespace="${namespace}"
+            }[1m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_receive_bytes_raw:
+        type: counter
+        layer: pod
+        query: |
+          sum by (pod) (
+            container_network_receive_bytes_total{
+              namespace="${namespace}"
+            }
+          )
+        unit: bytes
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_transmit_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_network_transmit_bytes_total{
+              namespace="${namespace}"
+            }[1m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_network_transmit_bytes_raw:
+        type: counter
+        layer: pod
+        query: |
+          sum by (pod) (
+            container_network_transmit_bytes_total{
+              namespace="${namespace}"
+            }
+          )
+        unit: bytes
+        step: 10
+        target:
+          - nextflow
+
+    # ── Filesystem ───────────────────────────────────────────────────
+    - pod_fs_reads_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_fs_reads_bytes_total{
+              pod!="", namespace="${namespace}"
+            }[1m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    - pod_fs_write_bytes:
+        type: aggregate
+        layer: pod
+        query: |
+          sum by (pod) (
+            rate(container_fs_writes_bytes_total{
+              pod!="", namespace="${namespace}"
+            }[1m])
+          )
+        unit: bytes_per_second
+        step: 10
+        target:
+          - nextflow
+
+    # ── Node Network ─────────────────────────────────────────────────
+    - node_network_receive_bytes:
+        type: aggregate
+        layer: node
+        query: |
+          rate(node_network_receive_bytes_total[1m])
+        unit: bytes_per_second
+        step: 10
+        target:
+          - all
+
+    - node_network_transmit_bytes:
+        type: aggregate
+        layer: node
+        query: |
+          rate(node_network_transmit_bytes_total[1m])
+        unit: bytes_per_second
+        step: 10
+        target:
+          - all
+
+    - node_network_receive_bytes_raw:
+        type: counter
+        layer: node
+        query: node_network_receive_bytes_total
+        unit: bytes
+        step: 10
+        target:
+          - all
+
+    - node_network_transmit_bytes_raw:
+        type: counter
+        layer: node
+        query: node_network_transmit_bytes_total
+        unit: bytes
+        step: 10
+        target:
+          - all
+
+  report:
+    format: csv
+    location: data/nextflow_rnaseq_baseline_${startTime}_${runHash}
+    filename: "${name}_${run}.csv"
