@@ -1,3 +1,5 @@
+## Both users run at the same time (concurrent) but instead of each spawning their own STAR_GENOMEGENERATE and BBMAP_BBSPLIT pods,
+##they both read from the pre-built shared indexes at /workspace/shared/.
 sma:
   version: 0.0.1
 
@@ -427,5 +429,5 @@ sma:
 
   report:
     format: csv
-    location: data/nextflow_rnaseq_baseline_U2_resume_${startTime}_${runHash}
+    location: data/nextflow_rnaseq_concurrent_U2_podservice_reuse_${startTime}_${runHash}
     filename: "${name}_${run}.csv"

@@ -1,6 +1,7 @@
 #!/bin/bash
 # clean_experiment_env.sh
 # Cleans up nextflow environment before a new experiment round
+# Preserves /workspace/shared (pre-built indexes) and /workspace/nextflow.config
 
 set -euo pipefail
 
@@ -27,11 +28,10 @@ kubectl get pods -n "$NAMESPACE" --no-headers \
   | grep "^nf-" \
   | awk '{print $1}' \
   | xargs -r kubectl delete pod -n "$NAMESPACE" --force --grace-period=0 2>/dev/null || true
-
 echo "✅ Task pods deleted"
 
 # ─────────────────────────────────────────
-# 2. Clean PVC (keep config)
+# 2. Clean PVC (keep config and shared indexes)
 # ─────────────────────────────────────────
 echo "📁 Cleaning PVC..."
 kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
@@ -46,14 +46,16 @@ kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
     echo 'PVC cleaned'
   "
 echo "✅ PVC cleaned"
+echo "✅ Preserved: /workspace/nextflow.config"
+echo "✅ Preserved: /workspace/shared (pre-built indexes)"
 
 # ─────────────────────────────────────────
-# 3. Verify config is still intact
+# 3. Verify workspace
 # ─────────────────────────────────────────
-echo "🔍 Verifying config..."
+echo "🔍 Verifying workspace..."
 kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
   ls -lh /workspace/
-echo "✅ Config intact"
+echo "✅ Workspace verified"
 
 # ─────────────────────────────────────────
 # 4. Check available resources

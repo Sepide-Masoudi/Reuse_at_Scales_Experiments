@@ -1,6 +1,7 @@
 #!/bin/bash
 # run_nextflow_concurrent.sh
-# Runs N concurrent independent pipeline instances with per-user pod labels
+# Runs N=2 concurrent independent pipeline instances with per-user pod labels
+# For Baseline experimetn (No reuse)
 
 set -euo pipefail
 
