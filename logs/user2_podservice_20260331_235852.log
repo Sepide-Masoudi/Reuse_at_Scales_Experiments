@@ -1,0 +1,7 @@
+
+ N E X T F L O W   ~  version 25.10.4
+
+ERROR ~ No such file or directory: /workspace/config_user2_podservice_20260331_235852.config
+
+ -- Check '.nextflow.log' file for details
+command terminated with exit code 1

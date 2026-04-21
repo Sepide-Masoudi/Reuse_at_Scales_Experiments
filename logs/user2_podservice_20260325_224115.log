@@ -1,0 +1,1045 @@
+
+ N E X T F L O W   ~  version 25.10.4
+
+Launching `/workspace/rnaseq-reuse-full/main.nf` [friendly_becquerel] DSL2 - revision: ff377cb1d2
+
+
+------------------------------------------------------
+                                        ,--./,-.
+        ___     __   __   __   ___     /,-._.--~'
+  |\ | |__  __ /  ` /  \ |__) |__         }  {
+  | \| |       \__, \__/ |  \ |___     \`-._,-`-,
+                                        `._,._,'
+  nf-core/rnaseq 3.23.0
+------------------------------------------------------
+
+Input/output options
+  input                                    : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/samplesheet/v3.10/samplesheet_test.csv
+  outdir                                   : /workspace/runs/user2_podservice_20260325_224115/results
+
+Reference genome options
+  fasta                                    : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genome.fasta
+  gtf                                      : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genes_with_empty_tid.gtf.gz
+  gff                                      : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genes.gff.gz
+  transcript_fasta                         : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/transcriptome.fasta
+  additional_fasta                         : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/gfp.fa.gz
+  hisat2_index                             : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/hisat2.tar.gz
+  salmon_index                             : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/salmon.tar.gz
+
+Read filtering options
+  bbsplit_fasta_list                       : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/bbsplit_fasta_list.txt
+
+UMI options
+  umitools_bc_pattern                      : NNNN
+  umi_discard_read                         : 0
+
+Alignment options
+  pseudo_aligner                           : salmon
+
+Process skipping options
+  skip_bbsplit                             : false
+
+Institutional config options
+  config_profile_name                      : Test profile
+  config_profile_description               : Minimal test dataset to check pipeline function
+
+Generic options
+  trace_report_suffix                      : 2026-03-25_21-41-20
+
+Core Nextflow options
+  runName                                  : friendly_becquerel
+  container..*STAR_ALIGN_IGENOMES          : community.wave.seqera.io/library/star_samtools_gawk:79ca42311e583cdc
+  container.STAR_GENOMEGENERATE_IGENOMES   : community.wave.seqera.io/library/star_samtools_gawk:79ca42311e583cdc
+  container..*PARABRICKS_STARGENOMEGENERATE: community.wave.seqera.io/library/htslib_samtools_star_gawk:4de2f983041d42e6
+  launchDir                                : /
+  workDir                                  : /workspace/runs/user2_podservice_20260325_224115/work
+  projectDir                               : /workspace/rnaseq-reuse-full
+  userName                                 : root
+  profile                                  : test
+  configFiles                              : /workspace/rnaseq-reuse-full/nextflow.config, /workspace/config_user2_podservice_20260325_224115.config
+
+!! Only displaying parameters that differ from the pipeline defaults !!
+------------------------------------------------------
+
+* The pipeline
+    https://doi.org/10.5281/zenodo.1400710
+
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/rnaseq/blob/master/CITATIONS.md
+
+WARN: The following invalid input values have been detected:
+
+* --max_cpus: 1
+* --max_memory: 2.GB
+
+
+WARN: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Both '--gtf' and '--gff' parameters have been provided.
+  Using GTF file as priority.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+WARN: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  '--transcript_fasta' parameter has been provided.
+  Make sure transcript names in this file match those in the GFF/GTF file.
+
+  Please see:
+  https://github.com/nf-core/rnaseq/issues/753
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 7 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 12 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 17 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 26 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 36 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 39 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (1)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 1
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (1)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 1
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (1)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 2
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (1)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (1)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (1)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (1)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (2)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (2)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (2)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (3)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[72/f4cac0] NFC…LINT (RAP1_UNINDUCED_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (3)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[72/f4cac0] NFC…LINT (RAP1_UNINDUCED_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (3)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[72/f4cac0] NFC…LINT (RAP1_UNINDUCED_REP1) | 1 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+ERROR ~ Error executing process > 'NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (RAP1_UNINDUCED_REP1)'
+
+Caused by:
+  Division by zero -- Check script 'workspace/rnaseq-reuse-full/modules/nf-core/fastqc/main.nf' at line: 32
+
+
+Source block:
+  def args          = task.ext.args ?: ''
+  def prefix        = task.ext.prefix ?: "${meta.id}"
+  def old_new_pairs = reads instanceof Path || reads.size() == 1 ? [[ reads, "${prefix}.${reads.extension}" ]] : reads.withIndex().collect { entry, index -> [ entry, "${prefix}_${index + 1}.${entry.extension}" ] }
+  def rename_to     = old_new_pairs*.join(' ').join(' ')
+  def renamed_files = old_new_pairs.collect{ _old_name, new_name -> new_name }.join(' ')
+  def memory_in_mb = task.memory ? task.memory.toUnit('MB') / task.cpus : null
+  def fastqc_memory = memory_in_mb > 10000 ? 10000 : (memory_in_mb < 100 ? 100 : memory_in_mb)
+  """
+  printf "%s %s\\n" ${rename_to} | while read old_name new_name; do
+      [ -f "\${new_name}" ] || ln -s \$old_name \$new_name
+  done
+  
+  fastqc \\
+      ${args} \\
+      --threads ${task.cpus} \\
+      --memory ${fastqc_memory} \\
+      ${renamed_files}
+  """
+
+Container:
+  quay.io/biocontainers/fastqc:0.12.1--hdfd78af_0
+
+Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
+
+ -- Check '.nextflow.log' file for details
+
+executor >  k8s (3)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[72/f4cac0] NFC…LINT (RAP1_UNINDUCED_REP1) | 1 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+Execution cancelled -- Finishing pending tasks before exit
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+ERROR ~ Error executing process > 'NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (RAP1_UNINDUCED_REP1)'
+
+Caused by:
+  Division by zero -- Check script 'workspace/rnaseq-reuse-full/modules/nf-core/fastqc/main.nf' at line: 32
+
+
+Source block:
+  def args          = task.ext.args ?: ''
+  def prefix        = task.ext.prefix ?: "${meta.id}"
+  def old_new_pairs = reads instanceof Path || reads.size() == 1 ? [[ reads, "${prefix}.${reads.extension}" ]] : reads.withIndex().collect { entry, index -> [ entry, "${prefix}_${index + 1}.${entry.extension}" ] }
+  def rename_to     = old_new_pairs*.join(' ').join(' ')
+  def renamed_files = old_new_pairs.collect{ _old_name, new_name -> new_name }.join(' ')
+  def memory_in_mb = task.memory ? task.memory.toUnit('MB') / task.cpus : null
+  def fastqc_memory = memory_in_mb > 10000 ? 10000 : (memory_in_mb < 100 ? 100 : memory_in_mb)
+  """
+  printf "%s %s\\n" ${rename_to} | while read old_name new_name; do
+      [ -f "\${new_name}" ] || ln -s \$old_name \$new_name
+  done
+  
+  fastqc \\
+      ${args} \\
+      --threads ${task.cpus} \\
+      --memory ${fastqc_memory} \\
+      ${renamed_files}
+  """
+
+Container:
+  quay.io/biocontainers/fastqc:0.12.1--hdfd78af_0
+
+Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
+
+ -- Check '.nextflow.log' file for details
+ERROR ~ Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting
+
+ -- Check '.nextflow.log' file for details
+
+executor >  k8s (3)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[72/f4cac0] NFC…LINT (RAP1_UNINDUCED_REP1) | 1 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+Execution cancelled -- Finishing pending tasks before exit
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+ERROR ~ Error executing process > 'NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (RAP1_UNINDUCED_REP1)'
+
+Caused by:
+  Division by zero -- Check script 'workspace/rnaseq-reuse-full/modules/nf-core/fastqc/main.nf' at line: 32
+
+
+Source block:
+  def args          = task.ext.args ?: ''
+  def prefix        = task.ext.prefix ?: "${meta.id}"
+  def old_new_pairs = reads instanceof Path || reads.size() == 1 ? [[ reads, "${prefix}.${reads.extension}" ]] : reads.withIndex().collect { entry, index -> [ entry, "${prefix}_${index + 1}.${entry.extension}" ] }
+  def rename_to     = old_new_pairs*.join(' ').join(' ')
+  def renamed_files = old_new_pairs.collect{ _old_name, new_name -> new_name }.join(' ')
+  def memory_in_mb = task.memory ? task.memory.toUnit('MB') / task.cpus : null
+  def fastqc_memory = memory_in_mb > 10000 ? 10000 : (memory_in_mb < 100 ? 100 : memory_in_mb)
+  """
+  printf "%s %s\\n" ${rename_to} | while read old_name new_name; do
+      [ -f "\${new_name}" ] || ln -s \$old_name \$new_name
+  done
+  
+  fastqc \\
+      ${args} \\
+      --threads ${task.cpus} \\
+      --memory ${fastqc_memory} \\
+      ${renamed_files}
+  """
+
+Container:
+  quay.io/biocontainers/fastqc:0.12.1--hdfd78af_0
+
+Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
+
+ -- Check '.nextflow.log' file for details
+ERROR ~ Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting
+
+ -- Check '.nextflow.log' file for details
+
+executor >  k8s (4)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[ef/8f9525] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[72/f4cac0] NFC…LINT (RAP1_UNINDUCED_REP1) | 1 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE | 0 of 1
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+Execution cancelled -- Finishing pending tasks before exit
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+ERROR ~ Error executing process > 'NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (RAP1_UNINDUCED_REP1)'
+
+Caused by:
+  Division by zero -- Check script 'workspace/rnaseq-reuse-full/modules/nf-core/fastqc/main.nf' at line: 32
+
+
+Source block:
+  def args          = task.ext.args ?: ''
+  def prefix        = task.ext.prefix ?: "${meta.id}"
+  def old_new_pairs = reads instanceof Path || reads.size() == 1 ? [[ reads, "${prefix}.${reads.extension}" ]] : reads.withIndex().collect { entry, index -> [ entry, "${prefix}_${index + 1}.${entry.extension}" ] }
+  def rename_to     = old_new_pairs*.join(' ').join(' ')
+  def renamed_files = old_new_pairs.collect{ _old_name, new_name -> new_name }.join(' ')
+  def memory_in_mb = task.memory ? task.memory.toUnit('MB') / task.cpus : null
+  def fastqc_memory = memory_in_mb > 10000 ? 10000 : (memory_in_mb < 100 ? 100 : memory_in_mb)
+  """
+  printf "%s %s\\n" ${rename_to} | while read old_name new_name; do
+      [ -f "\${new_name}" ] || ln -s \$old_name \$new_name
+  done
+  
+  fastqc \\
+      ${args} \\
+      --threads ${task.cpus} \\
+      --memory ${fastqc_memory} \\
+      ${renamed_files}
+  """
+
+Container:
+  quay.io/biocontainers/fastqc:0.12.1--hdfd78af_0
+
+Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
+
+ -- Check '.nextflow.log' file for details
+ERROR ~ Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting
+
+ -- Check '.nextflow.log' file for details
+
+executor >  k8s (4)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[ef/8f9525] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[72/f4cac0] NFC…LINT (RAP1_UNINDUCED_REP1) | 1 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE | 0 of 1
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+Execution cancelled -- Finishing pending tasks before exit
+-[nf-core/rnaseq] Pipeline completed with errors-
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+ERROR ~ Error executing process > 'NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (RAP1_UNINDUCED_REP1)'
+
+Caused by:
+  Division by zero -- Check script 'workspace/rnaseq-reuse-full/modules/nf-core/fastqc/main.nf' at line: 32
+
+
+Source block:
+  def args          = task.ext.args ?: ''
+  def prefix        = task.ext.prefix ?: "${meta.id}"
+  def old_new_pairs = reads instanceof Path || reads.size() == 1 ? [[ reads, "${prefix}.${reads.extension}" ]] : reads.withIndex().collect { entry, index -> [ entry, "${prefix}_${index + 1}.${entry.extension}" ] }
+  def rename_to     = old_new_pairs*.join(' ').join(' ')
+  def renamed_files = old_new_pairs.collect{ _old_name, new_name -> new_name }.join(' ')
+  def memory_in_mb = task.memory ? task.memory.toUnit('MB') / task.cpus : null
+  def fastqc_memory = memory_in_mb > 10000 ? 10000 : (memory_in_mb < 100 ? 100 : memory_in_mb)
+  """
+  printf "%s %s\\n" ${rename_to} | while read old_name new_name; do
+      [ -f "\${new_name}" ] || ln -s \$old_name \$new_name
+  done
+  
+  fastqc \\
+      ${args} \\
+      --threads ${task.cpus} \\
+      --memory ${fastqc_memory} \\
+      ${renamed_files}
+  """
+
+Container:
+  quay.io/biocontainers/fastqc:0.12.1--hdfd78af_0
+
+Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
+
+ -- Check '.nextflow.log' file for details
+ERROR ~ Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting
+
+ -- Check '.nextflow.log' file for details
+
+executor >  k8s (4)
+[05/0194de] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[57/146bd9] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[ef/8f9525] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[72/f4cac0] NFC…LINT (RAP1_UNINDUCED_REP1) | 1 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE | 0 of 1
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+Execution cancelled -- Finishing pending tasks before exit
+-[nf-core/rnaseq] Pipeline completed with errors-
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: Killing running tasks (1)
+ERROR ~ Error executing process > 'NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (RAP1_UNINDUCED_REP1)'
+
+Caused by:
+  Division by zero -- Check script 'workspace/rnaseq-reuse-full/modules/nf-core/fastqc/main.nf' at line: 32
+
+
+Source block:
+  def args          = task.ext.args ?: ''
+  def prefix        = task.ext.prefix ?: "${meta.id}"
+  def old_new_pairs = reads instanceof Path || reads.size() == 1 ? [[ reads, "${prefix}.${reads.extension}" ]] : reads.withIndex().collect { entry, index -> [ entry, "${prefix}_${index + 1}.${entry.extension}" ] }
+  def rename_to     = old_new_pairs*.join(' ').join(' ')
+  def renamed_files = old_new_pairs.collect{ _old_name, new_name -> new_name }.join(' ')
+  def memory_in_mb = task.memory ? task.memory.toUnit('MB') / task.cpus : null
+  def fastqc_memory = memory_in_mb > 10000 ? 10000 : (memory_in_mb < 100 ? 100 : memory_in_mb)
+  """
+  printf "%s %s\\n" ${rename_to} | while read old_name new_name; do
+      [ -f "\${new_name}" ] || ln -s \$old_name \$new_name
+  done
+  
+  fastqc \\
+      ${args} \\
+      --threads ${task.cpus} \\
+      --memory ${fastqc_memory} \\
+      ${renamed_files}
+  """
+
+Container:
+  quay.io/biocontainers/fastqc:0.12.1--hdfd78af_0
+
+Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
+
+ -- Check '.nextflow.log' file for details
+ERROR ~ Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting
+
+ -- Check '.nextflow.log' file for details
+
+command terminated with exit code 1

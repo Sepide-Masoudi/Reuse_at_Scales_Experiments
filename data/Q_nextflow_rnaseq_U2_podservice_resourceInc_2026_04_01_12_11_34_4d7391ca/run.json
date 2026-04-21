@@ -1,0 +1,15 @@
+{
+    "startTime": "2026_04_01_12_11_34",
+    "endTime": "2026_04_01_12_54_16",
+    "treatment_start": "2026_04_01_12_11_44",
+    "treatment_end": "2026_04_01_12_54_06",
+    "runHash": "4d7391ca",
+    "duration": 2561.50534,
+    "treatment_duration": 2541.486719,
+    "user_data": {
+        "experiment": "rnaseq-users2-run1",
+        "num_users": 2,
+        "run_id": 1,
+        "reuse_mood": "2-concurrent-user-poservice-reuse"
+    }
+}

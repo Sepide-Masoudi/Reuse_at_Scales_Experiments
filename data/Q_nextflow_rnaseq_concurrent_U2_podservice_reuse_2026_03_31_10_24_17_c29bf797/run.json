@@ -1,0 +1,15 @@
+{
+    "startTime": "2026_03_31_10_24_17",
+    "endTime": "2026_03_31_11_21_52",
+    "treatment_start": "2026_03_31_10_24_27",
+    "treatment_end": "2026_03_31_11_21_42",
+    "runHash": "c29bf797",
+    "duration": 3455.028014,
+    "treatment_duration": 3435.007276,
+    "user_data": {
+        "experiment": "rnaseq-users2-run1",
+        "num_users": 2,
+        "run_id": 1,
+        "reuse_mood": "2-concurrent-user-podservice-reuse"
+    }
+}

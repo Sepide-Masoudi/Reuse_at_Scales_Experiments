@@ -24,24 +24,25 @@ process SUBREAD_FEATURECOUNTS {
     if (meta.strandedness == 'forward')  { strandedness = 1 }
     else if (meta.strandedness == 'reverse') { strandedness = 2 }
 
-    def bam_list = bams.collect { it.toString() }.join('","')
+    //def bam_list = bams.collect { it.toString() }.join('","')
+    def bam_list = bams.collect { "\"${it.toString()}\"" }.join(',')
     def service_url = "http://featurecounts-service.nextflow.svc.cluster.local:8080/run"
     def outdir = "/workspace/service_outputs/featurecounts/${prefix}"
 
     """
     # Call featureCounts service
-    RESPONSE=\$(curl -sf -X POST "${service_url}" \\
+    RESPONSE=\$(curl -sS -X POST "${service_url}" \\
         -H "Content-Type: application/json" \\
         -d '{
             "bams": ["${bam_list}"],
             "annotation": "${annotation}",
             "outdir": "${outdir}",
             "prefix": "${prefix}",
-            "paired_end": ${paired_end},
+            "paired_end": ${paired_end ? 'true' : 'false'},
             "strandedness": ${strandedness},
             "cpus": ${task.cpus},
             "args": "${args}"
-        }')
+        }') || { echo "Curl failed"; exit 1; }
 
     # Check response
     STATUS=\$(echo "\$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin).get('status','error'))")

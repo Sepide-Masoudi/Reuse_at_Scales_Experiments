@@ -1,0 +1,17 @@
+
+ N E X T F L O W   ~  version 25.10.4
+
+Launching `/workspace/rnaseq-reuse-full/main.nf` [elegant_miescher] DSL2 - revision: ff377cb1d2
+
+WARN: Access to undefined parameter `genomes` -- Initialise it to a default value eg. `params.genomes = some_value`
+WARN: Access to undefined parameter `version` -- Initialise it to a default value eg. `params.version = some_value`
+WARN: Access to undefined parameter `validate_params` -- Initialise it to a default value eg. `params.validate_params = some_value`
+WARN: Access to undefined parameter `monochrome_logs` -- Initialise it to a default value eg. `params.monochrome_logs = some_value`
+WARN: Access to undefined parameter `input` -- Initialise it to a default value eg. `params.input = some_value`
+WARN: Access to undefined parameter `help` -- Initialise it to a default value eg. `params.help = some_value`
+WARN: Access to undefined parameter `help_full` -- Initialise it to a default value eg. `params.help_full = some_value`
+WARN: Access to undefined parameter `show_hidden` -- Initialise it to a default value eg. `params.show_hidden = some_value`
+ERROR ~ Cannot invoke method tokenize() on null object
+
+ -- Check script 'workspace/rnaseq-reuse-full/subworkflows/local/utils_nfcore_rnaseq_pipeline/main.nf' at line: 68 or see '.nextflow.log' file for more details
+command terminated with exit code 1

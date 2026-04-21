@@ -29,7 +29,7 @@ process STRINGTIE_STRINGTIE {
 
     """
     # Call StringTie service
-    RESPONSE=\$(curl -sf -X POST "${service_url}" \\
+    RESPONSE=\$(curl -sS -X POST "${service_url}" \\
         -H "Content-Type: application/json" \\
         -d '{
             "bam": "${bam}",
@@ -39,7 +39,7 @@ process STRINGTIE_STRINGTIE {
             "strandedness": "${strandedness}",
             "cpus": ${task.cpus},
             "args": "${args}"
-        }')
+        }') || { echo "Curl failed"; exit 1; }
 
     # Check response
     STATUS=\$(echo "\$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin).get('status','error'))")

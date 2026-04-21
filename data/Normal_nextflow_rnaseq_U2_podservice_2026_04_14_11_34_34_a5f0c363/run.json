@@ -1,0 +1,18 @@
+{
+    "startTime": "2026_04_14_11_34_34",
+    "endTime": "2026_04_14_16_09_27",
+    "treatment_start": "2026_04_14_11_34_44",
+    "treatment_end": "2026_04_14_16_09_17",
+    "runHash": "a5f0c363",
+    "duration": 16493.071405,
+    "treatment_duration": 16473.050698,
+    "user_data": {
+        "experiment": "rnaseq-users2-run1",
+        "num_users": 2,
+        "run_id": 1,
+        "reuse_mood": "Noraml-2-concurrent-podservice",
+        "queue_size": 2,
+        "cpu": "2",
+        "mem": "2"
+    }
+}

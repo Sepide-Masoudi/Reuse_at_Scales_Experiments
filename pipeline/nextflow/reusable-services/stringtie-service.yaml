@@ -1,45 +1,4 @@
 ---
-# stringtie-service pod — runs StringTie as a persistent HTTP service
-apiVersion: v1
-kind: Pod
-metadata:
-  name: stringtie-service
-  namespace: nextflow
-  labels:
-    app: stringtie-service
-    pipeline: rnaseq
-    reuse: pod-service
-spec:
-  nodeSelector:
-    kubernetes.io/hostname: gisele
-  restartPolicy: Always
-  volumes:
-    - name: data
-      persistentVolumeClaim:
-        claimName: nextflow-pvc
-    - name: service-script
-      configMap:
-        name: stringtie-service-script
-  containers:
-    - name: stringtie
-      image: quay.io/biocontainers/stringtie:2.2.3--h43eeafb_0
-      imagePullPolicy: IfNotPresent
-      command: ["python3", "/service/stringtie_service.py"]
-      ports:
-        - containerPort: 8081
-      env:
-        - name: SERVICE_PORT
-          value: "8081"
-      volumeMounts:
-        - name: data
-          mountPath: /workspace
-        - name: service-script
-          mountPath: /service
-      resources:
-        requests:
-          cpu: "500m"
-          memory: "1Gi"
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -48,13 +7,16 @@ metadata:
 data:
   stringtie_service.py: |
     #!/usr/bin/env python3
-    import os, subprocess, json, logging, threading
+    import os, subprocess, json, logging
     from http.server import HTTPServer, BaseHTTPRequestHandler
+    from socketserver import ThreadingMixIn
     from urllib.parse import urlparse
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
     log = logging.getLogger("stringtie-service")
-    lock = threading.Lock()
+
+    class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
+        daemon_threads = True
 
     class StringTieHandler(BaseHTTPRequestHandler):
         def log_message(self, format, *args):
@@ -108,15 +70,17 @@ data:
             cmd = [c for c in cmd if c]
             log.info(f"Running StringTie for {prefix}")
 
-            with lock:
-                try:
-                    result = subprocess.run(cmd, capture_output=True, text=True, timeout=3600)
-                except Exception as e:
-                    self._respond(500, {"error": str(e)}); return
+            # No lock — each prefix writes to its own unique outdir so no race condition
+            try:
+                result = subprocess.run(cmd, capture_output=True, text=True, timeout=3600)
+            except Exception as e:
+                self._respond(500, {"error": str(e)}); return
 
             if result.returncode != 0:
+                log.error(f"StringTie failed for {prefix}: {result.stderr}")
                 self._respond(500, {"error": "StringTie failed", "stderr": result.stderr}); return
 
+            log.info(f"StringTie completed for {prefix}")
             self._respond(200, {"status": "success", "prefix": prefix,
                                 "transcript_gtf": transcript_gtf, "abundance": abundance_txt,
                                 "coverage_gtf": coverage_gtf if annotation else None,
@@ -132,9 +96,49 @@ data:
 
     if __name__ == "__main__":
         port = int(os.environ.get("SERVICE_PORT", 8081))
-        server = HTTPServer(("0.0.0.0", port), StringTieHandler)
-        log.info(f"StringTie service listening on port {port}")
+        server = ThreadingHTTPServer(("0.0.0.0", port), StringTieHandler)
+        log.info(f"StringTie service listening on port {port} (threaded, no lock)")
         server.serve_forever()
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stringtie-service
+  namespace: nextflow
+  labels:
+    app: stringtie-service
+    pipeline: rnaseq
+    reuse: pod-service
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: sm-gpu
+  restartPolicy: Always
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: nextflow-pvc
+    - name: service-script
+      configMap:
+        name: stringtie-service-script
+  containers:
+    - name: stringtie
+      image: quay.io/biocontainers/stringtie:2.2.3--h43eeafb_0
+      imagePullPolicy: IfNotPresent
+      command: ["python3", "/service/stringtie_service.py"]
+      ports:
+        - containerPort: 8081
+      env:
+        - name: SERVICE_PORT
+          value: "8081"
+      volumeMounts:
+        - name: data
+          mountPath: /workspace
+        - name: service-script
+          mountPath: /service
+      resources:
+        requests:
+          cpu: "2"
+          memory: "2Gi"
 ---
 apiVersion: v1
 kind: Service

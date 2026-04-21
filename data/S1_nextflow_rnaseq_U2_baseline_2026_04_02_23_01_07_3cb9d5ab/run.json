@@ -1,0 +1,18 @@
+{
+    "startTime": "2026_04_02_23_01_07",
+    "endTime": "2026_04_03_00_47_26",
+    "treatment_start": "2026_04_02_23_01_17",
+    "treatment_end": "2026_04_03_00_47_16",
+    "runHash": "3cb9d5ab",
+    "duration": 6378.591399,
+    "treatment_duration": 6358.570744,
+    "user_data": {
+        "experiment": "rnaseq-users2-run1",
+        "num_users": 2,
+        "run_id": 1,
+        "reuse_mood": "2-concurrent-baseline",
+        "queue_size": 3,
+        "cpu": "2",
+        "mem": "2"
+    }
+}

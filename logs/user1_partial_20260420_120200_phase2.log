@@ -1,0 +1,16 @@
+
+ N E X T F L O W   ~  version 25.10.4
+
+Launching `/workspace/.nextflow/assets/nf-core/rnaseq/main.nf` [fervent_easley] DSL2 - revision: ff377cb1d2
+
+ERROR ~ Unable to acquire lock on session with ID 3a2b2ba3-43a9-40e8-ba95-064ef5659b3e
+
+Common reasons for this error are:
+ - You are trying to resume the execution of an already running pipeline
+ - A previous execution was abruptly interrupted, leaving the session open
+
+You can see which process is holding the lock file by using the following command:
+ - lsof /workspace/.nextflow/cache/3a2b2ba3-43a9-40e8-ba95-064ef5659b3e/db/LOCK
+
+ -- Check '.nextflow.log' file for details
+command terminated with exit code 1

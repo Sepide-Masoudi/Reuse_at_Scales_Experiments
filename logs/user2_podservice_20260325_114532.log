@@ -1,0 +1,2194 @@
+
+ N E X T F L O W   ~  version 25.10.4
+
+Launching `/workspace/rnaseq-reuse-full/main.nf` [tender_fourier] DSL2 - revision: ff377cb1d2
+
+
+------------------------------------------------------
+                                        ,--./,-.
+        ___     __   __   __   ___     /,-._.--~'
+  |\ | |__  __ /  ` /  \ |__) |__         }  {
+  | \| |       \__, \__/ |  \ |___     \`-._,-`-,
+                                        `._,._,'
+  nf-core/rnaseq 3.23.0
+------------------------------------------------------
+
+Input/output options
+  input                                    : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/samplesheet/v3.10/samplesheet_test.csv
+  outdir                                   : /workspace/runs/user2_podservice_20260325_114532/results
+
+Reference genome options
+  fasta                                    : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genome.fasta
+  gtf                                      : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genes_with_empty_tid.gtf.gz
+  gff                                      : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genes.gff.gz
+  transcript_fasta                         : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/transcriptome.fasta
+  additional_fasta                         : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/gfp.fa.gz
+  hisat2_index                             : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/hisat2.tar.gz
+  salmon_index                             : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/salmon.tar.gz
+
+Read filtering options
+  bbsplit_fasta_list                       : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/bbsplit_fasta_list.txt
+
+UMI options
+  umitools_bc_pattern                      : NNNN
+  umi_discard_read                         : 0
+
+Alignment options
+  pseudo_aligner                           : salmon
+
+Process skipping options
+  skip_bbsplit                             : false
+
+Institutional config options
+  config_profile_name                      : Test profile
+  config_profile_description               : Minimal test dataset to check pipeline function
+
+Generic options
+  trace_report_suffix                      : 2026-03-25_10-45-37
+
+Core Nextflow options
+  runName                                  : tender_fourier
+  container..*STAR_ALIGN_IGENOMES          : community.wave.seqera.io/library/star_samtools_gawk:79ca42311e583cdc
+  container.STAR_GENOMEGENERATE_IGENOMES   : community.wave.seqera.io/library/star_samtools_gawk:79ca42311e583cdc
+  container..*PARABRICKS_STARGENOMEGENERATE: community.wave.seqera.io/library/htslib_samtools_star_gawk:4de2f983041d42e6
+  launchDir                                : /
+  workDir                                  : /workspace/runs/user2_podservice_20260325_114532/work
+  projectDir                               : /workspace/rnaseq-reuse-full
+  userName                                 : root
+  profile                                  : test
+  configFiles                              : /workspace/rnaseq-reuse-full/nextflow.config, /workspace/config_user2_podservice_20260325_114532.config
+
+!! Only displaying parameters that differ from the pipeline defaults !!
+------------------------------------------------------
+
+* The pipeline
+    https://doi.org/10.5281/zenodo.1400710
+
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/rnaseq/blob/master/CITATIONS.md
+
+WARN: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Both '--gtf' and '--gff' parameters have been provided.
+  Using GTF file as priority.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+WARN: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  '--transcript_fasta' parameter has been provided.
+  Make sure transcript names in this file match those in the GFF/GTF file.
+
+  Please see:
+  https://github.com/nf-core/rnaseq/issues/753
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 7 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 12 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 19 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 30 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 37 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA -
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[-        ] NFC…ME:GUNZIP_ADDITIONAL_FASTA | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX -
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 1
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (1)
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 1
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (1)
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ -
+[-        ] NFC…ER_SETSTRANDEDNESS:FQ_LINT | 0 of 2
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (2)
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[9f/bef4ca] NFC…LINT (RAP1_UNINDUCED_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (3)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[-        ] NFC…_GENOME:UNTAR_SALMON_INDEX | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[9f/bef4ca] NFC…LINT (RAP1_UNINDUCED_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (5)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (6)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[-        ] NFC…_SETSTRANDEDNESS:CAT_FASTQ | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (7)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (8)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 0 of 1
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+
+executor >  k8s (8)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 0 of 1
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (8)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER -
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (8)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[-        ] NFC…:PREPARE_GENOME:GTF_FILTER | 0 of 1
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (9)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 0 of 1
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (9)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 0 of 1
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (9)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[-        ] NFC…:CUSTOM_CATADDITIONALFASTA -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (10)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 0 of 1
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 0 of 1
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (10)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 0 of 1
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE -
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (10)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED | 0 of 1
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX | 0 of 1
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (11)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED | 0 of 1
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 0 of 1
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[-        ] NFC…GENOME:STAR_GENOMEGENERATE | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (12)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED | 0 of 1
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 0 of 1
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT -
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (12)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED | 0 of 1
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 0 of 1
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (13)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 0 of 1
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 0 of 1
+[-        ] NFC…EPARE_GENOME:BBMAP_BBSPLIT | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (14)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 0 of 1
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 0 of 1
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (14)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 0 of 1
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 0 of 1
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (14)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 0 of 1
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (14)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 0 of 1
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (14)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (14)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+
+executor >  k8s (14)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 0 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (14)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[9f/bef4ca] NFC…LINT (RAP1_UNINDUCED_REP1) | 1 of 3
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (16)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 0 of 2
+[9f/bef4ca] NFC…LINT (RAP1_UNINDUCED_REP1) | 1 of 3
+[df/043d99] NFC…STQC (RAP1_UNINDUCED_REP1) | 0 of 1
+[b7/d54fe9] NFC…LORE (RAP1_UNINDUCED_REP1) | 0 of 1
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (16)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9f/bef4ca] NFC…LINT (RAP1_UNINDUCED_REP1) | 1 of 4
+[df/043d99] NFC…STQC (RAP1_UNINDUCED_REP1) | 0 of 1
+[b7/d54fe9] NFC…LORE (RAP1_UNINDUCED_REP1) | 0 of 1
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (17)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[15/c01310] NFC…NDEDNESS:FQ_LINT (WT_REP1) | 1 of 4
+[df/043d99] NFC…STQC (RAP1_UNINDUCED_REP1) | 0 of 1
+[b7/d54fe9] NFC…LORE (RAP1_UNINDUCED_REP1) | 0 of 1
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (17)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[15/c01310] NFC…NDEDNESS:FQ_LINT (WT_REP1) | 2 of 4
+[df/043d99] NFC…STQC (RAP1_UNINDUCED_REP1) | 0 of 2
+[b7/d54fe9] NFC…LORE (RAP1_UNINDUCED_REP1) | 0 of 2
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (19)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[15/c01310] NFC…NDEDNESS:FQ_LINT (WT_REP1) | 2 of 4
+[b5/e60623] NFC…RIMGALORE:FASTQC (WT_REP1) | 0 of 2
+[a3/5726e5] NFC…ALORE:TRIMGALORE (WT_REP1) | 0 of 2
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (19)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[15/c01310] NFC…NDEDNESS:FQ_LINT (WT_REP1) | 2 of 4
+[b5/e60623] NFC…RIMGALORE:FASTQC (WT_REP1) | 0 of 2
+[a3/5726e5] NFC…ALORE:TRIMGALORE (WT_REP1) | 0 of 2
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (19)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[15/c01310] NFC…NDEDNESS:FQ_LINT (WT_REP1) | 2 of 4
+[b5/e60623] NFC…RIMGALORE:FASTQC (WT_REP1) | 1 of 2
+[a3/5726e5] NFC…ALORE:TRIMGALORE (WT_REP1) | 0 of 2
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (19)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 3 of 4
+[b5/e60623] NFC…RIMGALORE:FASTQC (WT_REP1) | 1 of 2
+[a3/5726e5] NFC…ALORE:TRIMGALORE (WT_REP1) | 0 of 2
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+
+
+
+executor >  k8s (19)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 3 of 4
+[b5/e60623] NFC…RIMGALORE:FASTQC (WT_REP1) | 1 of 3
+[a3/5726e5] NFC…ALORE:TRIMGALORE (WT_REP1) | 0 of 3
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+
+
+executor >  k8s (21)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 3 of 4
+[d6/a8c1d2] NFC…RIMGALORE:FASTQC (WT_REP2) | 1 of 3
+[f5/122ae6] NFC…ALORE:TRIMGALORE (WT_REP2) | 0 of 3
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+
+executor >  k8s (21)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 3 of 4
+[d6/a8c1d2] NFC…RIMGALORE:FASTQC (WT_REP2) | 1 of 3
+[f5/122ae6] NFC…ALORE:TRIMGALORE (WT_REP2) | 0 of 3
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (21)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 3 of 4
+[d6/a8c1d2] NFC…RIMGALORE:FASTQC (WT_REP2) | 1 of 3
+[f5/122ae6] NFC…ALORE:TRIMGALORE (WT_REP2) | 0 of 3
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (21)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 3 of 4
+[d6/a8c1d2] NFC…RIMGALORE:FASTQC (WT_REP2) | 1 of 3
+[f5/122ae6] NFC…ALORE:TRIMGALORE (WT_REP2) | 0 of 3
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (21)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 3 of 4
+[d6/a8c1d2] NFC…RIMGALORE:FASTQC (WT_REP2) | 2 of 3
+[f5/122ae6] NFC…ALORE:TRIMGALORE (WT_REP2) | 0 of 3
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (21)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 3 of 4
+[d6/a8c1d2] NFC…RIMGALORE:FASTQC (WT_REP2) | 2 of 3
+[f5/122ae6] NFC…ALORE:TRIMGALORE (WT_REP2) | 0 of 3
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (21)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[9c/bf2693] NFC…NDEDNESS:FQ_LINT (WT_REP2) | 3 of 4
+[df/043d99] NFC…STQC (RAP1_UNINDUCED_REP1) | 3 of 3
+[f5/122ae6] NFC…ALORE:TRIMGALORE (WT_REP2) | 0 of 3
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (21)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 4 of 4
+[df/043d99] NFC…STQC (RAP1_UNINDUCED_REP1) | 3 of 3
+[f5/122ae6] NFC…ALORE:TRIMGALORE (WT_REP2) | 0 of 3
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (21)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 4 of 4
+[df/043d99] NFC…STQC (RAP1_UNINDUCED_REP1) | 3 of 3
+[f5/122ae6] NFC…ALORE:TRIMGALORE (WT_REP2) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (23)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 4 of 4
+[ca/fa4f41] NFC…FASTQC (RAP1_IAA_30M_REP1) | 3 of 4
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (23)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 4 of 4
+[ca/fa4f41] NFC…FASTQC (RAP1_IAA_30M_REP1) | 3 of 4
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (23)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 4 of 4
+[ca/fa4f41] NFC…FASTQC (RAP1_IAA_30M_REP1) | 4 of 4
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (23)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 4 of 4
+[ca/fa4f41] NFC…FASTQC (RAP1_IAA_30M_REP1) | 4 of 4
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+
+
+
+executor >  k8s (23)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[59/6f92b8] NFC…EDNESS:CAT_FASTQ (WT_REP1) | 1 of 2
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 4 of 4
+[ca/fa4f41] NFC…FASTQC (RAP1_IAA_30M_REP1) | 4 of 4
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (23)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[86/2b5d18] NFC…Q_LINT (RAP1_IAA_30M_REP1) | 4 of 4
+[ca/fa4f41] NFC…FASTQC (RAP1_IAA_30M_REP1) | 4 of 4
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (24)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 4 of 5
+[ca/fa4f41] NFC…FASTQC (RAP1_IAA_30M_REP1) | 4 of 4
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (24)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 4 of 5
+[ca/fa4f41] NFC…FASTQC (RAP1_IAA_30M_REP1) | 4 of 4
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (24)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[ca/fa4f41] NFC…FASTQC (RAP1_IAA_30M_REP1) | 4 of 5
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 4
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 4 of 5
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 4 of 5
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 Insufficient memory, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+ERROR ~ Error executing process > 'NFCORE_RNASEQ:PREPARE_GENOME:STAR_GENOMEGENERATE (genome_gfp.fasta)'
+
+Caused by:
+  Request GET /apis/batch/v1/namespaces/nextflow/jobs/nf-a9624fb2a354c1878acf59539c50547d-37a63/status returned an error code=403
+  
+    {
+        "kind": "Status",
+        "apiVersion": "v1",
+        "metadata": {
+            
+        },
+        "status": "Failure",
+        "message": "jobs.batch \"nf-a9624fb2a354c1878acf59539c50547d-37a63\" is forbidden: User \"system:serviceaccount:nextflow:nextflow-sa\" cannot get resource \"jobs/status\" in API group \"batch\" in the namespace \"nextflow\"",
+        "reason": "Forbidden",
+        "details": {
+            "name": "nf-a9624fb2a354c1878acf59539c50547d-37a63",
+            "group": "batch",
+            "kind": "jobs"
+        },
+        "code": 403
+    }
+
+
+
+ -- Check '.nextflow.log' file for details
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[b1/99adee] NFC…GALORE (RAP1_IAA_30M_REP1) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+-[nf-core/rnaseq] Pipeline completed with errors-
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: Killing running tasks (6)
+ERROR ~ Error executing process > 'NFCORE_RNASEQ:PREPARE_GENOME:STAR_GENOMEGENERATE (genome_gfp.fasta)'
+
+Caused by:
+  Request GET /apis/batch/v1/namespaces/nextflow/jobs/nf-a9624fb2a354c1878acf59539c50547d-37a63/status returned an error code=403
+  
+    {
+        "kind": "Status",
+        "apiVersion": "v1",
+        "metadata": {
+            
+        },
+        "status": "Failure",
+        "message": "jobs.batch \"nf-a9624fb2a354c1878acf59539c50547d-37a63\" is forbidden: User \"system:serviceaccount:nextflow:nextflow-sa\" cannot get resource \"jobs/status\" in API group \"batch\" in the namespace \"nextflow\"",
+        "reason": "Forbidden",
+        "details": {
+            "name": "nf-a9624fb2a354c1878acf59539c50547d-37a63",
+            "group": "batch",
+            "kind": "jobs"
+        },
+        "code": 403
+    }
+
+
+
+ -- Check '.nextflow.log' file for details
+
+executor >  k8s (26)
+[2d/982608] NFC…nes_with_empty_tid.gtf.gz) | 1 of 1 ✔
+[46/f352dd] NFC…:GTF_FILTER (genome.fasta) | 1 of 1 ✔
+[dc/479311] NFC…DITIONAL_FASTA (gfp.fa.gz) | 1 of 1 ✔
+[0a/edde9d] NFC…STA (genome_transcriptome) | 1 of 1 ✔
+[5c/d95daf] NFC…E:GTF2BED (genome_gfp.gtf) | 1 of 1 ✔
+[b1/d359a8] NFC…S_FAIDX (genome_gfp.fasta) | 1 of 1 ✔
+[ac/fd0528] NFC…ENOME:BBMAP_BBSPLIT (null) | 0 of 1
+[a9/624fb2] NFC…ENERATE (genome_gfp.fasta) | 0 of 1
+[7e/0090f4] NFC…LMON_INDEX (salmon.tar.gz) | 1 of 1 ✔
+[-        ] NFC…ASEQ:RNASEQ:SAMTOOLS_INDEX -
+[8b/159904] NFC…ASTQ (RAP1_UNINDUCED_REP2) | 2 of 2 ✔
+[d0/2ce8f7] NFC…LINT (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[2b/a6dd73] NFC…STQC (RAP1_UNINDUCED_REP2) | 5 of 5 ✔
+[41/cae46a] NFC…LORE (RAP1_UNINDUCED_REP2) | 0 of 5
+[-        ] NFC…ESS:FQ_LINT_AFTER_TRIMMING -
+[-        ] NFC…STRANDEDNESS:BBMAP_BBSPLIT -
+[-        ] NFC…NESS:FQ_LINT_AFTER_BBSPLIT -
+[-        ] NFC…RANDEDNESS:FASTQC_FILTERED -
+[-        ] NFC…PLE_FQ_SALMON:FQ_SUBSAMPLE -
+[-        ] NFC…PLE_FQ_SALMON:SALMON_QUANT -
+Plus 43 more processes waiting for tasks…
+-[nf-core/rnaseq] Pipeline completed with errors-
+WARN: K8s pod cannot be scheduled -- 0/6 nodes are available: 1 Insufficient cpu, 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 4 node(s) didn't match Pod's node affinity/selector. preemption: 0/6 nodes are available: 1 No preemption victims found for incoming pod, 5 Preemption is not helpful for scheduling.
+WARN: Killing running tasks (6)
+ERROR ~ Error executing process > 'NFCORE_RNASEQ:PREPARE_GENOME:STAR_GENOMEGENERATE (genome_gfp.fasta)'
+
+Caused by:
+  Request GET /apis/batch/v1/namespaces/nextflow/jobs/nf-a9624fb2a354c1878acf59539c50547d-37a63/status returned an error code=403
+  
+    {
+        "kind": "Status",
+        "apiVersion": "v1",
+        "metadata": {
+            
+        },
+        "status": "Failure",
+        "message": "jobs.batch \"nf-a9624fb2a354c1878acf59539c50547d-37a63\" is forbidden: User \"system:serviceaccount:nextflow:nextflow-sa\" cannot get resource \"jobs/status\" in API group \"batch\" in the namespace \"nextflow\"",
+        "reason": "Forbidden",
+        "details": {
+            "name": "nf-a9624fb2a354c1878acf59539c50547d-37a63",
+            "group": "batch",
+            "kind": "jobs"
+        },
+        "code": 403
+    }
+
+
+
+ -- Check '.nextflow.log' file for details
+ERROR ~ Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting
+
+ -- Check '.nextflow.log' file for details
+WARN: Failed to render execution report -- see the log file for details
+WARN: Failed to render execution timeline -- see the log file for details
+
+command terminated with exit code 1

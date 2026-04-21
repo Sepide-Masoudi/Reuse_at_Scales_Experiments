@@ -1,6 +1,7 @@
 #!/bin/bash
 # run_nextflow_sequential_reuse.sh
-# Runs 2 users sequentially where user2 reuses user1's cached artifacts via -resume
+# S2-seq: 2 sequential users where user2 reuses user1's cached artifacts via -resume
+# IDENTICAL config to all other experiments for fair comparison
 
 set -euo pipefail
 
@@ -11,36 +12,25 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 mkdir -p ./logs ./metrics
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🧬 Nextflow Sequential Reuse Runner"
+echo "🧬 Nextflow Sequential Reuse Runner (S2-seq)"
 echo "User 1 → full run, User 2 → reuse cache"
 echo "Timestamp : $TIMESTAMP"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-# ─────────────────────────────────────────
-# Check launcher pod
-# ─────────────────────────────────────────
 POD_STATUS=$(kubectl get pod "$LAUNCHER_POD" -n "$NAMESPACE" \
   -o jsonpath='{.status.phase}' 2>/dev/null || echo "NotFound")
-
 if [[ "$POD_STATUS" != "Running" ]]; then
-  echo "❌ ERROR: Launcher pod is not running"
-  echo "Recreate it with: kubectl apply -f nextflow-launcher.yaml"
-  exit 1
+  echo "❌ ERROR: Launcher pod is not running"; exit 1
 fi
 echo "✅ Launcher pod is running"
 
-# ─────────────────────────────────────────
-# Clean up old failed pods
-# ─────────────────────────────────────────
 echo "🧹 Cleaning up old failed pods..."
 kubectl delete pods -n "$NAMESPACE" \
   --field-selector=status.phase=Failed \
   --ignore-not-found=true 2>/dev/null || true
 echo "✅ Cleanup done"
 
-# ─────────────────────────────────────────
-# Shared work dir — both users point here
-# ─────────────────────────────────────────
+# Shared work dir — both users point here so user2 can reuse user1's cache
 SHARED_WORK="/workspace/runs/shared_work_${TIMESTAMP}"
 
 # ─────────────────────────────────────────
@@ -58,8 +48,12 @@ kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
 kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- sh -c "cat > ${USER_CONFIG_U1} << 'CONFIGEOF'
 process {
     executor = 'k8s'
-    memory   = '4 GB'
-    cpus     = 2
+    memory   = '2 GB'
+    cpus     = 1
+}
+
+executor {
+    queueSize = 2
 }
 
 k8s {
@@ -68,9 +62,8 @@ k8s {
     storageClaimName = 'nextflow-pvc'
     storageMountPath = '/workspace'
     computeResourceType = 'Job'
-
     pod = [
-        [nodeSelector: 'kubernetes.io/hostname=gisele'],
+        [nodeSelector: 'kubernetes.io/hostname=sm-gpu'],
         [annotation: 'prometheus.io/scrape', value: 'true'],
         [annotation: 'prometheus.io/port',   value: '9090'],
         [label: 'pipeline', value: 'rnaseq'],
@@ -102,6 +95,8 @@ echo "⏱  User 1 finished at: $(date)"
 
 if [[ $EXIT_U1 -ne 0 ]]; then
   echo "❌ User 1 FAILED — aborting reuse experiment"
+  kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+    rm -f "${USER_CONFIG_U1}" 2>/dev/null || true
   exit $EXIT_U1
 fi
 echo "✅ User 1 completed — cache is ready at ${SHARED_WORK}"
@@ -121,8 +116,12 @@ kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
 kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- sh -c "cat > ${USER_CONFIG_U2} << 'CONFIGEOF'
 process {
     executor = 'k8s'
-    memory   = '4 GB'
-    cpus     = 2
+    memory   = '2 GB'
+    cpus     = 1
+}
+
+executor {
+    queueSize = 2
 }
 
 k8s {
@@ -131,9 +130,8 @@ k8s {
     storageClaimName = 'nextflow-pvc'
     storageMountPath = '/workspace'
     computeResourceType = 'Job'
-
     pod = [
-        [nodeSelector: 'kubernetes.io/hostname=gisele'],
+        [nodeSelector: 'kubernetes.io/hostname=sm-gpu'],
         [annotation: 'prometheus.io/scrape', value: 'true'],
         [annotation: 'prometheus.io/port',   value: '9090'],
         [label: 'pipeline', value: 'rnaseq'],
@@ -166,6 +164,8 @@ echo "⏱  User 2 finished at: $(date)"
 
 if [[ $EXIT_U2 -ne 0 ]]; then
   echo "❌ User 2 FAILED"
+  kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+    rm -f "${USER_CONFIG_U1}" "${USER_CONFIG_U2}" 2>/dev/null || true
   exit $EXIT_U2
 fi
 echo "✅ User 2 completed"
@@ -177,39 +177,30 @@ echo ""
 echo "📊 Copying metrics..."
 for user in 1 2; do
   if [[ $user -eq 1 ]]; then
-    RUN_ID="${RUN_ID_U1}"
-    RUN_DIR="${RUN_DIR_U1}"
+    RUN_ID="${RUN_ID_U1}"; RUN_DIR="${RUN_DIR_U1}"
   else
-    RUN_ID="${RUN_ID_U2}"
-    RUN_DIR="${RUN_DIR_U2}"
+    RUN_ID="${RUN_ID_U2}"; RUN_DIR="${RUN_DIR_U2}"
   fi
-
   LOCAL_METRICS="./metrics/${RUN_ID}"
   mkdir -p "$LOCAL_METRICS"
-
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
     cat "${RUN_DIR}/results/trace.txt" > "${LOCAL_METRICS}/trace.txt" 2>/dev/null || true
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
     cat "${RUN_DIR}/results/report.html" > "${LOCAL_METRICS}/report.html" 2>/dev/null || true
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
     cat "${RUN_DIR}/results/timeline.html" > "${LOCAL_METRICS}/timeline.html" 2>/dev/null || true
-
   echo "✅ Metrics saved to: $LOCAL_METRICS"
 done
 
-# ─────────────────────────────────────────
-# Cleanup per-user configs from PVC
-# ─────────────────────────────────────────
 echo ""
 echo "🧹 Cleaning up configs..."
 kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
   rm -f "${USER_CONFIG_U1}" "${USER_CONFIG_U2}" 2>/dev/null || true
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🎉 Reuse experiment complete"
+echo "🎉 Sequential reuse experiment complete"
 echo "  User 1 (full run) : $RUN_ID_U1"
 echo "  User 2 (reuse)    : $RUN_ID_U2"
 echo "  Shared work dir   : $SHARED_WORK"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-
 exit 0

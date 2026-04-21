@@ -7,6 +7,7 @@ spec:
   nodeSelector:
     kubernetes.io/hostname: gisele
   serviceAccountName: nextflow-sa
+  restartPolicy: Always
   volumes:
     - name: data
       persistentVolumeClaim:
@@ -15,9 +16,15 @@ spec:
     - name: nextflow
       image: nextflow/nextflow:25.10.4
       command: ["tail", "-f", "/dev/null"]
-      volumeMounts:
-        - name: data
-          mountPath: /workspace
       env:
         - name: NXF_HOME
           value: /workspace/.nextflow
+        - name: NXF_WORK
+          value: /workspace/work
+      volumeMounts:
+        - name: data
+          mountPath: /workspace
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"

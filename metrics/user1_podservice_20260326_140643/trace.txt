@@ -1,0 +1,2 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+1	00/0a9f69	nf-000a9f69b98ae07be7fa67f8dd9cc186-d0634	NFCORE_RNASEQ:PREPARE_GENOME:GUNZIP_ADDITIONAL_FASTA (gfp.fa.gz)	ABORTED	-	2026-03-26 13:07:38.960	-	-	-	-	-	-	-

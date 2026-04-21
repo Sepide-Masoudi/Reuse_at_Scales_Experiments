@@ -1,0 +1,18 @@
+{
+    "startTime": "2026_04_01_13_58_10",
+    "endTime": "2026_04_01_15_05_27",
+    "treatment_start": "2026_04_01_13_58_20",
+    "treatment_end": "2026_04_01_15_05_17",
+    "runHash": "ce54b3aa",
+    "duration": 4036.667168,
+    "treatment_duration": 4016.656773,
+    "user_data": {
+        "experiment": "rnaseq-users3-run1",
+        "num_users": 3,
+        "run_id": 1,
+        "reuse_mood": "3-concurrent-user-poservice-reuse",
+        "pod_cpu" : "2",
+        "pod_mem" : "2",
+        "qusize" : 2
+    }
+}

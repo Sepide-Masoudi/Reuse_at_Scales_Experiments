@@ -11,6 +11,9 @@ class Experiment:
     num_users: int
     run_id: int
     reuse_mood: str
+    queue_size: int
+    cpu: str
+    mem: str
 
     def to_dict(self) -> dict:
         return {
@@ -18,6 +21,9 @@ class Experiment:
             "num_users": self.num_users,
             "run_id": self.run_id,
             "reuse_mood" : self.reuse_mood,
+            "queue_size" : self.queue_size,
+            "cpu" : self.cpu,
+            "mem" : self.mem
         }
 
 def prepare_experiment(experiment: Experiment) -> None:
@@ -25,7 +31,7 @@ def prepare_experiment(experiment: Experiment) -> None:
 
 def wait_for_experiment_completion(experiment: Experiment) -> Callable[[], dict]:
     def trigger() -> dict:
-        script = "./run_nextflow_podservice.sh"   ## change the experiment config
+        script = "./run_nextflow_partial_resume.sh"   ## change the experiment config
         print(f"🚀 Running {experiment.num_users} concurrent users via {script}")
         subprocess.run(
             [script, str(experiment.num_users)],
@@ -51,7 +57,10 @@ def main() -> None:
                 name=f"rnaseq-users{num_users}-run{run_id}",
                 num_users=num_users,
                 run_id=run_id,
-                reuse_mood="2-concurrent-user-podservice-reuse"
+                reuse_mood="2-user-partial-resume",
+                queue_size=2,
+                cpu="2",
+                mem="2"
             )
 
             print("\n==============================")

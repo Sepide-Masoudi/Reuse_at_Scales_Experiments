@@ -429,5 +429,5 @@ sma:
 
   report:
     format: csv
-    location: data/nextflow_rnaseq_concurrent_U2_podservice_reuse_${startTime}_${runHash}
+    location: data/Normal_nextflow_rnaseq_U2_partial_resume_${startTime}_${runHash}
     filename: "${name}_${run}.csv"

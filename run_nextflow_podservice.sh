@@ -1,8 +1,8 @@
 #!/bin/bash
-# run_nextflow_podservice.sh
+# run_nextflow_podservice_nodelay.sh
 # Runs N=2 concurrent users using persistent featureCounts and StringTie service pods
-# instead of spawning new pods for each task
-# Requires featurecounts-service and stringtie-service to be running
+# Services must be running before executing this script
+# Uses persistent pods (not Knative) - services run for entire pipeline duration
 
 set -euo pipefail
 
@@ -16,29 +16,20 @@ PIDS=()
 mkdir -p ./logs ./metrics
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🧬 Nextflow Pod-Service Reuse Runner"
+echo "🧬 Nextflow Pod-Service Reuse Runner (No Delay)"
 echo "Users      : $NUM_USERS"
 echo "Pipeline   : $PIPELINE_DIR"
 echo "Timestamp  : $TIMESTAMP"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-# ─────────────────────────────────────────
-# Check launcher pod
-# ─────────────────────────────────────────
 POD_STATUS=$(kubectl get pod "$LAUNCHER_POD" -n "$NAMESPACE" \
   -o jsonpath='{.status.phase}' 2>/dev/null || echo "NotFound")
-
 if [[ "$POD_STATUS" != "Running" ]]; then
-  echo "❌ ERROR: Launcher pod is not running"
-  exit 1
+  echo "❌ ERROR: Launcher pod is not running"; exit 1
 fi
 echo "✅ Launcher pod is running"
 
-# ─────────────────────────────────────────
-# Verify service pods are running
-# ─────────────────────────────────────────
 echo "🔍 Checking service pods..."
-
 FC_STATUS=$(kubectl get pod featurecounts-service -n "$NAMESPACE" \
   -o jsonpath='{.status.phase}' 2>/dev/null || echo "NotFound")
 ST_STATUS=$(kubectl get pod stringtie-service -n "$NAMESPACE" \
@@ -49,52 +40,31 @@ if [[ "$FC_STATUS" != "Running" ]]; then
   echo "Deploy it with: kubectl apply -f featurecounts-service.yaml"
   exit 1
 fi
-
 if [[ "$ST_STATUS" != "Running" ]]; then
   echo "❌ ERROR: stringtie-service is not running (status: $ST_STATUS)"
   echo "Deploy it with: kubectl apply -f stringtie-service.yaml"
   exit 1
 fi
-
 echo "✅ featurecounts-service is running"
 echo "✅ stringtie-service is running"
 
-# ─────────────────────────────────────────
-# Health check services
-# ─────────────────────────────────────────
 echo "🏥 Health checking services..."
-
 FC_HEALTH=$(kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
   sh -c "curl -sf http://featurecounts-service.nextflow.svc.cluster.local:8080/health" 2>/dev/null || echo "FAILED")
 ST_HEALTH=$(kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
   sh -c "curl -sf http://stringtie-service.nextflow.svc.cluster.local:8081/health" 2>/dev/null || echo "FAILED")
 
-if [[ "$FC_HEALTH" == *"ok"* ]]; then
-  echo "✅ featurecounts-service healthy"
-else
-  echo "❌ featurecounts-service health check failed: $FC_HEALTH"
-  exit 1
-fi
+if [[ "$FC_HEALTH" == *"ok"* ]]; then echo "✅ featurecounts-service healthy"
+else echo "❌ featurecounts-service health check failed"; exit 1; fi
+if [[ "$ST_HEALTH" == *"ok"* ]]; then echo "✅ stringtie-service healthy"
+else echo "❌ stringtie-service health check failed"; exit 1; fi
 
-if [[ "$ST_HEALTH" == *"ok"* ]]; then
-  echo "✅ stringtie-service healthy"
-else
-  echo "❌ stringtie-service health check failed: $ST_HEALTH"
-  exit 1
-fi
-
-# ─────────────────────────────────────────
-# Clean up old failed pods
-# ─────────────────────────────────────────
 echo "🧹 Cleaning up old failed pods..."
 kubectl delete pods -n "$NAMESPACE" \
   --field-selector=status.phase=Failed \
   --ignore-not-found=true 2>/dev/null || true
 echo "✅ Cleanup done"
 
-# ─────────────────────────────────────────
-# Launch N users concurrently
-# ─────────────────────────────────────────
 for i in $(seq 1 "$NUM_USERS"); do
   RUN_ID="user${i}_podservice_${TIMESTAMP}"
   RUN_DIR="/workspace/runs/${RUN_ID}"
@@ -109,8 +79,12 @@ for i in $(seq 1 "$NUM_USERS"); do
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- sh -c "cat > ${USER_CONFIG} << 'CONFIGEOF'
 process {
     executor = 'k8s'
-    memory   = '4 GB'
-    cpus     = 2
+    memory   = '2 GB'
+    cpus     = 1
+}
+
+executor {
+    queueSize = 2
 }
 
 k8s {
@@ -119,9 +93,8 @@ k8s {
     storageClaimName = 'nextflow-pvc'
     storageMountPath = '/workspace'
     computeResourceType = 'Job'
-
     pod = [
-        [nodeSelector: 'kubernetes.io/hostname=gisele'],
+        [nodeSelector: 'kubernetes.io/hostname=sm-gpu'],
         [annotation: 'prometheus.io/scrape', value: 'true'],
         [annotation: 'prometheus.io/port',   value: '9090'],
         [label: 'pipeline', value: 'rnaseq'],
@@ -136,25 +109,21 @@ workDir = '${RUN_DIR}/work'
 CONFIGEOF"
 
   echo "🚀 Launching user $i → $RUN_DIR"
-
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-    nextflow run ${PIPELINE_DIR}/main.nf \
-      -profile test \
-      -c "${USER_CONFIG}" \
-      --outdir "${RUN_DIR}/results" \
-      -w "${RUN_DIR}/work" \
-      -with-trace    "${RUN_DIR}/results/trace.txt" \
-      -with-report   "${RUN_DIR}/results/report.html" \
-      -with-timeline "${RUN_DIR}/results/timeline.html" \
+    sh -c "cd /workspace && NXF_HOME=${RUN_DIR}/.nextflow nextflow run ${PIPELINE_DIR}/main.nf \
+      -profile test --input /workspace/samplesheet_extended.csv \
+      -c '${USER_CONFIG}' \
+      --outdir '${RUN_DIR}/results' \
+      -w '${RUN_DIR}/work' \
+      -with-trace    '${RUN_DIR}/results/trace.txt' \
+      -with-report   '${RUN_DIR}/results/report.html' \
+      -with-timeline '${RUN_DIR}/results/timeline.html'" \
       > "./logs/${RUN_ID}.log" 2>&1 &
 
   PIDS+=($!)
   echo "✅ User $i started (PID: ${PIDS[-1]})"
 done
 
-# ─────────────────────────────────────────
-# Wait for all users to finish
-# ─────────────────────────────────────────
 echo ""
 echo "⏳ Waiting for all $NUM_USERS users to complete..."
 FAILED=0
@@ -170,9 +139,6 @@ for i in "${!PIDS[@]}"; do
   fi
 done
 
-# ─────────────────────────────────────────
-# Copy metrics locally
-# ─────────────────────────────────────────
 echo ""
 echo "📊 Copying metrics..."
 for i in $(seq 1 "$NUM_USERS"); do
@@ -180,20 +146,15 @@ for i in $(seq 1 "$NUM_USERS"); do
   RUN_DIR="/workspace/runs/${RUN_ID}"
   LOCAL_METRICS="./metrics/${RUN_ID}"
   mkdir -p "$LOCAL_METRICS"
-
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
     cat "${RUN_DIR}/results/trace.txt" > "${LOCAL_METRICS}/trace.txt" 2>/dev/null || true
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
     cat "${RUN_DIR}/results/report.html" > "${LOCAL_METRICS}/report.html" 2>/dev/null || true
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
     cat "${RUN_DIR}/results/timeline.html" > "${LOCAL_METRICS}/timeline.html" 2>/dev/null || true
-
   echo "✅ Metrics saved to: $LOCAL_METRICS"
 done
 
-# ─────────────────────────────────────────
-# Cleanup per-user configs
-# ─────────────────────────────────────────
 echo ""
 echo "🧹 Cleaning up configs..."
 for i in $(seq 1 "$NUM_USERS"); do
@@ -205,13 +166,8 @@ done
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 if [[ $FAILED -eq 0 ]]; then
   echo "🎉 All $NUM_USERS users completed with pod-service reuse"
-  echo ""
-  echo "Pods saved per user:"
-  echo "  SUBREAD_FEATURECOUNTS : ~5 pods × $NUM_USERS users = $((5 * NUM_USERS)) pods saved"
-  echo "  STRINGTIE_STRINGTIE   : ~5 pods × $NUM_USERS users = $((5 * NUM_USERS)) pods saved"
 else
   echo "⚠️  $FAILED/$NUM_USERS users failed"
 fi
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-
 exit $FAILED

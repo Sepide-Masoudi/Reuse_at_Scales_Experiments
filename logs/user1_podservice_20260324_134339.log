@@ -1,0 +1,9 @@
+
+ N E X T F L O W   ~  version 25.10.4
+
+Launching `/workspace/rnaseq-reuse-full/main.nf` [agitated_mcnulty] DSL2 - revision: ff377cb1d2
+
+ERROR ~ No such file or directory: /.params_2026-03-24_12-44-04.json
+
+ -- Check script 'workspace/rnaseq-reuse-full/subworkflows/nf-core/utils_nextflow_pipeline/main.nf' at line: 80 or see '.nextflow.log' file for more details
+command terminated with exit code 1

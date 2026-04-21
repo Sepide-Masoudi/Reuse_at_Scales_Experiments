@@ -1,0 +1,15 @@
+
+ N E X T F L O W   ~  version 25.10.4
+
+ERROR ~ Unable to parse config file: '/workspace/config_user2_podservice_20260325_231131.config'
+
+  Compile failed for sources FixedSetSources[name='/groovy/script/Script509C0A5534D0F070EEA6CFB89F27F727/_nf_config_70945af3']. Cause: org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+  /groovy/script/Script509C0A5534D0F070EEA6CFB89F27F727/_nf_config_70945af3: 1: Unexpected input: '{' @ line 1, column 9.
+     process {
+             ^
+  
+  1 error
+
+
+ -- Check '.nextflow.log' file for details
+command terminated with exit code 1

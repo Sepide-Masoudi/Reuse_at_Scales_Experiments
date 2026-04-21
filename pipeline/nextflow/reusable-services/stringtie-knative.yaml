@@ -1,0 +1,147 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: stringtie-service
+  namespace: nextflow
+  labels:
+    pipeline: rnaseq
+    reuse: pod-service-knative
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/scale-to-zero-pod-retention-period: "300s"
+        serving.knative.dev/drainTimeout: "10s"
+        autoscaling.knative.dev/window: "10s"
+        autoscaling.knative.dev/class: "kpa.autoscaling.knative.dev"
+        autoscaling.knative.dev/initial-scale: "1"
+        autoscaling.knative.dev/min-scale: "0"
+        autoscaling.knative.dev/max-scale: "1"
+        autoscaling.knative.dev/target: "10"
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: gisele
+      timeoutSeconds: 600
+      containerConcurrency: 2
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nextflow-pvc
+      containers:
+        - name: stringtie
+          image: quay.io/biocontainers/stringtie:2.2.3--h43eeafb_0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          env:
+            - name: SERVICE_PORT
+              value: "8081"
+          command:
+            - /usr/local/bin/python3
+            - -c
+            - |
+              import os, subprocess, json, logging
+              from http.server import HTTPServer, BaseHTTPRequestHandler
+              from socketserver import ThreadingMixIn
+              from urllib.parse import urlparse
+
+              logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+              log = logging.getLogger("stringtie-service")
+
+              class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
+                  daemon_threads = True
+
+              class StringTieHandler(BaseHTTPRequestHandler):
+                  def log_message(self, format, *args):
+                      log.info(format % args)
+
+                  def do_GET(self):
+                      if urlparse(self.path).path == "/health":
+                          self._respond(200, {"status": "ok", "service": "stringtie"})
+                      else:
+                          self._respond(404, {"error": "not found"})
+
+                  def do_POST(self):
+                      if urlparse(self.path).path != "/run":
+                          self._respond(404, {"error": "not found"}); return
+                      length = int(self.headers.get("Content-Length", 0))
+                      body = self.rfile.read(length)
+                      try:
+                          req = json.loads(body)
+                      except Exception as e:
+                          self._respond(400, {"error": f"invalid JSON: {e}"}); return
+
+                      bam=req.get("bam"); annotation=req.get("annotation")
+                      outdir=req.get("outdir"); prefix=req.get("prefix")
+                      strandedness=req.get("strandedness", "unstranded")
+                      cpus=req.get("cpus", 2); args=req.get("args", "")
+
+                      if not all([bam, outdir, prefix]):
+                          self._respond(400, {"error": "missing required fields"}); return
+
+                      os.makedirs(outdir, exist_ok=True)
+                      transcript_gtf = os.path.join(outdir, f"{prefix}.transcripts.gtf")
+                      abundance_txt  = os.path.join(outdir, f"{prefix}.gene.abundance.txt")
+                      coverage_gtf   = os.path.join(outdir, f"{prefix}.coverage.gtf")
+                      ballgown_dir   = os.path.join(outdir, f"{prefix}.ballgown")
+
+                      strand_flag = ""
+                      if strandedness == "forward": strand_flag = "--fr"
+                      elif strandedness == "reverse": strand_flag = "--rf"
+
+                      reference_flags = []
+                      if annotation:
+                          reference_flags = ["-G", annotation, "-b", ballgown_dir, "-C", coverage_gtf]
+
+                      cmd = ["stringtie", bam, *strand_flag.split(), *reference_flags,
+                             "-o", transcript_gtf, "-A", abundance_txt,
+                             "-p", str(cpus), *args.split()]
+                      cmd = [c for c in cmd if c]
+                      log.info(f"Running StringTie for {prefix}")
+
+                      try:
+                          result = subprocess.run(cmd, capture_output=True, text=True, timeout=3600)
+                      except Exception as e:
+                          self._respond(500, {"error": str(e)}); return
+
+                      if result.returncode != 0:
+                          self._respond(500, {"error": "StringTie failed", "stderr": result.stderr}); return
+
+                      log.info(f"StringTie completed for {prefix}")
+                      self._respond(200, {"status": "success", "prefix": prefix,
+                                          "transcript_gtf": transcript_gtf,
+                                          "abundance": abundance_txt,
+                                          "coverage_gtf": coverage_gtf if annotation else None,
+                                          "ballgown": ballgown_dir if annotation else None})
+
+                  def _respond(self, code, data):
+                      body = json.dumps(data).encode()
+                      self.send_response(code)
+                      self.send_header("Content-Type", "application/json")
+                      self.send_header("Content-Length", len(body))
+                      self.end_headers()
+                      self.wfile.write(body)
+
+              import signal, threading
+              port = int(os.environ.get("SERVICE_PORT", 8081))
+              server = ThreadingHTTPServer(("0.0.0.0", port), StringTieHandler)
+              log.info(f"StringTie Knative service listening on port {port} (scale-to-zero)")
+              def shutdown(signum, frame):
+                  log.info("SIGTERM received, shutting down")
+                  t = threading.Thread(target=server.shutdown)
+                  t.daemon = True
+                  t.start()
+              signal.signal(signal.SIGTERM, shutdown)
+              signal.signal(signal.SIGINT, shutdown)
+              server.serve_forever()
+          volumeMounts:
+            - name: data
+              mountPath: /workspace
+          resources:
+            requests:
+              cpu: "2"
+              memory: "2Gi"
+            limits:
+              cpu: "4"
+              memory: "4Gi"

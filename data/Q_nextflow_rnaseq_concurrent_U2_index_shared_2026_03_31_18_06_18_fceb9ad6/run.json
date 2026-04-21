@@ -1,0 +1,15 @@
+{
+    "startTime": "2026_03_31_18_06_18",
+    "endTime": "2026_03_31_18_53_59",
+    "treatment_start": "2026_03_31_18_06_28",
+    "treatment_end": "2026_03_31_18_53_49",
+    "runHash": "fceb9ad6",
+    "duration": 2861.419908,
+    "treatment_duration": 2841.399314,
+    "user_data": {
+        "experiment": "rnaseq-users2-run1",
+        "num_users": 2,
+        "run_id": 1,
+        "reuse_mood": "2-concurrent-user-shared-index-reuse"
+    }
+}

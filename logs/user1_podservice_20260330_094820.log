@@ -1,0 +1,17 @@
+
+ N E X T F L O W   ~  version 25.10.4
+
+Launching `/workspace/rnaseq-reuse-full/main.nf` [boring_saha] DSL2 - revision: ff377cb1d2
+
+unknown recognition error type: groovyjarjarantlr4.v4.runtime.LexerNoViableAltException
+ERROR ~ Module compilation error
+- file : /workspace/rnaseq-reuse-full/modules/nf-core/stringtie/stringtie/main.nf
+- cause: token recognition error at: '(' @ line 28, column 15.
+       RESPONSE=$(python3 -c "import urllib.request,json,os; cwd=os.getcwd(); bam=os.path.join(cwd,'${bam}'); anno=(os.path.join(cwd,'${annotation}') if '${annotation}' else ''); d={'bam':bam,'annotation':anno,'outdir':'${outdir}','prefix':'${prefix}','strandedness':'${strandedness}','cpus':${task.cpus},'args':'${args}'}; req=urllib.request.Request('http://10.105.109.170:8081/run',json.dumps(d).encode(),{'Content-Type':'application/json'},'POST'); print(urllib.request.urlopen(req).read().decode())")
+                 ^
+
+1 error
+
+
+ -- Check script 'workspace/rnaseq-reuse-full/workflows/rnaseq/main.nf' at line: 42 or see '.nextflow.log' file for more details
+command terminated with exit code 1
