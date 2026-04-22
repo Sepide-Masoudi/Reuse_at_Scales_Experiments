@@ -1,5 +1,4 @@
 Scenario,Duration (min),vs S1 Duration,Task Energy (kJ),vs S1 Task Energy,Svc Overhead (kJ),Total Energy (kJ),Cached Tasks,Throughput (t/min)
 S1: No Reuse,105.2,+0.0%,347.9,+0.0%,0.0,347.9,0,11.5
-S2-seq: Full Reuse,25.3,+76.0%,127.4,+63.4%,0.0,127.4,218,17.3
 S2: Index Reuse,46.7,+55.6%,151.9,+56.3%,0.0,151.9,0,9.3
 S3: Pod-Service,119.0,-13.1%,336.5,+3.3%,115.6,452.1,0,10.2
