@@ -1,0 +1,13 @@
+sample,fastq_1,fastq_2,strandedness
+CONTROL_REP1,/workspace/fastq_data/SRR6357070_1.fastq.gz,/workspace/fastq_data/SRR6357070_2.fastq.gz,auto
+CONTROL_REP2,/workspace/fastq_data/SRR6357071_1.fastq.gz,/workspace/fastq_data/SRR6357071_2.fastq.gz,auto
+CONTROL_REP3,/workspace/fastq_data/SRR6357072_1.fastq.gz,/workspace/fastq_data/SRR6357072_2.fastq.gz,auto
+TREATMENT_REP1,/workspace/fastq_data/SRR6357073_1.fastq.gz,/workspace/fastq_data/SRR6357073_2.fastq.gz,auto
+TREATMENT_REP2,/workspace/fastq_data/SRR6357074_1.fastq.gz,/workspace/fastq_data/SRR6357074_2.fastq.gz,auto
+TREATMENT_REP3,/workspace/fastq_data/SRR6357075_1.fastq.gz,/workspace/fastq_data/SRR6357075_2.fastq.gz,auto
+CONTROL_REP4,/workspace/fastq_data/SRR6357076_1.fastq.gz,/workspace/fastq_data/SRR6357076_2.fastq.gz,auto
+CONTROL_REP5,/workspace/fastq_data/SRR6357077_1.fastq.gz,/workspace/fastq_data/SRR6357077_2.fastq.gz,auto
+TREATMENT_REP4,/workspace/fastq_data/SRR6357078_1.fastq.gz,/workspace/fastq_data/SRR6357078_2.fastq.gz,auto
+TREATMENT_REP5,/workspace/fastq_data/SRR6357079_1.fastq.gz,/workspace/fastq_data/SRR6357079_2.fastq.gz,auto
+CONTROL_REP6,/workspace/fastq_data/SRR6357080_1.fastq.gz,/workspace/fastq_data/SRR6357080_2.fastq.gz,auto
+CONTROL_REP7,/workspace/fastq_data/SRR6357081_1.fastq.gz,/workspace/fastq_data/SRR6357081_2.fastq.gz,auto
