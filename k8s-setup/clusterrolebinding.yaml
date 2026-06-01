@@ -1,0 +1,63 @@
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"nextflow-rolebinding"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"nextflow-role"},"subjects":[{"kind":"ServiceAccount","name":"nextflow-sa","namespace":"nextflow"}]}
+    creationTimestamp: "2026-05-19T07:57:49Z"
+    name: nextflow-rolebinding
+    resourceVersion: "20010"
+    uid: d4b415ee-61c6-43d7-ac80-47e7b49be7bb
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: nextflow-role
+  subjects:
+  - kind: ServiceAccount
+    name: nextflow-sa
+    namespace: nextflow
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: scaphandre
+      meta.helm.sh/release-namespace: monitoring
+    creationTimestamp: "2026-05-18T15:15:58Z"
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: scaphandre
+      helm.sh/chart: scaphandre-0.1.0
+    name: scaphandre
+    resourceVersion: "14675"
+    uid: 364eb90d-46f9-4d54-9a23-5e04179685bd
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: scaphandre
+  subjects:
+  - kind: ServiceAccount
+    name: scaphandre
+    namespace: monitoring
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2026-05-18T12:45:52Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:basic-user
+    resourceVersion: "141"
+    uid: 1e694fcc-7966-48b9-935f-e79252634402
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:basic-user
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:authenticated
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    creationTimestamp: "2026-05-18T12:45:52Z"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:controller:attachdetach-controller
