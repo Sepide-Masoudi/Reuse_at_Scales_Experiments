@@ -8,7 +8,7 @@
 # loaded as fallback; modprobe failure is non-fatal on Intel hosts.
 
 - name: Detect CPU vendor
-  shell: awk -F': ' '/vendor_id/ {print $2; exit}' /proc/cpuinfo
+  shell: "awk -F': ' '/vendor_id/ {print $2; exit}' /proc/cpuinfo"
   register: cpu_vendor
   changed_when: false
 

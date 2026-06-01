@@ -51,8 +51,14 @@ prometheus-node-exporter:
     # --- Hardware perf counters ---
     - --collector.perf
     - --collector.perf.cpus=0-127  # clamp to logical cpu count; node-exporter ignores extras
-    - --collector.perf.tracepoint=block:block_rq_complete
-    - --collector.perf.tracepoint=sched:sched_switch
+  extraVolumes:
+    - name: tracefs
+      hostPath:
+        path: /sys/kernel/tracing
+  extraVolumeMounts:
+    - name: tracefs
+      mountPath: /host/sys/kernel/tracing
+      readOnly: false
   prometheus:
     monitor:
       attachMetadata:
