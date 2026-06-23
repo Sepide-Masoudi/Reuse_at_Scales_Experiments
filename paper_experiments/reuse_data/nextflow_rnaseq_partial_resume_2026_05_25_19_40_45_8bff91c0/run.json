@@ -1,0 +1,13 @@
+{
+    "startTime": "2026_05_25_19_40_45",
+    "endTime": "2026_05_25_20_50_15",
+    "treatment_start": "2026_05_25_19_41_15",
+    "treatment_end": "2026_05_25_20_49_45",
+    "runHash": "8bff91c0",
+    "duration": 4170.077717,
+    "treatment_duration": 4110.077443,
+    "user_data": {
+        "error": "Command '['./phase2_reuse.sh', '2', '50']' returned non-zero exit status 1."
+    },
+    "fetch_date": "2026-05-25T20:50:15.626516"
+}

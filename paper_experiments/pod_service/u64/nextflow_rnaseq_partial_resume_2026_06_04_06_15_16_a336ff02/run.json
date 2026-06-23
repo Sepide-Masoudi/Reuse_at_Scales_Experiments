@@ -1,0 +1,16 @@
+{
+    "startTime": "2026_06_04_06_15_16",
+    "endTime": "2026_06_05_13_02_26",
+    "treatment_start": "2026_06_04_06_15_46",
+    "treatment_end": "2026_06_05_13_01_56",
+    "runHash": "a336ff02",
+    "duration": 110829.470615,
+    "treatment_duration": 110769.470233,
+    "user_data": {
+        "experiment": "rnaseq-pod-service-U64-run1",
+        "num_users": 64,
+        "run_id": 1,
+        "type": "pod-service-reuse"
+    },
+    "fetch_date": "2026-06-05T13:02:26.248628"
+}

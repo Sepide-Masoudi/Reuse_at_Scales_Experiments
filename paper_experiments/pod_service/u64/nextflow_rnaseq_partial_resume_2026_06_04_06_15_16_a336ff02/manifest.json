@@ -1,0 +1,11 @@
+{
+    "version": "1.1",
+    "created_at": "2026-06-05T13:02:26.249458",
+    "format": "csv",
+    "data_files": {},
+    "files": {
+        "session": "session.json",
+        "run": "run.json",
+        "config": "config.yaml"
+    }
+}

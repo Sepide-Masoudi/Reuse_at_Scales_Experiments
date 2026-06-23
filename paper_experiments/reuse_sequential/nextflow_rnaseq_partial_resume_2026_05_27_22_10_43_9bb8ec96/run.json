@@ -1,0 +1,17 @@
+{
+    "startTime": "2026_05_27_22_10_43",
+    "endTime": "2026_05_28_00_02_55",
+    "treatment_start": "2026_05_27_22_11_13",
+    "treatment_end": "2026_05_28_00_02_25",
+    "runHash": "9bb8ec96",
+    "duration": 6732.692016,
+    "treatment_duration": 6672.691686,
+    "user_data": {
+        "experiment": "rnaseq-seq-reuse-U4-50pct-run1",
+        "num_users": 4,
+        "run_id": 1,
+        "reuse_pct": 50,
+        "type": "data-reuse-sequential"
+    },
+    "fetch_date": "2026-05-28T00:02:56.594105"
+}

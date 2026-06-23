@@ -1,0 +1,16 @@
+{
+    "startTime": "2026_06_07_21_17_03",
+    "endTime": "2026_06_08_03_31_57",
+    "treatment_start": "2026_06_07_21_17_33",
+    "treatment_end": "2026_06_08_03_31_27",
+    "runHash": "54742b46",
+    "duration": 22493.365362,
+    "treatment_duration": 22433.365,
+    "user_data": {
+        "experiment": "rnaseq-seq-baseline-U8-run1",
+        "num_users": 8,
+        "run_id": 1,
+        "type": "baseline-sequential"
+    },
+    "fetch_date": "2026-06-08T03:32:02.328121"
+}

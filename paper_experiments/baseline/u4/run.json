@@ -1,0 +1,16 @@
+{
+    "startTime": "2026_05_24_08_41_45",
+    "endTime": "2026_05_24_11_28_48",
+    "treatment_start": "2026_05_24_08_42_15",
+    "treatment_end": "2026_05_24_11_28_18",
+    "runHash": "1b1945d2",
+    "duration": 10023.848884,
+    "treatment_duration": 9963.847095,
+    "user_data": {
+        "experiment": "rnaseq-baseline-U4-run1",
+        "num_users": 4,
+        "run_id": 1,
+        "type": "baseline"
+    },
+    "fetch_date": "2026-05-24T11:28:50.660328"
+}

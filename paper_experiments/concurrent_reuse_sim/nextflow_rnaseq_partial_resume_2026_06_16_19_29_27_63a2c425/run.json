@@ -1,0 +1,16 @@
+{
+    "startTime": "2026_06_16_19_29_27",
+    "endTime": "2026_06_16_19_54_13",
+    "treatment_start": "2026_06_16_19_29_57",
+    "treatment_end": "2026_06_16_19_53_43",
+    "runHash": "63a2c425",
+    "duration": 1485.636945,
+    "treatment_duration": 1425.636589,
+    "user_data": {
+        "experiment": "reuse-sim-reuse10-c2-run1",
+        "workload": "reuse10",
+        "concurrency": 2,
+        "type": "concurrent-reuse-sim"
+    },
+    "fetch_date": "2026-06-16T19:54:13.384101"
+}

@@ -1,0 +1,271 @@
+{
+    "version": "1.1",
+    "created_at": "2026-05-24T08:41:45.118426",
+    "format": "csv",
+    "data_files": {
+        "system_cpu_usage": {
+            "filename": "system_cpu_usage.csv",
+            "rows": 768,
+            "columns": [
+                "pod",
+                "timestamp",
+                "system_cpu_usage",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "system_cpu_usage_raw": {
+            "filename": "system_cpu_usage_raw.csv",
+            "rows": 970,
+            "columns": [
+                "__name__",
+                "container",
+                "cpu",
+                "endpoint",
+                "id",
+                "image",
+                "instance",
+                "job",
+                "metrics_path",
+                "name",
+                "namespace",
+                "node",
+                "pod",
+                "service",
+                "timestamp",
+                "system_cpu_usage_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_pod_cpu_power_joules_raw": {
+            "filename": "kepler_pod_cpu_power_joules_raw.csv",
+            "rows": 736,
+            "columns": [
+                "pod_id",
+                "timestamp",
+                "kepler_pod_cpu_power_joules_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_all_pod_cpu_power_watts": {
+            "filename": "kepler_all_pod_cpu_power_watts.csv",
+            "rows": 509,
+            "columns": [
+                "timestamp",
+                "kepler_all_pod_cpu_power_watts",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_node_cpu_power_raw": {
+            "filename": "kepler_node_cpu_power_raw.csv",
+            "rows": 2036,
+            "columns": [
+                "__name__",
+                "container",
+                "endpoint",
+                "instance",
+                "job",
+                "namespace",
+                "node_name",
+                "path",
+                "pod",
+                "service",
+                "zone",
+                "timestamp",
+                "kepler_node_cpu_power_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "kepler_node_cpu_power_sum": {
+            "filename": "kepler_node_cpu_power_sum.csv",
+            "rows": 509,
+            "columns": [
+                "timestamp",
+                "kepler_node_cpu_power_sum",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_memory_usage": {
+            "filename": "pod_memory_usage.csv",
+            "rows": 970,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_memory_usage",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_receive_bytes": {
+            "filename": "pod_network_receive_bytes.csv",
+            "rows": 751,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_receive_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_receive_bytes_raw": {
+            "filename": "pod_network_receive_bytes_raw.csv",
+            "rows": 1209,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_receive_bytes_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_transmit_bytes": {
+            "filename": "pod_network_transmit_bytes.csv",
+            "rows": 751,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_transmit_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_network_transmit_bytes_raw": {
+            "filename": "pod_network_transmit_bytes_raw.csv",
+            "rows": 1209,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_network_transmit_bytes_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_fs_reads_bytes": {
+            "filename": "pod_fs_reads_bytes.csv",
+            "rows": 526,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_fs_reads_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "pod_fs_write_bytes": {
+            "filename": "pod_fs_write_bytes.csv",
+            "rows": 526,
+            "columns": [
+                "pod",
+                "timestamp",
+                "pod_fs_write_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "node_network_receive_bytes": {
+            "filename": "node_network_receive_bytes.csv",
+            "rows": 6479,
+            "columns": [
+                "container",
+                "device",
+                "endpoint",
+                "instance",
+                "job",
+                "namespace",
+                "node",
+                "pod",
+                "service",
+                "timestamp",
+                "node_network_receive_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "node_network_transmit_bytes": {
+            "filename": "node_network_transmit_bytes.csv",
+            "rows": 6479,
+            "columns": [
+                "container",
+                "device",
+                "endpoint",
+                "instance",
+                "job",
+                "namespace",
+                "node",
+                "pod",
+                "service",
+                "timestamp",
+                "node_network_transmit_bytes",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "node_network_receive_bytes_raw": {
+            "filename": "node_network_receive_bytes_raw.csv",
+            "rows": 6623,
+            "columns": [
+                "__name__",
+                "container",
+                "device",
+                "endpoint",
+                "instance",
+                "job",
+                "namespace",
+                "node",
+                "pod",
+                "service",
+                "timestamp",
+                "node_network_receive_bytes_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        },
+        "node_network_transmit_bytes_raw": {
+            "filename": "node_network_transmit_bytes_raw.csv",
+            "rows": 6623,
+            "columns": [
+                "__name__",
+                "container",
+                "device",
+                "endpoint",
+                "instance",
+                "job",
+                "namespace",
+                "node",
+                "pod",
+                "service",
+                "timestamp",
+                "node_network_transmit_bytes_raw",
+                "layer",
+                "unit",
+                "treatment"
+            ]
+        }
+    },
+    "files": {
+        "session": "session.json",
+        "run": "run.json",
+        "config": "config.yaml"
+    }
+}

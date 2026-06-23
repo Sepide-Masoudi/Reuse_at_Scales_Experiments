@@ -1,0 +1,15 @@
+{
+    "startTime": "2026_06_10_00_48_39",
+    "endTime": "2026_06_10_01_28_27",
+    "treatment_start": "2026_06_10_00_49_09",
+    "treatment_end": "2026_06_10_01_27_57",
+    "runHash": "1ed6e54c",
+    "duration": 2388.167305,
+    "treatment_duration": 2328.165875,
+    "user_data": {
+        "experiment": "pipeline-under-stress-s31-run1",
+        "stress_level": 31,
+        "type": "pipeline-under-stress"
+    },
+    "fetch_date": "2026-06-10T01:28:28.356454"
+}

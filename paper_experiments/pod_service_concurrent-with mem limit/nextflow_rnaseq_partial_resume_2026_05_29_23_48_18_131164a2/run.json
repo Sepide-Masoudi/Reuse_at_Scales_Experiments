@@ -1,0 +1,16 @@
+{
+    "startTime": "2026_05_29_23_48_18",
+    "endTime": "2026_05_30_00_43_19",
+    "treatment_start": "2026_05_29_23_48_48",
+    "treatment_end": "2026_05_30_00_42_49",
+    "runHash": "131164a2",
+    "duration": 3300.91385,
+    "treatment_duration": 3240.913531,
+    "user_data": {
+        "experiment": "rnaseq-pod-service-concurrent-U2-run1",
+        "num_users": 2,
+        "run_id": 1,
+        "type": "pod-service-reuse-concurrent"
+    },
+    "fetch_date": "2026-05-30T00:43:20.007090"
+}
