@@ -37,7 +37,7 @@ def main() -> None:
     log = getLogger("experiment.main")
     config = Config.from_file("./nextflow-sma-measurments.yaml")
 
-    user_counts = [2, 4]
+    user_counts = [8]#[2, 4]
     repetitions = 1
 
     for num_users in user_counts:

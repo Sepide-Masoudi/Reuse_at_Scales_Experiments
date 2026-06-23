@@ -1,6 +1,7 @@
 #!/bin/bash
 # phase3_pod_service.sh
 # Sequential pipeline runs using persistent featureCounts and StringTie service pods
+# Per-user work-dir cleanup keeps peak disk usage to ~one run at a time.
 # Usage: ./phase3_pod_service.sh <NUM_USERS>
 
 set -euo pipefail
@@ -45,6 +46,7 @@ FAILED=0
 for i in $(seq 1 "$NUM_USERS"); do
   RUN_ID="user${i}_podservice_${TIMESTAMP}"
   RUN_DIR="/workspace/runs/${RUN_ID}"
+  LOCAL_METRICS="/workspace/metrics/${RUN_ID}"
 
   mkdir -p "${RUN_DIR}/results" "${RUN_DIR}/work"
   chmod -R 777 "${RUN_DIR}"
@@ -77,6 +79,8 @@ workDir = '${RUN_DIR}/work'
 CONFIGEOF
 
   echo "🚀 Running user $i (pod service reuse)..."
+  # Disable errexit around the run so a single failure doesn't abort the loop
+  set +e
   (cd "${RUN_DIR}" && export NXF_HOME="$NXF_HOME"; \
   NXF_OPTS="-Dnxf.disable.histlock=true -Dnextflow.k8s.poll.interval=30s" \
   nextflow run "$PIPELINE_DIR" \
@@ -90,29 +94,29 @@ CONFIGEOF
     -with-report   "${RUN_DIR}/results/report.html" \
     -with-timeline "${RUN_DIR}/results/timeline.html" \
     > "/workspace/logs/${RUN_ID}.log" 2>&1)
+  RUN_EXIT=$?
+  set -e
 
-  if [[ $? -eq 0 ]]; then
+  if [[ $RUN_EXIT -eq 0 ]]; then
     echo "✅ User $i completed"
     grep 'Succeeded\|Duration\|CPU hours' "/workspace/logs/${RUN_ID}.log" | tail -3
   else
-    echo "❌ User $i FAILED"
+    echo "❌ User $i FAILED (exit $RUN_EXIT)"
     tail -5 "/workspace/logs/${RUN_ID}.log"
     FAILED=$((FAILED + 1))
   fi
 
-  rm -f "/workspace/config_${RUN_ID}.config"
-done
-
-echo ""
-echo "📊 Copying metrics..."
-for i in $(seq 1 "$NUM_USERS"); do
-  RUN_ID="user${i}_podservice_${TIMESTAMP}"
-  RUN_DIR="/workspace/runs/${RUN_ID}"
-  LOCAL_METRICS="/workspace/metrics/${RUN_ID}"
+  # ── Save metrics BEFORE any cleanup ──────────────────────────────
   mkdir -p "$LOCAL_METRICS"
-  cp "${RUN_DIR}/results/trace.txt" "${LOCAL_METRICS}/trace.txt" 2>/dev/null || true
-  cp "${RUN_DIR}/results/report.html" "${LOCAL_METRICS}/report.html" 2>/dev/null || true
-  echo "✅ Metrics saved: $LOCAL_METRICS"
+  cp "${RUN_DIR}/results/trace.txt"     "${LOCAL_METRICS}/trace.txt"     2>/dev/null || true
+  cp "${RUN_DIR}/results/report.html"   "${LOCAL_METRICS}/report.html"   2>/dev/null || true
+  cp "${RUN_DIR}/results/timeline.html" "${LOCAL_METRICS}/timeline.html" 2>/dev/null || true
+  echo "📊 Metrics saved: $LOCAL_METRICS"
+
+  # ── Cleanup: delete ONLY the work scratch dir, after metrics are safe ──
+  rm -rf "${RUN_DIR}/work"
+  rm -f  "/workspace/config_${RUN_ID}.config"
+  echo "🧹 Work dir cleaned: ${RUN_DIR}/work"
 done
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
