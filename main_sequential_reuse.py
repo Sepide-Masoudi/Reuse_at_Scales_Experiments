@@ -48,7 +48,7 @@ def main() -> None:
 
     baseline_timestamp = "20260525_171533"
 
-    user_counts = [2, 4]
+    user_counts = [2, 4, 8, 16]
     reuse_pcts  = [10, 20, 50]
     repetitions = 1
 
