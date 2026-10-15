@@ -29,14 +29,15 @@ fi
 echo "✅ Launcher pod is running"
 
 # Verify shared indexes exist
-STAR_EXISTS=$(kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-  sh -c "[ -d ${SHARED_STAR_INDEX} ] && echo YES || echo NO")
+#STAR_EXISTS=$(kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+#  sh -c "[ -d ${SHARED_STAR_INDEX} ] && echo YES || echo NO")
 BBSPLIT_EXISTS=$(kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
   sh -c "[ -d ${SHARED_BBSPLIT_INDEX} ] && echo YES || echo NO")
 
-if [[ "$STAR_EXISTS" != "YES" ]] || [[ "$BBSPLIT_EXISTS" != "YES" ]]; then
+#if [[ "$STAR_EXISTS" != "YES" ]] || [[ "$BBSPLIT_EXISTS" != "YES" ]]; then
+if [[ "$BBSPLIT_EXISTS" != "YES" ]]; then
   echo "❌ ERROR: Shared indexes not found. Run prebuild_shared_indexes.sh first."
-  echo "  STAR index:   $STAR_EXISTS"
+  echo "  STAR index:   N/A (not used)"
   echo "  BBSplit index: $BBSPLIT_EXISTS"
   exit 1
 fi
@@ -76,7 +77,7 @@ k8s {
     storageMountPath = '/workspace'
     computeResourceType = 'Job'
     pod = [
-        [nodeSelector: 'kubernetes.io/hostname=sm-gpu'],
+        [nodeSelector: 'baremetal=true'],
         [annotation: 'prometheus.io/scrape', value: 'true'],
         [annotation: 'prometheus.io/port',   value: '9090'],
         [label: 'pipeline', value: 'rnaseq'],
@@ -97,7 +98,6 @@ CONFIGEOF"
       -c '${USER_CONFIG}' \
       --outdir '${RUN_DIR}/results' \
       -w '${RUN_DIR}/work' \
-      --star_index '${SHARED_STAR_INDEX}' \
       --bbsplit_index '${SHARED_BBSPLIT_INDEX}' \
       -with-trace    '${RUN_DIR}/results/trace.txt' \
       -with-report   '${RUN_DIR}/results/report.html' \

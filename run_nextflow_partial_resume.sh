@@ -1,25 +1,45 @@
 #!/bin/bash
 # run_nextflow_partial_resume.sh
-# S2-partial: 2 concurrent users where each user first runs 5 samples (phase 1, sequential),
-# then resumes with 15 samples concurrently (phase 2 - only 10 new samples computed)
+# S2-partial: N concurrent users, each first runs P% of samples (phase 1, sequential),
+# then resumes with all 15 samples concurrently (phase 2)
+# Usage: ./run_nextflow_partial_resume.sh <NUM_USERS> <REUSE_PCT>
+# REUSE_PCT: 10, 20, or 50
 
 set -euo pipefail
 
 NUM_USERS="${1:-2}"
+REUSE_PCT="${2:-20}"
 NAMESPACE="nextflow"
 LAUNCHER_POD="nextflow-launcher"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 PIPELINE="/workspace/.nextflow/assets/nf-core/rnaseq/main.nf"
+FULL_SAMPLESHEET="/workspace/samplesheet_extended.csv"
 PIDS=()
+
+# Compute how many samples to use in Phase 1 based on reuse percentage
+# 15 samples total: 10%→2, 20%→3, 50%→8
+if [[ "$REUSE_PCT" -eq 10 ]]; then
+  PHASE1_SAMPLES=2
+  PHASE1_SAMPLESHEET="/workspace/samplesheet_reuse10.csv"
+elif [[ "$REUSE_PCT" -eq 20 ]]; then
+  PHASE1_SAMPLES=3
+  PHASE1_SAMPLESHEET="/workspace/samplesheet_reuse20.csv"
+elif [[ "$REUSE_PCT" -eq 50 ]]; then
+  PHASE1_SAMPLES=8
+  PHASE1_SAMPLESHEET="/workspace/samplesheet_reuse50.csv"
+else
+  echo "❌ ERROR: REUSE_PCT must be 10, 20, or 50 (got: $REUSE_PCT)"
+  exit 1
+fi
 
 mkdir -p ./logs ./metrics
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "🧬 Nextflow Partial Resume Runner (S2-partial)"
-echo "Users      : $NUM_USERS"
-echo "Phase 1    : 5 samples sequential (builds cache per user)"
-echo "Phase 2    : 15 samples concurrent with -resume"
-echo "Timestamp  : $TIMESTAMP"
+echo "Users        : $NUM_USERS"
+echo "Reuse target : ${REUSE_PCT}% (Phase 1: ${PHASE1_SAMPLES} samples)"
+echo "Phase 2      : 15 samples with -resume"
+echo "Timestamp    : $TIMESTAMP"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 POD_STATUS=$(kubectl get pod "$LAUNCHER_POD" -n "$NAMESPACE" \
@@ -36,15 +56,26 @@ kubectl delete pods -n "$NAMESPACE" \
 echo "✅ Cleanup done"
 
 # ─────────────────────────────────────────
+# Create phase1 samplesheet on PVC
+# (first N lines of the full samplesheet)
+# ─────────────────────────────────────────
+echo "📋 Creating Phase 1 samplesheet (${PHASE1_SAMPLES} samples)..."
+kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+  sh -c "head -1 ${FULL_SAMPLESHEET} > ${PHASE1_SAMPLESHEET} && \
+         tail -n +2 ${FULL_SAMPLESHEET} | head -${PHASE1_SAMPLES} >> ${PHASE1_SAMPLESHEET} && \
+         echo 'Phase 1 samplesheet:' && cat ${PHASE1_SAMPLESHEET}"
+
+# ─────────────────────────────────────────
 # Create configs and directories for all users
 # ─────────────────────────────────────────
 for i in $(seq 1 "$NUM_USERS"); do
-  RUN_ID="user${i}_partial_${TIMESTAMP}"
+  RUN_ID="user${i}_partial${REUSE_PCT}pct_${TIMESTAMP}"
   RUN_DIR="/workspace/runs/${RUN_ID}"
   USER_CONFIG="/workspace/config_${RUN_ID}.config"
 
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-    sh -c "mkdir -p ${RUN_DIR}/work ${RUN_DIR}/results_phase1 ${RUN_DIR}/results_phase2 && chmod -R 777 ${RUN_DIR}"
+    sh -c "mkdir -p ${RUN_DIR}/work ${RUN_DIR}/results_phase1 \
+           ${RUN_DIR}/results_phase2 && chmod -R 777 ${RUN_DIR}"
 
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- sh -c "cat > ${USER_CONFIG} << 'CONFIGEOF'
 process {
@@ -77,23 +108,25 @@ CONFIGEOF"
 done
 
 # ─────────────────────────────────────────
-# PHASE 1: Run 5 samples SEQUENTIALLY per user
+# PHASE 1: Run partial samplesheet SEQUENTIALLY
 # (avoids .nextflow cache lock conflicts)
 # ─────────────────────────────────────────
 echo ""
 echo "════════════════════════════════════════"
-echo "📦 PHASE 1: Running 5 samples per user (sequential)"
+echo "📦 PHASE 1: ${PHASE1_SAMPLES} samples per user (sequential)"
 echo "════════════════════════════════════════"
 
 for i in $(seq 1 "$NUM_USERS"); do
-  RUN_ID="user${i}_partial_${TIMESTAMP}"
+  RUN_ID="user${i}_partial${REUSE_PCT}pct_${TIMESTAMP}"
   RUN_DIR="/workspace/runs/${RUN_ID}"
   USER_CONFIG="/workspace/config_${RUN_ID}.config"
 
   echo "🚀 Phase 1 for user $i..."
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-    sh -c "cd /workspace && NXF_HOME=/workspace/.nextflow_user${i} nextflow run ${PIPELINE} \
+    sh -c "cd /workspace && NXF_HOME=/workspace/.nextflow_user${i} \
+      nextflow run ${PIPELINE} \
       -profile test \
+      --input '${PHASE1_SAMPLESHEET}' \
       -c '${USER_CONFIG}' \
       --outdir '${RUN_DIR}/results_phase1' \
       -w '${RUN_DIR}/work' \
@@ -111,9 +144,8 @@ for i in $(seq 1 "$NUM_USERS"); do
 done
 
 echo "✅ Phase 1 complete — cache built for all users"
-echo "⏱ Waiting 30s for session locks to release..."
+echo "⏱ Waiting 60s and clearing session locks..."
 sleep 60
-# Force remove any leftover lock files
 for ui in $(seq 1 $NUM_USERS); do
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
     sh -c "find /workspace/.nextflow_user${ui}/cache -name LOCK -delete 2>/dev/null || true"
@@ -121,31 +153,31 @@ done
 echo "✅ Session locks cleared"
 
 # ─────────────────────────────────────────
-# PHASE 2: Resume with 15 samples CONCURRENTLY
-# SMA framework measures energy from HERE
+# PHASE 2: Resume with full 15 samples CONCURRENTLY
+# SMA measures energy from HERE
 # ─────────────────────────────────────────
 echo ""
 echo "════════════════════════════════════════"
-echo "♻️  PHASE 2: Resuming with 15 samples (concurrent)"
-echo "   5 samples reused from cache, 10 new computed"
+echo "♻️  PHASE 2: 15 samples concurrent (-resume)"
+echo "   ${PHASE1_SAMPLES} cached + $((15 - PHASE1_SAMPLES)) new per user"
 echo "════════════════════════════════════════"
 
 PIDS=()
 for i in $(seq 1 "$NUM_USERS"); do
-  RUN_ID="user${i}_partial_${TIMESTAMP}"
+  RUN_ID="user${i}_partial${REUSE_PCT}pct_${TIMESTAMP}"
   RUN_DIR="/workspace/runs/${RUN_ID}"
   USER_CONFIG="/workspace/config_${RUN_ID}.config"
 
   echo "🚀 Phase 2 for user $i (15 samples with -resume)..."
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
-    sh -c "cd /workspace && NXF_HOME=/workspace/.nextflow_user${i} nextflow run ${PIPELINE} \
+    sh -c "cd /workspace && NXF_HOME=/workspace/.nextflow_user${i} \
+      nextflow run ${PIPELINE} \
       -profile test \
-      --input /workspace/samplesheet_extended.csv \
+      --input '${FULL_SAMPLESHEET}' \
       -c '${USER_CONFIG}' \
       --outdir '${RUN_DIR}/results_phase2' \
       -w '${RUN_DIR}/work' \
       -resume \
-      --fasta https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genome.fasta \
       -with-trace    '${RUN_DIR}/results_phase2/trace.txt' \
       -with-report   '${RUN_DIR}/results_phase2/report.html' \
       -with-timeline '${RUN_DIR}/results_phase2/timeline.html'" \
@@ -175,7 +207,7 @@ done
 echo ""
 echo "📊 Copying metrics..."
 for i in $(seq 1 "$NUM_USERS"); do
-  RUN_ID="user${i}_partial_${TIMESTAMP}"
+  RUN_ID="user${i}_partial${REUSE_PCT}pct_${TIMESTAMP}"
   RUN_DIR="/workspace/runs/${RUN_ID}"
   LOCAL_METRICS="./metrics/${RUN_ID}"
   mkdir -p "$LOCAL_METRICS"
@@ -194,19 +226,22 @@ done
 # Cleanup
 # ─────────────────────────────────────────
 echo ""
-echo "🧹 Cleaning up configs..."
+echo "🧹 Cleaning up configs and samplesheets..."
 for i in $(seq 1 "$NUM_USERS"); do
-  RUN_ID="user${i}_partial_${TIMESTAMP}"
+  RUN_ID="user${i}_partial${REUSE_PCT}pct_${TIMESTAMP}"
   kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
     rm -f "/workspace/config_${RUN_ID}.config" 2>/dev/null || true
 done
+kubectl exec "$LAUNCHER_POD" -n "$NAMESPACE" -- \
+  rm -f "${PHASE1_SAMPLESHEET}" 2>/dev/null || true
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 if [[ $FAILED -eq 0 ]]; then
-  echo "🎉 Partial resume experiment complete"
-  echo "   Phase 2: 5 cached + 10 new samples per user"
+  echo "🎉 Partial resume complete"
+  echo "   Users: ${NUM_USERS}  Reuse: ${REUSE_PCT}%"
+  echo "   Phase 1: ${PHASE1_SAMPLES} cached + $((15-PHASE1_SAMPLES)) new"
 else
-  echo "⚠️  $FAILED/$NUM_USERS users failed in Phase 2"
+  echo "⚠️  $FAILED/${NUM_USERS} users failed in Phase 2"
 fi
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 exit $FAILED

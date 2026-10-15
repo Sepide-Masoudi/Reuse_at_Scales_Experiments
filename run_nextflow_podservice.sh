@@ -94,7 +94,7 @@ k8s {
     storageMountPath = '/workspace'
     computeResourceType = 'Job'
     pod = [
-        [nodeSelector: 'kubernetes.io/hostname=sm-gpu'],
+        [nodeSelector: 'baremetal=true'],
         [annotation: 'prometheus.io/scrape', value: 'true'],
         [annotation: 'prometheus.io/port',   value: '9090'],
         [label: 'pipeline', value: 'rnaseq'],

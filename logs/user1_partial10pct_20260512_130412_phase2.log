@@ -1,0 +1,10 @@
+Nextflow 26.04.1 is available - Please consider updating your version to it
+
+ N E X T F L O W   ~  version 25.10.4
+
+Launching `/workspace/.nextflow/assets/nf-core/rnaseq/main.nf` [cheeky_joliot] DSL2 - revision: ff377cb1d2
+
+ERROR ~ Can't lock file: /workspace/.nextflow/history -- Nextflow needs to run in a file system that supports file locks
+
+ -- Check '.nextflow.log' file for details
+command terminated with exit code 1

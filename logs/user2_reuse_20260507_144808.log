@@ -1,0 +1,11 @@
+Downloading nextflow dependencies. It may require a few seconds, please wait .. [Kcurl: (6) Could not resolve host: www.nextflow.io
+
+ N E X T F L O W   ~  version 25.10.4
+
+ERROR ~ Unable to parse config file: '/workspace/.nextflow/assets/nf-core/rnaseq/nextflow.config'
+
+  Cannot read config file include: https://raw.githubusercontent.com/nf-core/configs/master/nfcore_custom.config
+
+
+ -- Check '.nextflow.log' file for details
+command terminated with exit code 1

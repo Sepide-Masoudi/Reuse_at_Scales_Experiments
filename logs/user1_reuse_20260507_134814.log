@@ -1,0 +1,87 @@
+Downloading nextflow dependencies. It may require a few seconds, please wait .. [KNextflow 26.04.0 is available - Please consider updating your version to it
+
+ N E X T F L O W   ~  version 25.10.4
+
+Downloading plugin nf-schema@2.5.1
+Downloading plugin nf-k8s@1.2.2
+Launching `/workspace/.nextflow/assets/nf-core/rnaseq/main.nf` [clever_legentil] DSL2 - revision: ff377cb1d2
+
+
+------------------------------------------------------
+                                        ,--./,-.
+        ___     __   __   __   ___     /,-._.--~'
+  |\ | |__  __ /  ` /  \ |__) |__         }  {
+  | \| |       \__, \__/ |  \ |___     \`-._,-`-,
+                                        `._,._,'
+  nf-core/rnaseq 3.23.0
+------------------------------------------------------
+
+Input/output options
+  input                                    : /workspace/samplesheet_extended.csv
+  outdir                                   : /workspace/runs/user1_reuse_20260507_134814/results
+
+Reference genome options
+  fasta                                    : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genome.fasta
+  gtf                                      : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genes_with_empty_tid.gtf.gz
+  gff                                      : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/genes.gff.gz
+  transcript_fasta                         : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/transcriptome.fasta
+  additional_fasta                         : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/gfp.fa.gz
+  hisat2_index                             : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/hisat2.tar.gz
+  salmon_index                             : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/salmon.tar.gz
+
+Read filtering options
+  bbsplit_fasta_list                       : https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/reference/bbsplit_fasta_list.txt
+  bbsplit_index                            : /workspace/shared/bbsplit_index
+
+UMI options
+  umitools_bc_pattern                      : NNNN
+  umi_discard_read                         : 0
+
+Alignment options
+  pseudo_aligner                           : salmon
+
+Process skipping options
+  skip_bbsplit                             : false
+
+Institutional config options
+  config_profile_name                      : Test profile
+  config_profile_description               : Minimal test dataset to check pipeline function
+
+Generic options
+  trace_report_suffix                      : 2026-05-07_11-48-41
+
+Core Nextflow options
+  runName                                  : clever_legentil
+  container..*STAR_ALIGN_IGENOMES          : community.wave.seqera.io/library/star_samtools_gawk:79ca42311e583cdc
+  container.STAR_GENOMEGENERATE_IGENOMES   : community.wave.seqera.io/library/star_samtools_gawk:79ca42311e583cdc
+  container..*PARABRICKS_STARGENOMEGENERATE: community.wave.seqera.io/library/htslib_samtools_star_gawk:4de2f983041d42e6
+  launchDir                                : /workspace
+  workDir                                  : /workspace/runs/user1_reuse_20260507_134814/work
+  projectDir                               : /workspace/.nextflow/assets/nf-core/rnaseq
+  userName                                 : root
+  profile                                  : test
+  configFiles                              : /workspace/.nextflow/assets/nf-core/rnaseq/nextflow.config, /workspace/nextflow.config, /workspace/config_user1_reuse_20260507_134814.config
+
+!! Only displaying parameters that differ from the pipeline defaults !!
+------------------------------------------------------
+
+* The pipeline
+    https://doi.org/10.5281/zenodo.1400710
+
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/rnaseq/blob/master/CITATIONS.md
+
+Downloading plugin nf-amazon@3.4.4
+WARN: Unable to start plugin 'nf-amazon' required by s3://ngi-igenomes/igenomes/
+ERROR ~ Validation of pipeline parameters failed!
+
+ -- Check '.nextflow.log' file for details
+The following invalid input values have been detected:
+
+* --igenomes_base (s3://ngi-igenomes/igenomes/): could not validate file format of 's3://ngi-igenomes/igenomes/': Missing plugin 'nf-amazon' required to read file: s3://ngi-igenomes/igenomes/
+
+ -- Check script '.nextflow/assets/nf-core/rnaseq/subworkflows/nf-core/utils_nfschema_plugin/main.nf' at line: 68 or see '.nextflow.log' file for more details
+command terminated with exit code 1

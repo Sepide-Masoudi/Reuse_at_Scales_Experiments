@@ -1,0 +1,18 @@
+{
+    "startTime": "2026_05_08_10_15_03",
+    "endTime": "2026_05_08_11_55_03",
+    "treatment_start": "2026_05_08_10_15_13",
+    "treatment_end": "2026_05_08_11_54_53",
+    "runHash": "fa43a795",
+    "duration": 6000.141924,
+    "treatment_duration": 5980.121346,
+    "user_data": {
+        "experiment": "rnaseq-users2-run1",
+        "num_users": 2,
+        "run_id": 1,
+        "reuse_mood": "2-user-podservice-2-percentage",
+        "queue_size": 2,
+        "cpu": "2",
+        "mem": "2"
+    }
+}

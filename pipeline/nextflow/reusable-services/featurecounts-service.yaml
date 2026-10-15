@@ -101,7 +101,7 @@ metadata:
     reuse: pod-service
 spec:
   nodeSelector:
-    kubernetes.io/hostname: sm-gpu
+    kubernetes.io/hostname: gisele
   restartPolicy: Always
   shareProcessNamespace: true
   volumes:

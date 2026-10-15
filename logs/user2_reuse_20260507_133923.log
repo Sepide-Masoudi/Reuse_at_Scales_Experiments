@@ -1,0 +1,10 @@
+Downloading nextflow dependencies. It may require a few seconds, please wait .. curl: (6) Could not resolve host: www.nextflow.io
+[K
+Alternatively you can try to download this file:
+    https://www.nextflow.io/releases/v25.10.4/nextflow-25.10.4-one.jar
+
+and save it as:
+    /workspace/runs/user2_reuse_20260507_133923/.nextflow/framework/25.10.4/nextflow-25.10.4-one.jar
+
+ERROR: Cannot download nextflow required file -- make sure you can connect to the internet
+command terminated with exit code 1
